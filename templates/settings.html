@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+
+{% block content %}
+
+<div class="omni">
+    <section>
+        <h1>Settings</h1>
+        <p>Customize Snazzle to your liking.</p>
+    </section>
+    <section>
+        <label for="theme">Theme <input type="text" id="theme_value" oninput="update_url()"/></label> 
+        <p>Options: {{ ', '.join(available_themes) }}</p>
+        <a href="" id="change_theme"><button>change theme</button></a>
+    </section>
+</div>
+
+<script>
+    function update_url() {
+        document.getElementById('change_theme').href = '/change_theme?theme=' + document.getElementById('theme_value').value
+    }
+</script>
+
+{% endblock %}

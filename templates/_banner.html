@@ -1,0 +1,49 @@
+<div id="banner">
+    <!-- Old Scratch update-based banner
+        
+        <h1>New editor colours just dropped</h1>
+    <p>They'll make it easier for colourblind and vision-impaired people who use the site!</p>
+    <button class="purple" onclick="closeBanner()">Close</button>
+    <!-- <button>View announcement</button> -->
+    
+    <!-- Scratch banner
+        
+        <div class="flex-cont" hidden="true">
+        <div class="width-60">
+            <h1>Create games, stories and animations, and share them with others around the world</h1>
+            <p>Scratch is the largest free coding community for kids. With Scratch you can create anything. Games, art, animations, even crazy stuff like computational fluid dynamics simulations - you name it, you can make it.</p>
+            <p>Join now to join millions of kids like you creating cool stuff!</p>
+        </div>
+        <section class="width-40">
+            <h2>Watch the video</h2>
+            <iframe width="100%" height="200" style="border-radius: 10px;" src="https://www.youtube-nocookie.com/embed/98awWpkx9UM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </section>
+    </div> -->
+
+    <div class="flex-cont">
+        <div class="width-60">
+            <h1>Snazzle</h1>
+            <h3>A better frontend for Scratch, by the community, for the community</h3>
+            <button>Login with Scratch</button>
+            <a href="/downloads"><button class="purple">Desktop versions</button></a>
+        </div>
+        <section class="width-40">
+            <h1>Features of Snazzle</h1>
+            <ul class="flex-cont fc-vert">
+                <li>Nicer-looking</li>
+                <li>Do things faster</li>
+                <li>Customizable</li>
+                <li>Desktop version</li>
+            </ul>
+        </section>
+    </div>
+
+</div>
+
+<script>
+    function closeBanner() {
+        var banner = document.getElementById('banner')
+
+        banner.hidden = true;
+    }
+</script>

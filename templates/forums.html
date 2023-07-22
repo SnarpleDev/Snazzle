@@ -1,0 +1,21 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="omni">
+    {% for title, subforums in data%}
+        <section>
+            <h2>{{ title }}</h2>
+            <div class="scrollpane sp-vert sp-forum">
+                {% for subforum in subforums %}
+                    <button class="sp-item">{{ subforum }}</button>
+                {% endfor %}
+            </div>
+        </section>
+    {% endfor %}
+
+    <section>
+
+    </section>
+</div>
+{% endblock %}

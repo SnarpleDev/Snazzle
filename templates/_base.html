@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Snazzle</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles-' + (theme or 'default') + '.css') }}">
+  <script src="https://kit.fontawesome.com/4bcf06ab35.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <nav>
+    <div class="navbar-container">
+      <div class="logo"><a href="/">Snazzle</a></div>
+      <ul class="nav-links">
+        <li><a href="/trending"><button>Explore</button></a></li>
+        <li><a href="/forums"><button>Discuss</button></a></li>
+        <li><a href="/settings"><button class="secondary">Settings</button></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Your content goes here -->
+  {% block content %}
+    <section>
+      <h1>Something went wrong.</h1>
+      <p>The page didn't load properly.</p>
+    </section>
+  {% endblock %}
+</body>
+
+</html>
