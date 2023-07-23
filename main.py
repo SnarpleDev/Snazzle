@@ -23,12 +23,13 @@ user_data = dict(user_theme="dark")
 def context():
     return dict(
         theme=user_data['user_theme'],
-        username=""
+        username="redstone1080",
+        signed_in=False
     )
 
 @app.get('/')
 def index():
-    return stream_template('index.html', username="redstone1080", signed_in=False)
+    return stream_template('index.html')
 
 @app.get('/dbg')
 def debug():
@@ -47,7 +48,7 @@ def trending():
 def forums():
     return render_template('forums.html', data=data)
 
-@app.get('/settings')
+@app.route('/settings', methods=('GET', 'POST'))
 def settings():
     return render_template('settings.html', available_themes=available_themes)
 

@@ -84,7 +84,7 @@ nav {
     font-weight: bold;
 }
 
-button {
+button, select {
     transition: all 0.3s ease;
     padding: 10px;
     border-radius: 10px;
@@ -110,6 +110,10 @@ button:hover {
     background-color: transparent;
     backdrop-filter: blur(5px);
     color: white;
+    cursor: pointer;
+}
+
+select:hover {
     cursor: pointer;
 }
 
@@ -275,11 +279,12 @@ section {
 
 #banner {
     margin: 0.1em;
-    background: linear-gradient(180deg, rgba(139,82,46,1) 0%, rgba(114,67,38,1) 100%);
-    padding: 10px;
+    background: linear-gradient(90deg, rgb(193, 114, 64) 0%, rgb(103, 61, 35) 100%);
     border-radius: 10px;
     box-shadow: 0px 0px 10px linear-gradient(180deg, rgba(139,82,46,1) 0%, rgba(114,67,38,1) 100%);
     color: white;
+    height: 60vh;
+    padding: 2.5rem;
     /* z-index: 999; */
 }
 
@@ -357,4 +362,8 @@ a, a:visited {
 
 button a, button a:visited {
     color: white;
+}
+
+img {
+    border-radius: 10px;
 }

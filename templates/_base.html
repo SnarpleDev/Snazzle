@@ -2,7 +2,26 @@
 <html>
 <head>
   <title>Snazzle</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    @media screen and (min-width: 768px) {
+      .flex-cont {
+        display: block;
+      }
+      [class*="width-"] {
+        display: block;
+        width: 100% !important;
+      }
+    }
+    #banner div section {
+      font-size: 1.5em;
+    }
+  </style>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles-' + (theme or 'default') + '.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='master-styles.css') }}">
+  
   <script src="https://kit.fontawesome.com/4bcf06ab35.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -24,6 +43,8 @@
       <p>The page didn't load properly.</p>
     </section>
   {% endblock %}
+
+  {% include '_footer.html' %}
 </body>
 
 </html>

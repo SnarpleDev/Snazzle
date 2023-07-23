@@ -11,6 +11,7 @@
 
 body {
     background-color: hsl(112, 11%, 14%);
+    color: lime;
 }
 
 .omni {
@@ -18,13 +19,13 @@ body {
     margin-right: 10em;
 }
 
-h1, h2, h3, h4, h5, h6, p, div, button, input {
+h1, h2, h3, h4, h5, h6, p, div, button, input, select {
     /* font-family: 'Mynerve', sans-serif; */
     font-family: 'VT323', monospace;
 }
 
 input::placeholder {
-    color: hsl(112, 100%, 21%);
+    color: hsl(112, 100%, 25%);
 }
 
 body {
@@ -50,7 +51,7 @@ nav {
 }
 
 .logo a:hover {
-    text-shadow: 0px 0px 3px hsl(112, 100%, 50%);
+    text-shadow: 0px 0px 3px hsl(112, 100%, 29%);
     cursor: pointer;
 }
 
@@ -81,11 +82,11 @@ nav {
     font-weight: bold;
 }
 
-button, input {
+button, input, select {
     padding: 10px;
     
-    border: 1px solid hsl(112, 100%, 50%);
-    background-color: hsl(112, 100%, 19%);
+    border: 1px solid hsl(112, 100%, 25%);
+    background-color: hsl(112, 100%, 12%);
     color: white;
 }
 
@@ -98,6 +99,8 @@ button:hover {
     color: white;
     cursor: pointer;
 }
+
+select { cursor: pointer; }
 
 .scrollpane {
 
@@ -139,7 +142,7 @@ button:hover {
 }
 
 .scrollpane.sp-projects .sp-item {
-    background-color: hsl(112, 100%, 50%);
+    background-color: hsl(112, 100%, 21%);
     color: rgb(255, 255, 255);
     margin: 10px;
     min-height: 70px;
@@ -166,7 +169,7 @@ button:hover {
 }
 
 .scrollpane.sp-studios .sp-item {
-    background-color: hsl(112, 100%, 50%);
+    background-color: hsl(112, 100%, 21%);
     color: white;
     margin: 10px;
     min-height: 80px;
@@ -242,21 +245,21 @@ span.stats {
 
 section {
     margin: 0.1em;
-    background: rgba(119, 119, 119, 0.643);
+    background: rgba(66, 66, 66, 0.643);
     padding: 10px;
     
-    box-shadow: 0px 0px 10px rgba(119, 119, 119, 0.643);
+    box-shadow: 0px 0px 10px rgba(66, 66, 66, 0.643);
     color: white;
 }
 
 #banner {
     margin: 0.1em;
-    background: hsl(112, 100%, 71%);
-    color: hsl(112, 100%, 21%) !important;
-    padding: 10px;
-    
+    background: hsl(112, 100%, 33%);
+    color: white !important;
     box-shadow: 0px 0px 10px hsl(112, 100%, 71%);
     color: white;
+    height: 50vh;
+    padding: 2.5rem;
     /* z-index: 999; */
 }
 
@@ -320,3 +323,11 @@ section.project-grid {
     
 }
 
+a {
+    color: lime;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

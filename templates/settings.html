@@ -8,9 +8,22 @@
         <p>Customize Snazzle to your liking.</p>
     </section>
     <section>
-        <label for="theme">Theme <input type="text" id="theme_value" oninput="update_url()"/></label> 
-        <p>Options: {{ ', '.join(available_themes) }}</p>
+        <h2>Change Theme</h2>
+        <label for="theme">Theme 
+        <select name="" id="theme_value" oninput="update_url()">
+            <!-- <optgroup label="Dark theme"> -->
+            <option value="default">--- Select an option ---</option>
+            <option value="choco">Choco</option>
+            <option value="ice">Ice</option>
+            <option value="hackerman">Greenspace</option>
+            <!-- </optgroup> -->
+        </select>
+        </label>
         <a href="" id="change_theme"><button>change theme</button></a>
+    </section>
+    <section>
+        <h2>Link Accounts (coming soon)</h2>
+        <label for="">GitHub <button><span class="fa-brands fa-github"></span> Link</button></label>
     </section>
 </div>
 

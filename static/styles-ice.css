@@ -11,6 +11,11 @@
 body {
 
     background-color: #202d38;
+    
+}
+
+* {
+    color: white;
 }
 
 .omni {
@@ -84,7 +89,7 @@ nav {
     font-weight: bold;
 }
 
-button {
+button, select {
     transition: all 0.3s ease;
     padding: 10px;
     border-radius: 10px;
@@ -110,6 +115,10 @@ button:hover {
     background-color: transparent;
     backdrop-filter: blur(5px);
     color: white;
+    cursor: pointer;
+}
+
+select:hover {
     cursor: pointer;
 }
 
@@ -270,11 +279,13 @@ section {
 
 #banner {
     margin: 0.1em;
-    background: #78c2ff;
+    background: linear-gradient(90deg, rgba(120,194,255,1) 0%, rgba(135,120,255,1) 100%);;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px #78c2ff;
+    box-shadow: 0px 0px 10px linear-gradient(90deg, rgba(120,194,255,1) 0%, rgba(135,120,255,1) 100%);
     color: white;
+    height: 60vh;
+    padding: 2.5rem;
     /* z-index: 999; */
 }
 
@@ -348,3 +359,6 @@ section.project-grid {
     transition: 0.5s all;
 }
 
+img {
+    border-radius: 10px;
+}

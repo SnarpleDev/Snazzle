@@ -277,6 +277,8 @@ section {
     border-radius: 10px;
     box-shadow: 0px 0px 10px #CC6AFF;
     color: white;
+    height: 50vh;
+    padding: 2.5rem;
     /* z-index: 999; */
 }
 
@@ -358,4 +360,8 @@ a, a:visited {
 
 a:hover {
     color: #eac4ff;
+}
+
+img {
+    border-radius: 10px;
 }

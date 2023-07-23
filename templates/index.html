@@ -3,105 +3,13 @@
 {% block content %}
     <div class="omni">
     {% if signed_in %}
-    <h1>Hello, {{ username or "world" }}!</h1>
-    <div class="flex-cont">
-        <section class="width-60">
-            <h2>What's happening</h2>
-            <ul class="scrollpane sp-vert" style="min-height: 50px; max-height: 200px;">
-                {% if feed %}
-                    {% for event in feed %}
-                        <li>{{ event.subject }} {{ event.verb }} {{ event.object }}</li>
-                    {% endfor %}
-                {% else %}
-                    <li>Your feed is empty. Go try following some people!</li>
-                {% endif %}
-            </ul>
-        </section>
-        <section class="width-40">
-            <h2>Scratch News</h2>
-            <div class="scrollpane sp-vert" style="min-height: 50px; max-height: 200px;">
-                <ul>
-                    {% if feed %}
-                        {% for event in news %}
-                            <li>{{ event.text }}</li>
-                        {% endfor %}
-                    {% else %}
-                        <li>This site is pretty new, so...</li>
-                    {% endif %}
-                </ul>
-            </div>
-        </section>
-    </div>
+        {% include 'loggedin.html' %}
     {% else %}
     <div class="hero-banner">
         {% include '_banner.html' %}
+
+        <div id="downloads">{% include '_download.html' %}</div>
     </div>
     {% endif %}
-
-    <section>
-        <h2>Featured projects</h2>
-        <div class="scrollpane sp-horiz sp-projects">
-            {% for i in range(50) %}
-                <div class="sp-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg" alt="pizza"
-                    width="140" height="70">
-                    <br>pizza recipe by coolgamer69420
-                    <span class="stats">1 view</span>
-                </div>
-            {% endfor %}
-        </div>
-    </section>
-    <section>
-        <h2>Featured studios</h2>
-        <div class="scrollpane sp-horiz sp-studios">
-            {% for i in range(50) %}
-                <div class="sp-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg" alt="pizza"
-                    width="140" height="70">
-                    <br>cool pizza recipes by coolgamer69420
-                    <span class="stats">1 view</span>
-                </div>
-            {% endfor %}
-        </div>
-    </section>
-    <section>
-    <h2>Trending projects</h2>
-    <div class="scrollpane sp-horiz sp-projects">
-        {% for i in range(50) %}
-            <div class="sp-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg" alt="pizza"
-                width="140" height="70">
-                <br>pizza recipe by coolgamer69420
-                <span class="stats">1 view</span>
-            </div>
-        {% endfor %}
     </div>
-    </section>
-    <section>
-        <h2>What the community is loving</h2>
-        <div class="scrollpane sp-horiz sp-projects">
-            {% for i in range(50) %}
-                <div class="sp-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg" alt="pizza"
-                    width="140" height="70">
-                    <br>pizza recipe by coolgamer69420
-                    <span class="stats">1 view</span>
-                </div>
-            {% endfor %}
-        </div>
-    </section>
-    <section>
-        <h2>What the community is remixing</h2>
-        <div class="scrollpane sp-horiz sp-projects">
-            {% for i in range(50) %}
-                <div class="sp-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg" alt="pizza"
-                    width="140" height="70">
-                    <br>pizza recipe by coolgamer69420
-                    <span class="stats">1 view</span>
-                </div>
-            {% endfor %}
-        </div>
-    </section>
-    </div>    
 {% endblock %}
