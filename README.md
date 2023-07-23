@@ -16,6 +16,7 @@ But for now, this is how you do it:
 1. Clone the repo
 2. (optional but recommended) Create a Python virtual environment. We recommend Python 3.11 or later.
 3. Run `pip3 install requirements.txt`.
+   >If you're on WIndows, you may need to run `pip3 install -r requirements.txt`
 4. Once deps are installed, run `python3 main.py`. This will set up a Flask server at `127.0.0.1:3000`. If you find any bugs, please report them.
    > If you're on Windows, run `py main.py` instead.
-6. Go to `127.0.0.1:3000` in your favourite browser and play around with it!
+5. Go to `127.0.0.1:3000` in your favourite browser and play around with it!
