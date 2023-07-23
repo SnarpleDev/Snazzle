@@ -1,0 +1,15 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<div class="omni">
+    <section>
+        <h1>{{ category }}</h1>
+        <p>Loaded {{ len(topics) }} posts.</p>
+    </section>
+    <div class="scrollpane sp-forum sp-vert">
+        {% for topic in topics %}
+            <a href="{{ url_for('topic', topic_id=topic.id) }}"><button style="width: 100%;">{{ topic.title }} by {{ get_author_of(topic.id) }}</button></a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

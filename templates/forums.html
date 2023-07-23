@@ -4,19 +4,16 @@
 
 <div class="omni">
 
-    <div id="banner">
-        <h1>FORUMS ARE NOT FUNCTIONAL YET</h1>
-        <p>Snazzle is very much still in development. So there are no forums yet.</p>
-        <p>We aim to launch Scratch forums browsing by mid-August of 2023.</p>
-        <p>For now, you can see a mockup of what it will look like.</p>
-    </div>
+    <section>
+        <h1>Forums are almost functional</h1>
+    </section>
 
-    {% for title, subforums in data%}
+    {% for title, subforums in data %}
         <section>
             <h2>{{ title }}</h2>
             <div class="scrollpane sp-vert sp-forum">
                 {% for subforum in subforums %}
-                    <button class="sp-item">{{ subforum }}</button>
+                    <a href="forums/{{subforum}}"><button class="sp-item">{{ subforum }}</button></a>
                 {% endfor %}
             </div>
         </section>

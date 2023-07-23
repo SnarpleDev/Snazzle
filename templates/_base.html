@@ -6,7 +6,8 @@
     html {
       scroll-behavior: smooth;
     }
-    @media screen and (min-width: 768px) {
+    /* for mobile */
+    @media screen and (max-width: 768px) {
       .flex-cont {
         display: block;
       }
@@ -17,6 +18,9 @@
     }
     #banner div section {
       font-size: 1.5em;
+    }
+    h1:not(#banner section h1) {
+      font-size: 3em;
     }
   </style>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles-' + (theme or 'default') + '.css') }}">
