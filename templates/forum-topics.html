@@ -3,6 +3,12 @@
 {% block content %}
 <div class="omni">
     <section>
+        <button onclick="history.back()">Go back</button> 
+        <form action="/pin-subforum">
+            <input type="text" name="subforum" hidden="hidden" value="{{ category }}">
+            <button type="submit">Pin</button>
+        </form>
+        
         <h1>{{ category }}</h1>
         <p>Loaded {{ len(topics) }} posts.</p>
     </section>

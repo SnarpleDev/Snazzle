@@ -23,7 +23,7 @@ body {
     margin-right: 10em;
 }
 
-h1, h2, h3, h4, h5, h6, p, div, button, input {
+h1, h2, h3, h4, h5, h6, p, div, button, input, article {
     /* font-family: 'Mynerve', sans-serif; */
     font-family: 'Jost', sans-serif;
 }

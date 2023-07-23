@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+
+{% macro forum_post(author, time, content, index) %}
+
+<section id="{{ index }}">
+    <p>{{ index }} <a href="javascript:void(0)" onclick="copyLink()">copy link</a></p>
+    <h2>{{ author }} at {{ time }}</h2>
+    <article>
+        {{ content | safe }}
+    </article>
+</section>
+
+{% endmacro %}
+
+<script>
+    function copyLink(id) {
+        navigator.clipboard.writeText(``).then(() => {
+            console.log('Content copied to clipboard');
+            /* Resolved - text copied to clipboard successfully */
+        },() => {
+            console.error('Failed to copy');
+            /* Rejected - text failed to copy to the clipboard */
+        });
+    }
+</script>
