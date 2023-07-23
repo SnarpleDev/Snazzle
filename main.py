@@ -13,17 +13,14 @@ data = (("Welcome", ["Announcements", "New Scratchers"]),
         ("Interests Beyond Scratch", ["Things I'm Making and Creating", "Things I'm Reading and Playing"]),
         ("Scratch Around the World", ["Hell naw I ain't putting in all that 💀"]))
 
-available_themes = [
-    'old', 'dark', 'choco', 'ice', 'hackerman'
-]
-
-user_data = dict(user_theme="dark")
+user_data = dict(user_theme="choco",user_name="CoolScratcher123")
 
 @app.context_processor
 def context():
+    # Play with this and the user_data dict to manipulate app state
     return dict(
         theme=user_data['user_theme'],
-        username="redstone1080",
+        username=user_data['user_name'],
         signed_in=False
     )
 
@@ -33,11 +30,13 @@ def index():
 
 @app.get('/dbg')
 def debug():
+    # unused route to change debug settings
     DBG[request.args.get('k')] = request.args.get('v')
     return redirect('/')
 
 @app.get('/editor')
 def editor():
+    # unused editor page
     return render_template('editor.html')
 
 @app.get('/trending')
@@ -50,21 +49,24 @@ def forums():
 
 @app.route('/settings', methods=('GET', 'POST'))
 def settings():
-    return render_template('settings.html', available_themes=available_themes)
+    # will have a form to change theme, instead of /change_theme
+    return render_template('settings.html')
 
 @app.get('/change_theme')
 def theme_change():
+    # to-be-unused route to change theme
     requested_theme = request.args.get('theme')
-    if requested_theme in available_themes:
-        user_data['user_theme'] = requested_theme
+    user_data['user_theme'] = requested_theme
     return redirect('/settings')
 
 @app.get('/downloads')
 def downloads():
+    # old download page
     return render_template('download.html')
 
 @app.errorhandler(werkexcept.NotFound)
 def err404(e):
+    # route for 404 error
     return render_template('_err404.html'), 404
 
 app.run(host='127.0.0.1', port=3000, debug=True)
