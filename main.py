@@ -113,10 +113,14 @@ def dl_mockup():
 
 @app.get('/pin-subforum')
 def pin_sub():
-    arr = user_data["pinned_subforums"].copy()
-    arr.append(request.args.get('subforum'))
-    user_data['pinned_subforums'] = arr
-    return redirect('/forums/' + request.args.get('subforum'))
+    sf = request.args.get('subforum')
+    if not sf in user_data["pinned_subforums"]:
+        arr = user_data["pinned_subforums"].copy()
+        arr.append(request.args.get('subforum'))
+        user_data['pinned_subforums'] = arr
+        return redirect('/forums/' + request.args.get('subforum'))
+    else:
+        return '<script>alert("You already pinned this!");</script>'
 
 @app.errorhandler(werkexcept.NotFound)
 def err404(e):

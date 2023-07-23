@@ -23,5 +23,6 @@ def get_post_info(post_id):
     return r.json()
 
 def get_author_of(post_id):
-    r = requests.get(f'{SCRATCHDB}forum/post/info/{post_id}')
-    return r.json()['username']
+    return 'user'
+    # r = requests.get(f'{SCRATCHDB}forum/post/info/{post_id}')
+    # return r.json()['username']
