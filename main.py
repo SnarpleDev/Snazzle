@@ -60,12 +60,6 @@ def context():
 def index():
     return stream_template('index.html')
 
-@app.get('/dbg')
-def debug():
-    # unused route to change debug settings
-    DBG[request.args.get('k')] = request.args.get('v')
-    return redirect('/')
-
 @app.get('/editor')
 def editor():
     # unused editor page
