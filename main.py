@@ -86,7 +86,8 @@ def topic(topic_id):
 
 @app.get('/projects/<project_id>')
 def project(project_id):
-    return f'<iframe src="https://turbowarp.org/{project_id}/embed" width="499" height="416" allowtransparency="false" frameborder="0" scrolling="no" allowfullscreen></iframe>'
+    print(project_id)
+    return stream_template('projects.html', project_id=project_id)
 
 @app.route('/settings', methods=('GET', 'POST'))
 def settings():
