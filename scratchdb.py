@@ -13,10 +13,23 @@ def remove_duplicates(input_list):
 
 def get_topics(category):
     r = requests.get(f'{SCRATCHDB}forum/category/topics/{category}/2?detail=0&filter=1')
+    
+    if type(r.json()) != list:
+        return {
+            'error': True,
+            'message': 'sdb_' + r.json()['error'].lower()
+        }
+    
     try:
-        return remove_duplicates(r.json())
+        return {
+            'error': False,
+            'topics': remove_duplicates(r.json())
+        }
     except requests.exceptions.JSONDecodeError:
-        return None
+        return {
+            'error': True,
+            'message': 'lib_scratchdbdown'
+        }
 
 def get_post_info(post_id):
     r = requests.get(f'{SCRATCHDB}forum/post/info/{post_id}')

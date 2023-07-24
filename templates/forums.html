@@ -17,10 +17,9 @@
                     <div class="sp-item">
                         <p>
                             <a href="unpin-subforum/{{subforum}}" class="unpin-btn"><i class="fa-solid fa-thumbtack pin-icon"></i></a>
-                            <a href="forums/{{subforum}}">{{ subforum }}</a> -
-                            <a href="unpin-subforum/{{subforum}}" class="unpin-btn">Unpin</a>
+                            <a href="forums/{{subforum}}">{{ subforum }}</a>
+                            <a href="unpin-subforum/{{subforum}}" class="unpin-btn"><button>Unpin</button></a>
                         </p>
-
                     </div>
                 {% endfor %}
             </div>
@@ -33,7 +32,7 @@
             <div class="scrollpane sp-forum sp-vert">
                 {% for subforum in subforums %}
                     <div class="sp-item">
-                        <p><a href="forums/{{subforum}}">{{ subforum }}</a> - <a href="pin-subforum/{{subforum}}">Pin</a></p>
+                        <p><a href="forums/{{subforum}}">{{ subforum }}</a> <a href="pin-subforum/{{subforum}}"><i class="fa-solid fa-thumbtack pin-btn"></i></button></a></p>
                     </div>
                 {% endfor %}
             </div>

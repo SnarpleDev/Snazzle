@@ -9,7 +9,8 @@ HOST, PORT = '127.0.0.1', 3000
 subforums_data = (("Welcome", ["Announcements", "New Scratchers"]),
         ("Making Scratch Projects", ["Help with Scripts", "Show and Tell", "Project Ideas", "Collaboration", "Requests", "Project Save & Level Codes"]),
         ("About Scratch", ["Questions about Scratch", "Suggestions", "Bugs and Glitches", "Advanced Topics", "Connecting to the Physical World", "Scratch Extensions", "Open Source Projects"]),
-        ("Interests Beyond Scratch", ["Things I'm Making and Creating", "Things I'm Reading and Playing"]))
+        ("Interests Beyond Scratch", ["Things I'm Making and Creating", "Things I'm Reading and Playing"]),
+        ("My category", ["My subforum"]))
 
 user_data = dict(user_theme="choco",user_name="CoolScratcher123",pinned_subforums=[])
 
@@ -57,10 +58,10 @@ def categories():
 
 @app.get('/forums/<subforum>')
 def topics(subforum):
-    topic_list = scratchdb.get_topics(subforum)
-    if topic_list:
-        return render_template('scratchdb_down.html')
-    return stream_template('forum-topics.html', subforum=subforum, topics=topic_list, pinned_subforums=user_data["pinned_subforums"])
+    response = scratchdb.get_topics(subforum)
+    if response['error']:
+        return render_template('scratchdb-error.html', err=response['message'])
+    return stream_template('forum-topics.html', subforum=subforum, topics=response['topics'], pinned_subforums=user_data["pinned_subforums"])
 
 @app.get('/topic/<topic_id>')
 def topic(topic_id):

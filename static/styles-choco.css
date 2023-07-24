@@ -220,12 +220,28 @@ select:hover {
 
 /* Forums scrollpane */
 .scrollpane.sp-forum {
-    max-height: 200px;
+    max-height: 300px;
 }
 
 .scrollpane.sp-forum .sp-item {
     transition: 0.5s all;
-    margin: 1em;
+    margin: 0.25em;
+    padding: 5px;
+}
+
+.scrollpane.sp-forum .sp-item:hover {
+    box-shadow: none;
+    transform: none;
+    border: 1px solid #ff9654;
+}
+
+.scrollpane.sp-forum .sp-item a {
+    color: #ca6120;
+    transition: 0.5s color;
+}
+
+.scrollpane.sp-forum .sp-item:hover a {
+    color: #ff9654;
 }
 
 span.stats {
@@ -375,4 +391,12 @@ img {
     border: 1px solid #ca6120;
     background-color: #00000067;
     color: white;
+}
+
+.sp-item a > i.pin-btn {
+    display: none;
+}
+
+.sp-item:hover a > i.pin-btn {
+    display: inline;
 }
