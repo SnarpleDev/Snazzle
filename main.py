@@ -19,6 +19,7 @@ user_data = dict(user_theme="choco",user_name="CoolScratcher123",pinned_subforum
 def add_header(r):
     """
     Stops the page from being cached so that the forums actually work correctly
+    There's gotta be a better way, though, I don't want to stop all pages, just the forums
     """
     r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     r.headers["Pragma"] = "no-cache"
@@ -41,23 +42,38 @@ def context():
 
 @app.get('/')
 def index():
+    """
+    The home page of the app
+    """
     return stream_template('index.html')
 
 @app.get('/editor')
 def editor():
+    """
+    Unused editor page. Will be removed soon as part of cleanup
+    """
     # unused editor page
     return render_template('editor.html')
 
 @app.get('/trending')
 def trending():
+    """
+    Explore page.
+    """
     return render_template('trending.html')
 
 @app.get('/forums')
 def categories():
+    """
+    A page that lists all the subforums in the forums
+    """
     return render_template('forums.html', data=subforums_data, pinned_subforums=user_data["pinned_subforums"])
 
 @app.get('/forums/<subforum>')
 def topics(subforum):
+    """
+    A page that lists all the topics in the subforum
+    """
     response = scratchdb.get_topics(subforum)
     if response['error']:
         return render_template('scratchdb-error.html', err=response['message'])
@@ -65,23 +81,30 @@ def topics(subforum):
 
 @app.get('/topic/<topic_id>')
 def topic(topic_id):
+    """
+    WIP. shows all posts in a topic.
+    """
     return f'<a href="https://scratch.mit.edu/discuss/topic/{topic_id}">view on scratch</a> (for now while we get the forums fully working and not slow as hell)'
 
 @app.route('/settings', methods=('GET', 'POST'))
 def settings():
+    """
+    Settings page.
+    Change theme, status, link github account
+    """
     # will have a form to change theme, instead of /change_theme
     return render_template('settings.html')
 
 @app.get('/change_theme')
 def theme_change():
-    # to-be-unused route to change theme
+    """to-be-unused route to change theme"""
     requested_theme = request.args.get('theme')
     user_data['user_theme'] = requested_theme
     return redirect('/settings')
 
 @app.get('/downloads')
 def downloads():
-    # old download page
+    """old download page"""
     return render_template('download.html')
 
 @app.get('/secret/dl_mockup')
@@ -90,6 +113,7 @@ def dl_mockup():
 
 @app.get('/pin-subforum/<sf>')
 def pin_sub(sf):
+    """route that pins a subforum"""
     if not sf in user_data["pinned_subforums"]:
         arr = user_data["pinned_subforums"].copy()
         arr.append(sf)
@@ -100,6 +124,7 @@ def pin_sub(sf):
     
 @app.get('/unpin-subforum/<sf>')
 def unpin_sub(sf):
+    """route that unpins a subforum"""
     if sf in user_data["pinned_subforums"]:
         arr = user_data["pinned_subforums"].copy()
         arr.remove(sf)
