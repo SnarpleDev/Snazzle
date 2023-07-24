@@ -12,7 +12,7 @@
         <h2>Pinned subforums</h2>
         <div class="scrollpane sp-vert sp-forum">
             {% for subforum in pinned_subforums %}
-                <div class="sp-item">
+                <div class="sp-item flex-cont">
                     <i class="fa-solid fa-thumbtack"></i>
                     {{ subforum }}
                     <a href="forums/{{subforum}}"><button>Open</button></a>
@@ -28,7 +28,7 @@
             <div class="scrollpane sp-vert sp-forum">
                 {% for subforum in subforums %}
                     {% if not subforum in pinned_subforums %}
-                        <div class="sp-item">
+                        <div class="sp-item flex-cont">
                             {{ subforum }}
                             <a href="forums/{{subforum}}"><button>Open</button></a>
                             <a href="pin-subforum?subforum={{subforum}}"><button>Pin</button></a>
