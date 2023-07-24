@@ -362,3 +362,12 @@ section.project-grid {
 img {
     border-radius: 10px;
 }
+
+.sp-forum div.sp-item {
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #008cff;
+    background-color: #00000067;
+    color: white;
+}

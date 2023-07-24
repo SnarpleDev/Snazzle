@@ -114,7 +114,7 @@ def pin_sub():
         user_data['pinned_subforums'] = arr
         return redirect('/forums/' + request.args.get('subforum'))
     else:
-        return '<script>alert("You already pinned this!");</script>'
+        return '<script>alert("You already pinned this!"); history.back();</script>'
 
 @app.errorhandler(werkexcept.NotFound)
 def err404(e):
