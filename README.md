@@ -1,13 +1,7 @@
-# Snazzle
-A better frontend for Scratch, built by the community, for the community
+# About this branch
+This is a branch dedicated to a rework of the subforum browsing system.
 
-Snazzle is my attempt at a better Scratch website. It aims to be feature-rich and easy and quick to use, incorporating many things that the Scratch community has been wanting for years.
-
-Basically, this is a Scratch website just for <s>MagicCrayon9342</s> power users.
-
-> If you're more than a casual user of the Scratch website for whatever reason, then you'll like Snazzle.
-> It's like a giant vat of coffee brewed with ingredients from the Scratch community.
--- Snazzle's website
+Do not make any commits on `main` that conflict with commits on this branch. If a commit conflicts, it will be reverted.
 
 ## Running your own instance locally
 Since Snazzle is very much still in development, this won't be representative of the final product's build steps.
