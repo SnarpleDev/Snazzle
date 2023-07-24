@@ -84,6 +84,10 @@ def topics(category):
 def topic(topic_id):
     return f'<a href="https://scratch.mit.edu/discuss/topic/{topic_id}">view on scratch</a> (for now while we get the forums fully working and not slow as hell)'
 
+@app.get('/projects/<project_id>')
+def project(project_id):
+    return f'<iframe src="https://turbowarp.org/{project_id}/embed" width="499" height="416" allowtransparency="false" frameborder="0" scrolling="no" allowfullscreen></iframe>'
+
 @app.route('/settings', methods=('GET', 'POST'))
 def settings():
     # will have a form to change theme, instead of /change_theme
