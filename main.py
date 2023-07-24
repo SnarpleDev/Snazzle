@@ -95,7 +95,7 @@ def project(project_id):
     if theme == "choco":
         colour = "%23282320"
     elif theme == "hackerman":
-        colour = "lime"
+        colour = "%23212820"
     elif theme == "ice":
         colour = "%23202d38"
     else:
