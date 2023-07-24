@@ -84,6 +84,10 @@ def topics(category):
 def topic(topic_id):
     return f'<a href="https://scratch.mit.edu/discuss/topic/{topic_id}">view on scratch</a> (for now while we get the forums fully working and not slow as hell)'
 
+@app.get('/projects/scratch/<project_id>')
+def scratchproject(project_id):
+    return stream_template('projects-scratch.html', project_id=project_id)
+
 @app.get('/projects/<project_id>')
 def project(project_id):
     global user_data
