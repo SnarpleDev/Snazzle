@@ -13,34 +13,17 @@ subforums_data = (("Welcome", ["Announcements", "New Scratchers"]),
 
 user_data = dict(user_theme="choco",user_name="CoolScratcher123",pinned_subforums=[])
 
-categories = {
-    "Announcements": 5,
-    "New Scratchers": 6,
-    "Help with Scripts": 7,
-    "Show and Tell": 8,
-    "Project Ideas": 9,
-    "Collaboration": 10,
-    "Requests": 11,
-    "Project Save & Level Codes": 60,
-    "Questions about Scratch": 4,
-    "Suggestions": 1,
-    "Bugs and Glitches": 3,
-    "Advanced Topics": 31,
-    "Connecting to the Physical World": 32,
-    "Developing Scratch Extensions": 48,
-    "Open Source Projects": 49,
-    "Things I'm Making and Creating": 29,
-    "Things I'm Reading and Playing": 30
-}
-
-def get_sfid_from_name(name):
-    return categories[name] or 0
-
-def get_name_from_sfid(sfid):
-    arr = [None] * (max(categories.values()) + 1)
-    for key, value in categories.items():
-        arr[value] = key
-    return arr
+# https://stackoverflow.com/questions/34066804/disabling-caching-in-flask
+@app.after_request
+def add_header(r):
+    """
+    Stops the page from being cached so that the forums actually work correctly
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    print(r)
+    return r
 
 @app.context_processor
 def context():
@@ -49,7 +32,6 @@ def context():
         theme=user_data['user_theme'],
         username=user_data['user_name'],
         signed_in=False,
-        get_sfid_from_name=get_sfid_from_name,
         to_str=lambda x: str(x),
         get_author_of=scratchdb.get_author_of,
         len=len,
@@ -73,12 +55,12 @@ def trending():
 def categories():
     return render_template('forums.html', data=subforums_data, pinned_subforums=user_data["pinned_subforums"])
 
-@app.get('/forums/<category>')
-def topics(category):
-    topic_list = scratchdb.get_topics(category)
-    if not topic_list:
-        return
-    return stream_template('forum-topics.html', category=category, topics=topic_list, pinned_subforums=user_data["pinned_subforums"])
+@app.get('/forums/<subforum>')
+def topics(subforum):
+    topic_list = scratchdb.get_topics(subforum)
+    if topic_list:
+        return render_template('scratchdb_down.html')
+    return stream_template('forum-topics.html', subforum=subforum, topics=topic_list, pinned_subforums=user_data["pinned_subforums"])
 
 @app.get('/topic/<topic_id>')
 def topic(topic_id):
@@ -105,31 +87,29 @@ def downloads():
 def dl_mockup():
     return render_template('dlm.html')
 
-@app.get('/pin-subforum')
-def pin_sub():
-    sf = request.args.get('subforum')
+@app.get('/pin-subforum/<sf>')
+def pin_sub(sf):
     if not sf in user_data["pinned_subforums"]:
         arr = user_data["pinned_subforums"].copy()
-        arr.append(request.args.get('subforum'))
+        arr.append(sf)
         user_data['pinned_subforums'] = arr
-        return redirect('/forums/' + request.args.get('subforum'))
+        return f'<script>history.back();</script>'
     else:
-        return '<script>alert("You already pinned this!"); history.back();</script>'
+        return '<script>alert("You already pinned this!"); history.back()</script>'
     
-@app.get('/unpin-subforum')
-def unpin_sub():
-    sf = request.args.get('subforum')
+@app.get('/unpin-subforum/<sf>')
+def unpin_sub(sf):
     if sf in user_data["pinned_subforums"]:
         arr = user_data["pinned_subforums"].copy()
-        arr.remove(request.args.get('subforum'))
+        arr.remove(sf)
         user_data['pinned_subforums'] = arr
-        return redirect('/forums/' + request.args.get('subforum'))
+        return f'<script>history.back();</script>'
     else:
-        return '<script>alert("This is not pinned!"); history.back();</script>'
+        return '<script>alert("This is not pinned!");</script>'
 
 @app.errorhandler(werkexcept.NotFound)
 def err404(e):
     # route for 404 error
-    return render_template('_err404.html'), 404
+    return render_template('_err404.html', errdata=e), 404
 
 app.run(host=HOST, port=3000, debug=True)

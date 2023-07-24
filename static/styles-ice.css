@@ -240,6 +240,10 @@ span.stats {
     flex-direction: column;
 }
 
+.flex-cont.fc-horiz {
+    flex-direction: row !important;
+}
+
 .width-70 {
     width: 70%;
 }

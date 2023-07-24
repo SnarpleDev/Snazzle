@@ -4,16 +4,14 @@
 <div class="omni">
     <section>
         <button onclick="history.back()">Go back</button>
-        {% if not category in pinned_subforums %}
-            <form action="/pin-subforum">
-                <input type="text" name="subforum" hidden="hidden" value="{{ category }}">
-                <button type="submit">Pin</button>
-            </form>
-        {% else %}
-            <form action="/unpin-subforum">
-                <input type="text" name="subforum" hidden="hidden" value="{{ category }}">
+        {% if subforum in pinned_subforums %}
+            <a href="/unpin-subforum/{{subforum}}">
                 <button type="submit">Unpin</button>
-            </form>
+            </a>
+        {% else %}
+            <a href="/pin-subforum/{{subforum}}">
+                <button type="submit">Pin</button>
+            </a>
         {% endif %}
         <h1>{{ category }}</h1>
         <p>Loaded {{ len(topics) }} posts.</p>
