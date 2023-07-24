@@ -16,7 +16,7 @@
                     <i class="fa-solid fa-thumbtack"></i>
                     {{ subforum }}
                     <a href="forums/{{subforum}}"><button>Open</button></a>
-                    <a href="forums/{{subforum}}"><button>Unpin</button></a>
+                    <a href="unpin-subforum?subforum={{subforum}}"><button>Unpin</button></a>
                 </div>
             {% endfor %}
         </div>
@@ -27,13 +27,11 @@
             <h2>{{ title }}</h2>
             <div class="scrollpane sp-vert sp-forum">
                 {% for subforum in subforums %}
-                    {% if not subforum in pinned_subforums %}
-                        <div class="sp-item flex-cont">
-                            {{ subforum }}
-                            <a href="forums/{{subforum}}"><button>Open</button></a>
-                            <a href="pin-subforum?subforum={{subforum}}"><button>Pin</button></a>
-                        </div>
-                    {% endif %}
+                    <div class="sp-item flex-cont">
+                        {{ subforum }}
+                        <a href="forums/{{subforum}}"><button>Open</button></a>
+                        <a href="pin-subforum?subforum={{subforum}}"><button>Pin</button></a>
+                    </div>
                 {% endfor %}
             </div>
         </section>

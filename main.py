@@ -78,7 +78,7 @@ def topics(category):
     topic_list = scratchdb.get_topics(category)
     if not topic_list:
         return
-    return stream_template('forum-topics.html', category=category, topics=topic_list)
+    return stream_template('forum-topics.html', category=category, topics=topic_list, pinned_subforums=user_data["pinned_subforums"])
 
 @app.get('/topic/<topic_id>')
 def topic(topic_id):
@@ -115,6 +115,17 @@ def pin_sub():
         return redirect('/forums/' + request.args.get('subforum'))
     else:
         return '<script>alert("You already pinned this!"); history.back();</script>'
+    
+@app.get('/unpin-subforum')
+def unpin_sub():
+    sf = request.args.get('subforum')
+    if sf in user_data["pinned_subforums"]:
+        arr = user_data["pinned_subforums"].copy()
+        arr.remove(request.args.get('subforum'))
+        user_data['pinned_subforums'] = arr
+        return redirect('/forums/' + request.args.get('subforum'))
+    else:
+        return '<script>alert("This is not pinned!"); history.back();</script>'
 
 @app.errorhandler(werkexcept.NotFound)
 def err404(e):
