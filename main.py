@@ -86,8 +86,17 @@ def topic(topic_id):
 
 @app.get('/projects/<project_id>')
 def project(project_id):
-    print(project_id)
-    return stream_template('projects.html', project_id=project_id)
+    global user_data
+    theme = user_data["user_theme"]
+    if theme == "choco":
+        colour = "%23282320"
+    elif theme == "hackerman":
+        colour = "lime"
+    elif theme == "ice":
+        colour = "%23202d38"
+    else:
+        colour = "%23c8c8c8"
+    return stream_template('projects.html', project_id=project_id, colour=colour)
 
 @app.route('/settings', methods=('GET', 'POST'))
 def settings():
