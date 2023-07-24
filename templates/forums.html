@@ -5,22 +5,25 @@
 <div class="omni">
 
     <section>
-        <h1>Forums are almost functional</h1>
+        <h1>Discuss</h1>
+        <p>A re-implementation of the Scratch forums, basically</p>
     </section>
 
-    <section>
-        <h2>Pinned subforums</h2>
-        <div class="scrollpane sp-vert sp-forum">
-            {% for subforum in pinned_subforums %}
-                <div class="sp-item flex-cont">
-                    <i class="fa-solid fa-thumbtack"></i>
-                    {{ subforum }}
-                    <a href="forums/{{subforum}}"><button>Open</button></a>
-                    <a href="unpin-subforum?subforum={{subforum}}"><button>Unpin</button></a>
-                </div>
-            {% endfor %}
-        </div>
-    </section>
+    {% if pinned_subforums %}
+        <section>
+            <h2>Pinned subforums</h2>
+            <div class="scrollpane sp-vert sp-forum">
+                {% for subforum in pinned_subforums %}
+                    <div class="sp-item flex-cont">
+                        <i class="fa-solid fa-thumbtack"></i>
+                        {{ subforum }}
+                        <a href="forums/{{subforum}}"><button>Open</button></a>
+                        <a href="unpin-subforum?subforum={{subforum}}"><button>Unpin</button></a>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
 
     {% for title, subforums in data %}
         <section>
