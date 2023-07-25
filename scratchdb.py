@@ -1,3 +1,6 @@
+useDB = False #always change to true if on replit or other online ides. only affects project info for now
+
+
 import requests
 from collections import OrderedDict
 
