@@ -27,10 +27,9 @@ def get_author_of(post_id):
     # r = requests.get(f'{SCRATCHDB}forum/post/info/{post_id}')
     # return r.json()['username']
 
-def get_project_name(project_id):
+def get_project_info(project_id):
     r = requests.get(f'https://scratchdb.lefty.one/v2/project/info/id/{project_id}')
-    print(r.json())
     try:
-        return r.json()['title']
+        return r.json()
     except:
         return "A project..."

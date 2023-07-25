@@ -90,7 +90,9 @@ def scratchproject(project_id):
 @app.get('/projects/<project_id>')
 def project(project_id):
     global user_data
-    project_name = scratchdb.get_project_name(project_id)
+    project_info = scratchdb.get_project_info(project_id)
+    project_name = project_info['title']
+    creator_name = project_info['username']
     theme = user_data["user_theme"]
     if theme == "choco":
         colour = "%23282320"
@@ -100,7 +102,7 @@ def project(project_id):
         colour = "%23202d38"
     else:
         colour = "%23c8c8c8"
-    return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name)
+    return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name,creator_name=creator_name)
 
 @app.route('/settings', methods=('GET', 'POST'))
 def settings():
