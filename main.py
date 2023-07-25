@@ -91,8 +91,12 @@ def scratchproject(project_id):
 def project(project_id):
     global user_data
     project_info = scratchdb.get_project_info(project_id)
-    project_name = project_info['title']
-    creator_name = project_info['username']
+    try:
+        project_name = project_info['title']
+        creator_name = project_info['username']
+    except:
+        project_name = "A scratch project..."
+        creator_name = "a scratch user..."
     theme = user_data["user_theme"]
     if theme == "choco":
         colour = "%23282320"
