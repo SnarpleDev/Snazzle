@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
 
 {% block content %}
-<p align = "center"><iframe src="https://turbowarp.org/{{ project_id }}/embed?addons=pause,gamepad&settings-button&fullscreen-background={{ colour }}" width="499" height="416" allowtransparency="false" frameborder="0" scrolling="no" allowfullscreen></p>
+<h1><p align="center"><b>{{ name }}</b></p></h1>
+<p align="center"><iframe src="https://turbowarp.org/{{ project_id }}/embed?addons=pause,gamepad&settings-button&fullscreen-background={{ colour }}" width="499" height="416" allowtransparency="false" frameborder="0" scrolling="no" allowfullscreen></iframe></p>
 {% endblock %}

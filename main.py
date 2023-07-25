@@ -12,7 +12,6 @@ subforums_data = (("Welcome", ["Announcements", "New Scratchers"]),
         ("Interests Beyond Scratch", ["Things I'm Making and Creating", "Things I'm Reading and Playing"]))
 
 user_data = dict(user_theme="choco",user_name="CoolScratcher123",pinned_subforums=[])
-
 categories = {
     "Announcements": 5,
     "New Scratchers": 6,
@@ -91,6 +90,7 @@ def scratchproject(project_id):
 @app.get('/projects/<project_id>')
 def project(project_id):
     global user_data
+    project_name = scratchdb.get_project_name(project_id)
     theme = user_data["user_theme"]
     if theme == "choco":
         colour = "%23282320"
@@ -100,7 +100,7 @@ def project(project_id):
         colour = "%23202d38"
     else:
         colour = "%23c8c8c8"
-    return stream_template('projects.html', project_id=project_id, colour=colour)
+    return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name)
 
 @app.route('/settings', methods=('GET', 'POST'))
 def settings():
