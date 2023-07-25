@@ -19,3 +19,6 @@ But for now, this is how you do it:
 4. Once deps are installed, run `python3 main.py`. This will set up a Flask server at `127.0.0.1:3000`. If you find any bugs, please report them.
    > If you're on Windows, run `py main.py` instead.
 5. Go to `127.0.0.1:3000` in your favourite browser and play around with it!
+
+## Hosting on Replit
+Just Import from Github. In the future, you'll have to enable a variable called `REPLIT_MODE` at the very top of `main.py`.
