@@ -35,5 +35,14 @@ def get_project_info(project_id):
         r = requests.get(f'https://scratchdb.lefty.one/v2/project/info/id/{project_id}')
     else:
         r = requests.get(f'https://api.scratch.mit.edu/projects/{project_id}')
-    print(r.json())
+    return r.json()
+
+def get_comments(project_id):
+    if useDB == True:
+        return None # i'll do this later
+    try:
+        project_creator = requests.get(f'https://api.scratch.mit.edu/projects/{project_id}').json()['author']['username']
+    except:
+        return None
+    r = requests.get(f'https://api.scratch.mit.edu/users/{project_creator}/projects/{project_id}/comments?limit=40')
     return r.json()

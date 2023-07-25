@@ -1,6 +1,9 @@
 from flask import Flask, render_template, stream_template, request, redirect
 from werkzeug import exceptions as werkexcept
 import scratchdb
+debug = 79
+while not debug == "T" or debug == "F":
+    debug = input("Run in comment test mode? (T or F)") #get rid of this when comments are done
 
 app = Flask(__name__)
 
@@ -40,6 +43,9 @@ def get_name_from_sfid(sfid):
     for key, value in categories.items():
         arr[value] = key
     return arr
+
+#def split_comments(json):
+
 
 @app.context_processor
 def context():
@@ -110,7 +116,11 @@ def project(project_id):
         colour = "%23202d38"
     else:
         colour = "%23c8c8c8"
-    return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name,creator_name=creator_name)
+    if debug == "F":
+        return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name,creator_name=creator_name)
+    else:
+        comments = scratchdb.get_comments(project_id)
+        return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name,creator_name=creator_name,comments=f'<div>{comments}</div>')
 
 @app.route('/settings', methods=('GET', 'POST'))
 def settings():
