@@ -95,8 +95,12 @@ def project(project_id):
         project_name = project_info['title']
         creator_name = project_info['username']
     except:
-        project_name = "A scratch project..."
-        creator_name = "a scratch user..."
+        try:
+            project_name = project_info['title']
+            creator_name = project_info['author']['username']
+        except:
+            project_name = "A scratch project..."
+            creator_name = "a scratch user..."
     theme = user_data["user_theme"]
     if theme == "choco":
         colour = "%23282320"
