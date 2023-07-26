@@ -90,7 +90,8 @@ nav {
     font-weight: bold;
 }
 
-button, select {
+button,
+select {
     transition: all 0.3s ease;
     padding: 10px;
     border-radius: 10px;
@@ -159,27 +160,30 @@ select:hover {
 /* Projects scrollpane */
 .scrollpane.sp-projects {
     min-height: 50px;
-    max-height: 200px;
+    max-height: 250px;
 }
 
-.scrollpane.sp-projects .sp-item, .project-grid .pg-project {
+.scrollpane.sp-projects .sp-item,
+.project-grid .pg-project {
     background-color: #5e81ac;
     color: rgb(255, 255, 255);
     margin: 10px;
     min-height: 70px;
     max-height: 180px;
     min-width: 140px;
-    border-radius:10px;
+    border-radius: 10px;
     padding: 1rem;
     transition: 0.5s all;
 }
 
-.scrollpane.sp-projects .sp-item:hover, .project-grid .pg-project:hover {
+.scrollpane.sp-projects .sp-item:hover,
+.project-grid .pg-project:hover {
     background-color: #8fbcbb;
     color: #2e3440;
 }
 
-.scrollpane .sp-item:hover, .project-grid .pg-project:hover {
+.scrollpane .sp-item:hover,
+.project-grid .pg-project:hover {
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.643);
     transform: translate(-5px, -5px);
     cursor: pointer;
@@ -198,10 +202,10 @@ select:hover {
     min-height: 80px;
     max-height: 200px;
     min-width: 180px;
-    border-radius:10px;
+    border-radius: 10px;
     padding: 1rem;
     transition: 0.5s all;
-    
+
 }
 
 .scrollpane.sp-studios .sp-item:hover {
@@ -213,6 +217,7 @@ select:hover {
     flex-flow: column nowrap;
     display: flex;
 }
+
 /* Filters scrollpane */
 
 .scrollpane.sp-filters .sp-item {
@@ -226,7 +231,7 @@ select:hover {
 
 /* Forums scrollpane */
 .scrollpane.sp-forum {
-    max-height: 200px;
+    max-height: 250px;
 }
 
 .scrollpane.sp-forum .sp-item {
@@ -288,19 +293,21 @@ section {
     margin: 0.1em;
     background: linear-gradient(90deg, #5e81ac, #d8dee9);
     border-radius: 10px;
-    box-shadow: 0px 0px 10px linear-gradient(180deg, rgba(139,82,46,1) 0%, rgba(114,67,38,1) 100%);
+    box-shadow: 0px 0px 10px linear-gradient(180deg, rgba(139, 82, 46, 1) 0%, rgba(114, 67, 38, 1) 100%);
     color: #d8dee9;
     height: 60vh;
     padding: 2.5rem;
     /* z-index: 999; */
 }
 
-#banner button.purple, button.secondary {
+#banner button.purple,
+button.secondary {
     background-color: transparent;
     color: #d8dee9;
 }
 
-#banner button.purple:hover, button.secondary:hover {
+#banner button.purple:hover,
+button.secondary:hover {
     background-color: #bf616a;
     color: #d8dee9;
 }
@@ -313,33 +320,43 @@ section {
     0% {
         transform: rotateZ(10deg)
     }
+
     5% {
         transform: rotateZ(-9deg)
     }
+
     10% {
         transform: rotateZ(8deg)
     }
+
     15% {
         transform: rotateZ(-7deg)
     }
+
     20% {
         transform: rotateZ(6deg)
     }
+
     25% {
         transform: rotateZ(-5deg)
     }
+
     30% {
         transform: rotateZ(4deg)
     }
+
     35% {
         transform: rotateZ(-3deg)
     }
+
     40% {
         transform: rotateZ(2deg)
     }
+
     45% {
         transform: rotateZ(-1deg)
     }
+
     50% {
         transform: rotateZ(0deg)
     }
@@ -358,16 +375,18 @@ section.project-grid {
     max-height: 180px;
     max-width: 130px;
     min-width: 130px;
-    border-radius:10px;
+    border-radius: 10px;
     padding: 1rem;
     transition: 0.5s all;
 }
 
-a, a:visited {
+a,
+a:visited {
     color: #b48ead;
 }
 
-button a, button a:visited {
+button a,
+button a:visited {
     color: #d8dee9;
 }
 

@@ -11,12 +11,18 @@
         <section>
             <h2>Featured projects</h2>
             <div class="scrollpane sp-horiz sp-projects">
-                {% for i in range(50) %}
-                <div class="sp-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg"
-                        alt="pizza" width="140" height="70">pizza recipe by coolgamer69420
-                    <span class="stats">1 view</span>
-                </div>
+                {% for project in featured %}
+                <a href="/projects/{{project['id']}}" style="text-decoration: none;">
+                    <div class="sp-item" style="height: 200px;">
+                        <img src="{{ project['thumbnail_url'] }}" alt="{{ project['title'] }}"
+                            style="height: 90px; width: 120px;">
+                        <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ project["title"]
+                            }}
+                        </div>
+                        by {{ project["creator"] }}
+                        <span class="stats"><i class="fa-regular fa-heart"></i> {{project["love_count"]}}</span>
+                    </div>
+                </a>
                 {% endfor %}
             </div>
         </section><br>
@@ -39,7 +45,7 @@
                 <div class="sp-item">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg"
                         alt="pizza" width="140" height="70">
-                    <br>pizza recipe by coolgamer69420
+                    pizza recipe by coolgamer69420
                     <span class="stats">1 view</span>
                 </div>
                 {% endfor %}
@@ -52,7 +58,7 @@
                 <div class="sp-item">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg"
                         alt="pizza" width="140" height="70">
-                    <br>pizza recipe by coolgamer69420
+                    pizza recipe by coolgamer69420
                     <span class="stats">1 view</span>
                 </div>
                 {% endfor %}
@@ -65,7 +71,7 @@
                 <div class="sp-item">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg"
                         alt="pizza" width="140" height="70">
-                    <br>pizza recipe by coolgamer69420
+                    pizza recipe by coolgamer69420
                     <span class="stats">1 view</span>
                 </div>
                 {% endfor %}

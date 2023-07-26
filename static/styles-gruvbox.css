@@ -33,8 +33,10 @@ article {
     font-family: 'Jost', sans-serif;
 }
 
-h1, h2, h3 {
-    color: #ca6120;
+h1,
+h2,
+h3 {
+    color: #ede3be;
 }
 
 input::placeholder {
@@ -47,7 +49,8 @@ body {
 }
 
 nav {
-    background: #32302f;
+    background: rgba(50, 48, 47, 0.5);
+    backdrop-filter: blur(8px);
     border-bottom: #504945;
     padding: 10px 0;
     position: sticky;
@@ -62,7 +65,7 @@ nav {
     font-size: 24px;
     font-weight: bold;
     margin-left: 20px;
-    color: #fe8019;
+    color: #fe8019 !important;
     transition: 0.5s all cubic-bezier(0.455, 0.03, 0.515, 0.955);
     text-decoration: none;
 }
@@ -169,7 +172,7 @@ select:hover {
 /* Projects scrollpane */
 .scrollpane.sp-projects {
     min-height: 50px;
-    max-height: 200px;
+    max-height: 250px;
 }
 
 .scrollpane.sp-projects .sp-item,
@@ -209,7 +212,7 @@ select:hover {
 
 .scrollpane.sp-studios .sp-item {
     background-color: #433e38;
-    color: white;
+    color: #f8efcc;
     margin: 10px;
     min-height: 80px;
     max-height: 200px;
@@ -243,7 +246,7 @@ select:hover {
 
 /* Forums scrollpane */
 .scrollpane.sp-forum {
-    max-height: 200px;
+    max-height: 250px;
 }
 
 .scrollpane.sp-forum .sp-item {
