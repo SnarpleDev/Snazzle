@@ -4,6 +4,21 @@ Actual CSS written by Darth-Ness with modified (as in mostly copied) code of Red
 
 */
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+button,
+input,
+article {
+    /* font-family: 'Mynerve', sans-serif; */
+    font-family: 'Jost', sans-serif;
+}
+
 
 body {
 
