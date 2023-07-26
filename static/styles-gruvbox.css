@@ -1,7 +1,8 @@
 /*
 
-    A warm, cozy dark mode theme for Snazzle, inspired by chocolate.
-    Author: @redstone-scratch
+    A Gruvbox theme for Snazzle, updated by @redstone-scratch
+    Original author: @ajskateboarder
+    Modified by: @redstone-scratch
 
 */
 
@@ -10,7 +11,7 @@
 
 body {
 
-    background-color: #282320;
+    background-color: #282828;
 }
 
 .omni {
@@ -18,13 +19,27 @@ body {
     margin-right: 10em;
 }
 
-h1, h2, h3, h4, h5, h6, p, div, button, input, article {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+button,
+input,
+article {
     /* font-family: 'Mynerve', sans-serif; */
     font-family: 'Jost', sans-serif;
 }
 
-input::placeholder {
+h1, h2, h3 {
     color: #ca6120;
+}
+
+input::placeholder {
+    color: #6f6259;
 }
 
 body {
@@ -33,7 +48,8 @@ body {
 }
 
 nav {
-    background: rgba(0, 0, 0, 0.544);
+    background: #32302f;
+    border-bottom: #504945;
     padding: 10px 0;
     position: sticky;
     top: 0px;
@@ -44,16 +60,16 @@ nav {
 }
 
 .logo a {
-    color: #fff;
     font-size: 24px;
     font-weight: bold;
     margin-left: 20px;
+    color: #fe8019;
     transition: 0.5s all cubic-bezier(0.455, 0.03, 0.515, 0.955);
     text-decoration: none;
 }
 
 .logo a:hover {
-    text-shadow: 0px 0px 3px orange;
+    text-shadow: 0px 0px 3px #ff963f;
     cursor: pointer;
 }
 
@@ -78,19 +94,20 @@ nav {
 }
 
 .nav-links li a {
-    color: #fff;
+    color: #fbf1c7;
     text-decoration: none;
     font-size: 18px;
     font-weight: bold;
 }
 
-button, select {
+button,
+select {
     transition: all 0.3s ease;
     padding: 10px;
     border-radius: 10px;
-    border: 1px solid #ca6120;
-    background-color: #ca6120;
-    color: white;
+    border: 1px solid #fe8019;
+    background-color: #3c3836;
+    color: #f8efcc;
 }
 
 input {
@@ -107,9 +124,10 @@ input:focus {
 }
 
 button:hover {
-    background-color: transparent;
+    background-color: #e38242;
+    border: 1px solid #3c3836;
     backdrop-filter: blur(5px);
-    color: white;
+    border-radius: 10px;
     cursor: pointer;
 }
 
@@ -118,12 +136,11 @@ select:hover {
 }
 
 .scrollpane {
-
-    background-color: #803d14;
+    background-color: #32302f;
     max-width: 100%;
     border-radius: 10px;
     display: flex;
-    box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2) inset;
 }
 
 .scrollpane.sp-horiz {
@@ -156,26 +173,32 @@ select:hover {
     max-height: 200px;
 }
 
-.scrollpane.sp-projects .sp-item, .project-grid .pg-project {
-    background-color: #ca6120;
-    color: rgb(255, 255, 255);
+.scrollpane.sp-projects .sp-item,
+.project-grid .pg-project {
+    background-color: #433e38;
+    color: #fbf1c7;
     margin: 10px;
     min-height: 70px;
     max-height: 180px;
     min-width: 140px;
-    border-radius:10px;
+    border-radius: 10px;
     padding: 1rem;
+    position: relative;
+    bottom: 0px;
     transition: 0.5s all;
 }
 
-.scrollpane.sp-projects .sp-item:hover, .project-grid .pg-project:hover {
-    background-color: #ff9654;
+.scrollpane.sp-projects .sp-item:hover,
+.project-grid .pg-project:hover {
+    background-color: #eb8c3e;
     color: black;
 }
 
-.scrollpane .sp-item:hover, .project-grid .pg-project:hover {
-    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.643);
-    transform: translate(-5px, -5px);
+.scrollpane .sp-item:hover,
+.project-grid .pg-project:hover {
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+    rotate: 5deg;
+    bottom: 5px;
     cursor: pointer;
 }
 
@@ -186,16 +209,16 @@ select:hover {
 }
 
 .scrollpane.sp-studios .sp-item {
-    background-color: #ca6120;
+    background-color: #433e38;
     color: white;
     margin: 10px;
     min-height: 80px;
     max-height: 200px;
     min-width: 180px;
-    border-radius:10px;
+    border-radius: 10px;
     padding: 1rem;
     transition: 0.5s all;
-    
+
 }
 
 .scrollpane.sp-studios .sp-item:hover {
@@ -207,6 +230,7 @@ select:hover {
     flex-flow: column nowrap;
     display: flex;
 }
+
 /* Filters scrollpane */
 
 .scrollpane.sp-filters .sp-item {
@@ -227,12 +251,14 @@ select:hover {
     transition: 0.5s all;
     margin: 0.25em;
     padding: 5px;
+    border: 3px solid #eb8c3e;
+    border-radius: 10px;
 }
 
 .scrollpane.sp-forum .sp-item:hover {
     box-shadow: none;
-    transform: none;
-    border: 1px solid #ff9654;
+    rotate: none !important;
+    border: 3px solid #fbf1c7;
 }
 
 .scrollpane.sp-forum .sp-item a {
@@ -245,7 +271,7 @@ select:hover {
 }
 
 span.stats {
-    color: lightgray;
+    color: #f8efcc;
 }
 
 .flex-cont {
@@ -286,33 +312,28 @@ span.stats {
 
 section {
     margin: 0.1em;
-    background: #724326;
+    background: #3c3836;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px #724326;
-    color: white;
+    color: #fbf1c7;
+}
+
+section:first-child:not(.width-third) {
+    background: transparent;
 }
 
 #banner {
     margin: 0.1em;
-    background: linear-gradient(90deg, rgb(193, 114, 64) 0%, rgb(103, 61, 35) 100%);
+    background: linear-gradient(90deg, #3c3836, 0%, #504945, 100%);
     border-radius: 10px;
-    box-shadow: 0px 0px 10px linear-gradient(180deg, rgba(139,82,46,1) 0%, rgba(114,67,38,1) 100%);
-    color: white;
+    box-shadow: 0px 0px 10px linear-gradient(180deg, rgba(139, 82, 46, 1) 0%, rgba(114, 67, 38, 1) 100%);
+    color: #ebdbb2;
     height: 60vh;
     padding: 2.5rem;
+    padding-bottom: 0px;
     /* z-index: 999; */
 }
 
-#banner button.purple, button.secondary {
-    background-color: transparent;
-    color: white;
-}
-
-#banner button.purple:hover, button.secondary:hover {
-    background-color: #ca6120;
-    color: white;
-}
 
 .update {
     animation: jiggle 2s forwards;
@@ -322,33 +343,43 @@ section {
     0% {
         transform: rotateZ(10deg)
     }
+
     5% {
         transform: rotateZ(-9deg)
     }
+
     10% {
         transform: rotateZ(8deg)
     }
+
     15% {
         transform: rotateZ(-7deg)
     }
+
     20% {
         transform: rotateZ(6deg)
     }
+
     25% {
         transform: rotateZ(-5deg)
     }
+
     30% {
         transform: rotateZ(4deg)
     }
+
     35% {
         transform: rotateZ(-3deg)
     }
+
     40% {
         transform: rotateZ(2deg)
     }
+
     45% {
         transform: rotateZ(-1deg)
     }
+
     50% {
         transform: rotateZ(0deg)
     }
@@ -367,44 +398,26 @@ section.project-grid {
     max-height: 180px;
     max-width: 130px;
     min-width: 130px;
-    border-radius:10px;
+    border-radius: 10px;
     padding: 1rem;
     transition: 0.5s all;
 }
 
-a, a:visited {
-    color: #ca6120;
+a,
+a:visited {
+    color: #f8efcc;
+    transition: 0.5s color;
 }
 
-button a, button a:visited {
+button a,
+button a:visited {
     color: white;
+}
+
+a:hover {
+    color: #ca6120;
 }
 
 img {
     border-radius: 10px;
-}
-
-.sp-forum div.sp-item {
-    transition: all 0.3s ease;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ca6120;
-    background-color: #00000067;
-    color: white;
-}
-
-.sp-item a > i.pin-btn, .sp-item a > span.pin-btn {
-    display: none;
-}
-
-.sp-item:hover a > i.pin-btn, .sp-item:hover a > span.pin-btn {
-    display: inline;
-}
-
-blockquote {
-    background-color: #803d14;
-    box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 5px;
 }

@@ -1,16 +1,29 @@
 /*
 
-    A warm, cozy dark mode theme for Snazzle, inspired by chocolate.
-    Author: @redstone-scratch
+    Credit to the team at https://www.nordtheme.com/ for this wonderful theme
+    Actual CSS written by Darth-Ness with modified (as in mostly copied) code of Redstone's 'Choco' theme
 
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Mynerve&display=swap');
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+button,
+input,
+article {
+    /* font-family: 'Mynerve', sans-serif; */
+    font-family: 'Jost', sans-serif;
+}
+
 
 body {
 
-    background-color: #282320;
+    background-color: #2e3440;
 }
 
 .omni {
@@ -18,22 +31,16 @@ body {
     margin-right: 10em;
 }
 
-h1, h2, h3, h4, h5, h6, p, div, button, input, article {
-    /* font-family: 'Mynerve', sans-serif; */
-    font-family: 'Jost', sans-serif;
-}
-
 input::placeholder {
-    color: #ca6120;
+    color: #d8dee9;
 }
 
 body {
     margin: 0;
-    font-family: 'Jost', Arial, sans-serif;
 }
 
 nav {
-    background: rgba(0, 0, 0, 0.544);
+    background: rgba(46, 52, 64, 0.544);
     padding: 10px 0;
     position: sticky;
     top: 0px;
@@ -44,7 +51,7 @@ nav {
 }
 
 .logo a {
-    color: #fff;
+    color: #d8dee9;
     font-size: 24px;
     font-weight: bold;
     margin-left: 20px;
@@ -78,7 +85,7 @@ nav {
 }
 
 .nav-links li a {
-    color: #fff;
+    color: #d8dee9;
     text-decoration: none;
     font-size: 18px;
     font-weight: bold;
@@ -88,9 +95,9 @@ button, select {
     transition: all 0.3s ease;
     padding: 10px;
     border-radius: 10px;
-    border: 1px solid #ca6120;
-    background-color: #ca6120;
-    color: white;
+    border: 1px solid #434c5e;
+    background-color: #bf616a;
+    color: #d8dee9;
 }
 
 input {
@@ -99,7 +106,7 @@ input {
     border-radius: 10px;
     border: 1px solid #ca6120;
     background-color: transparent;
-    color: white;
+    color: #d8dee9;
 }
 
 input:focus {
@@ -109,7 +116,7 @@ input:focus {
 button:hover {
     background-color: transparent;
     backdrop-filter: blur(5px);
-    color: white;
+    color: #d8dee9;
     cursor: pointer;
 }
 
@@ -119,7 +126,7 @@ select:hover {
 
 .scrollpane {
 
-    background-color: #803d14;
+    background-color: #4c566a;
     max-width: 100%;
     border-radius: 10px;
     display: flex;
@@ -157,7 +164,7 @@ select:hover {
 }
 
 .scrollpane.sp-projects .sp-item, .project-grid .pg-project {
-    background-color: #ca6120;
+    background-color: #5e81ac;
     color: rgb(255, 255, 255);
     margin: 10px;
     min-height: 70px;
@@ -169,8 +176,8 @@ select:hover {
 }
 
 .scrollpane.sp-projects .sp-item:hover, .project-grid .pg-project:hover {
-    background-color: #ff9654;
-    color: black;
+    background-color: #8fbcbb;
+    color: #2e3440;
 }
 
 .scrollpane .sp-item:hover, .project-grid .pg-project:hover {
@@ -186,8 +193,8 @@ select:hover {
 }
 
 .scrollpane.sp-studios .sp-item {
-    background-color: #ca6120;
-    color: white;
+    background-color: #5e81ac;
+    color: #d8dee9;
     margin: 10px;
     min-height: 80px;
     max-height: 200px;
@@ -199,8 +206,8 @@ select:hover {
 }
 
 .scrollpane.sp-studios .sp-item:hover {
-    background-color: #ff9654;
-    color: black;
+    background-color: #8fbcbb;
+    color: #2e3440;
 }
 
 .scrollpane .sp-item {
@@ -220,32 +227,16 @@ select:hover {
 
 /* Forums scrollpane */
 .scrollpane.sp-forum {
-    max-height: 300px;
+    max-height: 200px;
 }
 
 .scrollpane.sp-forum .sp-item {
     transition: 0.5s all;
-    margin: 0.25em;
-    padding: 5px;
-}
-
-.scrollpane.sp-forum .sp-item:hover {
-    box-shadow: none;
-    transform: none;
-    border: 1px solid #ff9654;
-}
-
-.scrollpane.sp-forum .sp-item a {
-    color: #ca6120;
-    transition: 0.5s color;
-}
-
-.scrollpane.sp-forum .sp-item:hover a {
-    color: #ff9654;
+    margin: 1em;
 }
 
 span.stats {
-    color: lightgray;
+    color: #4c566a;
 }
 
 .flex-cont {
@@ -281,24 +272,25 @@ span.stats {
 }
 
 .scrollpane .sp-header {
-    background-color: rgba(0, 0, 0, 0.544);
+    background-color: rgba(46, 52, 64, 0.544);
 }
 
 section {
     margin: 0.1em;
-    background: #724326;
+    background: #4c566a;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px #724326;
-    color: white;
+    box-shadow: 0px 0px 10px #4c566a;
+    color: #d8dee8;
+    margin-top: 2%;
 }
 
 #banner {
     margin: 0.1em;
-    background: linear-gradient(90deg, rgb(193, 114, 64) 0%, rgb(103, 61, 35) 100%);
+    background: linear-gradient(90deg, #5e81ac, #d8dee9);
     border-radius: 10px;
     box-shadow: 0px 0px 10px linear-gradient(180deg, rgba(139,82,46,1) 0%, rgba(114,67,38,1) 100%);
-    color: white;
+    color: #d8dee9;
     height: 60vh;
     padding: 2.5rem;
     /* z-index: 999; */
@@ -306,12 +298,12 @@ section {
 
 #banner button.purple, button.secondary {
     background-color: transparent;
-    color: white;
+    color: #d8dee9;
 }
 
 #banner button.purple:hover, button.secondary:hover {
-    background-color: #ca6120;
-    color: white;
+    background-color: #bf616a;
+    color: #d8dee9;
 }
 
 .update {
@@ -373,38 +365,13 @@ section.project-grid {
 }
 
 a, a:visited {
-    color: #ca6120;
+    color: #b48ead;
 }
 
 button a, button a:visited {
-    color: white;
+    color: #d8dee9;
 }
 
 img {
     border-radius: 10px;
-}
-
-.sp-forum div.sp-item {
-    transition: all 0.3s ease;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ca6120;
-    background-color: #00000067;
-    color: white;
-}
-
-.sp-item a > i.pin-btn, .sp-item a > span.pin-btn {
-    display: none;
-}
-
-.sp-item:hover a > i.pin-btn, .sp-item:hover a > span.pin-btn {
-    display: inline;
-}
-
-blockquote {
-    background-color: #803d14;
-    box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 5px;
 }

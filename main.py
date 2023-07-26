@@ -9,6 +9,7 @@ https://github.com/redstone-scratch/Snazzle/
 """
 
 from flask import Flask, render_template, stream_template, request, redirect
+from os import listdir
 from werkzeug import exceptions as werkexcept
 import scratchdb
 
@@ -29,6 +30,9 @@ user_data = dict(
 )
 
 scratchdb.use_scratchdb(True)
+
+def get_themes():
+    return [item[7:item.index(".css")] for item in listdir("static") if item.startswith("styles-") and item.endswith(".css")]
 
 # https://stackoverflow.com/questions/34066804/disabling-caching-in-flask
 @app.after_request
@@ -98,9 +102,9 @@ def topics(subforum):
     response = scratchdb.get_topics(subforum)
     if response['error']:
         return render_template('scratchdb-error.html', err=response['message'])
-    return stream_template('forum-topics.html', subforum=subforum, topics=response['topics'], pinned_subforums=user_data["pinned_subforums"])
+    return stream_template('forum-topics.html', subforum=subforum, topics=response['topics'], pinned_subforums=user_data["pinned_subforums"], str=str)
 
-@app.get('/topic/<topic_id>')
+@app.get('/forums/topic/<topic_id>')
 def topic(topic_id):
     """
     Shows all posts in a topic.
@@ -109,14 +113,8 @@ def topic(topic_id):
     show_deleted_posts = False
     
     topic_title = scratchdb.get_topic_data(topic_id)['title']
-    topic_posts = scratchdb.get_topic_posts(topic_id)
-    return stream_template('forum-topic.html', 
-                           topic_id=topic_id,
-                           topic_title=topic_title,
-                           topic_posts=topic_posts,
-                           max_posts=user_data['max_topic_posts'],
-                           show_deleted=show_deleted_posts,
-                           )
+    topic_posts = scratchdb.get_topic_posts(topic_id)['posts']
+    return stream_template('forum-topic.html', topic_id=topic_id, topic_title=topic_title, topic_posts=topic_posts, max_posts=user_data['max_topic_posts'], show_deleted=show_deleted_posts, list=list)
 
 @app.route('/settings', methods=['GET'])
 def settings():
@@ -127,7 +125,9 @@ def settings():
     for key, value in request.args.items():
         user_data[key.replace('-', '_')] = value
         
-    return render_template('settings.html')
+    return render_template('settings.html', 
+                           themes=get_themes(),
+                           str_title=str.title,)
 
 # @app.post('/change-setting')
 # def theme_change():
@@ -139,7 +139,7 @@ def downloads():
     """old download page"""
     return render_template('download.html')
 
-@app.get('/secret/dl-mockup')
+@app.get('/secret/dl_mockup')
 def dl_mockup():
     return render_template('dlm.html')
 
@@ -165,7 +165,7 @@ def unpin_sub(sf):
     else:
         return '<script>alert("This is not pinned!");</script>'
 
-@app.errorhandler(Exception)
+@app.errorhandler(werkexcept.NotFound)
 def err404(e: Exception):
     # route for error
     return render_template('_error.html', errdata=e), 404

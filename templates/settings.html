@@ -39,20 +39,19 @@
                 <select name="theme" id="theme_value" oninput="update_url()">
                     <!-- <optgroup label="Dark theme"> -->
                     <option value="default">--- Select an option ---</option>
-                    <option value="choco">Choco</option>
-                    <option value="ice">Ice</option>
-                    <option value="hackerman">Greenspace</option>
-                    <option value="newspaper">Newspaper</option>
+                    {% for theme in themes %}
+                        <option value="{{ theme }}">{{ str_title(theme) }}</option>
+                    {% endfor %}
                     <!-- </optgroup> -->
                 </select>
             </label>
             <button type="submit">Change Theme</button>
         </form>
     </section>
-    <section>
+    <!-- <section>
         <h2>Link Accounts (coming soon)</h2>
         <label for="github">GitHub <button><span class="fa-brands fa-github"></span> Link</button></label>
-    </section>
+    </section> -->
     <section>
         <form action="/settings">
             <h2>Forums</h2>
@@ -61,12 +60,10 @@
             <label for="show-deleted-posts">Show deleted posts on a topic <input type="checkbox" id="show-deleted-posts" name="show-deleted-posts"></label>
         </form>
     </section>
-    <section>
+    <!-- <section>
         <h2>Ocular Status</h2>
         <label for="status">Status <input type="text" id="status" name="status" placeholder='E.g., "Hello world!"'></label>
-    </section>
-    <section>
-    </section>
+    </section> -->
 </div>
 
 {% endblock %}

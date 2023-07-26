@@ -51,9 +51,9 @@ def get_author_of(post_id):
 
 def get_topic_data(topic_id):
     r = requests.get(f'{SCRATCHDB}forum/topic/info/{topic_id}')
-    
+    return r.json()
 
-def get_topic_posts(topic_id, page, order="oldest"):
+def get_topic_posts(topic_id, page = 0, order="oldest"):
     r = requests.get(f'{SCRATCHDB}forum/topic/posts/{topic_id}/{page}?o={order}')
     # post['author'], post['time'], post['html_content'], post['index'], post['is_deleted']
     try:

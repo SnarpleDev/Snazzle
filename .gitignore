@@ -1,3 +1,4 @@
 .DS_Store
 __pycache__
+scratchdb.cpython-311.pyc
 *.pyc
