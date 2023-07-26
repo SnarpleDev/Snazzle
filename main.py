@@ -1,18 +1,34 @@
+REPLIT_MODE = True
+USE_SCRATCHDB = True
+HOST, PORT = '127.0.0.1', 3000
+
+"""
+      **** Snazzle Server Code ****
+ Made in Flask by the Snazzle team over at 
+https://github.com/redstone-scratch/Snazzle/
+"""
+
 from flask import Flask, render_template, stream_template, request, redirect
 from werkzeug import exceptions as werkexcept
 import scratchdb
 
 app = Flask(__name__)
 
-HOST, PORT = '127.0.0.1', 3000
-
 subforums_data = (("Welcome", ["Announcements", "New Scratchers"]),
         ("Making Scratch Projects", ["Help with Scripts", "Show and Tell", "Project Ideas", "Collaboration", "Requests", "Project Save & Level Codes"]),
         ("About Scratch", ["Questions about Scratch", "Suggestions", "Bugs and Glitches", "Advanced Topics", "Connecting to the Physical World", "Scratch Extensions", "Open Source Projects"]),
-        ("Interests Beyond Scratch", ["Things I'm Making and Creating", "Things I'm Reading and Playing"]),
-        ("My category", ["My subforum"]))
+        ("Interests Beyond Scratch", ["Things I'm Making and Creating", "Things I'm Reading and Playing"]))
 
-user_data = dict(user_theme="choco",user_name="CoolScratcher123",pinned_subforums=[])
+user_data = dict(
+    theme="choco",
+    user_name="CoolScratcher123",
+    pinned_subforums=[],
+    saved_posts=[],
+    max_topic_posts=20,
+    show_deleted_posts=True
+)
+
+scratchdb.use_scratchdb(True)
 
 # https://stackoverflow.com/questions/34066804/disabling-caching-in-flask
 @app.after_request
@@ -24,14 +40,13 @@ def add_header(r):
     r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     r.headers["Pragma"] = "no-cache"
     r.headers["Expires"] = "0"
-    print(r)
     return r
 
 @app.context_processor
 def context():
     # Play with this and the user_data dict to manipulate app state
     return dict(
-        theme=user_data['user_theme'],
+        theme=user_data['theme'],
         username=user_data['user_name'],
         signed_in=False,
         to_str=lambda x: str(x),
@@ -60,6 +75,9 @@ def trending():
     """
     Explore page.
     """
+    if filter := request.args.get('filter'):
+        return render_template('trending.html', filter=filter)
+        
     return render_template('trending.html')
 
 @app.get('/forums')
@@ -74,6 +92,9 @@ def topics(subforum):
     """
     A page that lists all the topics in the subforum
     """
+    
+    show_deleted_topics = False
+    
     response = scratchdb.get_topics(subforum)
     if response['error']:
         return render_template('scratchdb-error.html', err=response['message'])
@@ -82,32 +103,43 @@ def topics(subforum):
 @app.get('/topic/<topic_id>')
 def topic(topic_id):
     """
-    WIP. shows all posts in a topic.
+    Shows all posts in a topic.
     """
-    return f'<a href="https://scratch.mit.edu/discuss/topic/{topic_id}">view on scratch</a> (for now while we get the forums fully working and not slow as hell)'
+    
+    show_deleted_posts = False
+    
+    topic_title = scratchdb.get_topic_data(topic_id)['title']
+    topic_posts = scratchdb.get_topic_posts(topic_id)
+    return stream_template('forum-topic.html', 
+                           topic_id=topic_id,
+                           topic_title=topic_title,
+                           topic_posts=topic_posts,
+                           max_posts=user_data['max_topic_posts'],
+                           show_deleted=show_deleted_posts,
+                           )
 
-@app.route('/settings', methods=('GET', 'POST'))
+@app.route('/settings', methods=['GET'])
 def settings():
     """
     Settings page.
     Change theme, status, link github account
     """
-    # will have a form to change theme, instead of /change_theme
+    for key, value in request.args.items():
+        user_data[key.replace('-', '_')] = value
+        
     return render_template('settings.html')
 
-@app.get('/change_theme')
-def theme_change():
-    """to-be-unused route to change theme"""
-    requested_theme = request.args.get('theme')
-    user_data['user_theme'] = requested_theme
-    return redirect('/settings')
+# @app.post('/change-setting')
+# def theme_change():
+
+#     return redirect('/settings')
 
 @app.get('/downloads')
 def downloads():
     """old download page"""
     return render_template('download.html')
 
-@app.get('/secret/dl_mockup')
+@app.get('/secret/dl-mockup')
 def dl_mockup():
     return render_template('dlm.html')
 
@@ -133,9 +165,9 @@ def unpin_sub(sf):
     else:
         return '<script>alert("This is not pinned!");</script>'
 
-@app.errorhandler(werkexcept.NotFound)
-def err404(e):
-    # route for 404 error
-    return render_template('_err404.html', errdata=e), 404
+@app.errorhandler(Exception)
+def err404(e: Exception):
+    # route for error
+    return render_template('_error.html', errdata=e), 404
 
 app.run(host=HOST, port=3000, debug=True)

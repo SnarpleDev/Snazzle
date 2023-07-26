@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6, p, div, button, input, article {
 }
 
 input::placeholder {
-    color: #6f6259;
+    color: #ca6120;
 }
 
 body {
@@ -393,10 +393,10 @@ img {
     color: white;
 }
 
-.sp-item a > i.pin-btn {
+.sp-item a > i.pin-btn, .sp-item a > span.pin-btn {
     display: none;
 }
 
-.sp-item:hover a > i.pin-btn {
+.sp-item:hover a > i.pin-btn, .sp-item:hover a > span.pin-btn {
     display: inline;
 }

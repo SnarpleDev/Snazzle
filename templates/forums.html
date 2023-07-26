@@ -32,7 +32,16 @@
             <div class="scrollpane sp-forum sp-vert">
                 {% for subforum in subforums %}
                     <div class="sp-item">
-                        <p><a href="forums/{{subforum}}">{{ subforum }}</a> <a href="pin-subforum/{{subforum}}"><i class="fa-solid fa-thumbtack pin-btn"></i></button></a></p>
+                        <p>
+                            <a href="forums/{{subforum}}">{{ subforum }}</a>
+                            <a href="pin-subforum/{{subforum}}">
+                                {% if not subforum in pinned_subforums %}
+                                    <i class="fa-solid fa-thumbtack pin-btn"></i>
+                                {% else %}
+                                    <span class="pin-btn">Already pinned</span>
+                                {% endif %}
+                            </a>
+                        </p>
                     </div>
                 {% endfor %}
             </div>

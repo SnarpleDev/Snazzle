@@ -20,6 +20,12 @@
         <h1>ScratchDB is down</h1>
         <p>ScratchDB is currently down, please try again later.</p>
         <p>Sadly, we can't fix this.</p>
+    {% elif err == 'sdb_topicnotfound' %}
+        <h1>Topic not found</h1>
+        <p>This topic might exist on Scratch, or ScratchDB hasn't indexed it yet.</p>
+    {% elif err == 'sdb_topicnotvalid' %}
+        <h1>Topic not valid</h1>
+        <p>The topic ID is not valid (a positive whole number).</p>
     {% endif %}
     <button onclick="history.back()">Back</button>
 </section>
