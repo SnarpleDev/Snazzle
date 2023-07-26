@@ -76,7 +76,7 @@ def context():
     # Play with this and the user_data dict to manipulate app state
     print(user_data)
     return dict(
-        theme="gruvbox",
+        theme=user_data["user_theme"],
         username=user_data["user_name"],
         signed_in=False,
         get_sfid_from_name=get_sfid_from_name,
