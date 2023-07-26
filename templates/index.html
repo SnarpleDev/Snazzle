@@ -39,13 +39,16 @@
             </div>
         </section><br>
         <section>
+            <!-- is this what redstone meant idk -->
             <h2>Trending projects</h2>
             <div class="scrollpane sp-horiz sp-projects">
-                {% for i in range(50) %}
+                {% for projeck in trending_projects %}
                 <div class="sp-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg"
-                        alt="pizza" width="140" height="70">
-                    pizza recipe by coolgamer69420
+                    <img src="{{ projeck['thumbnail_url'] }}" alt="pizza" width="120" height="90">
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ projeck["title"]
+                        }}
+                    </div>
+                    by {{ projeck["creator"] }}
                     <span class="stats">1 view</span>
                 </div>
                 {% endfor %}
