@@ -46,3 +46,14 @@ def get_comments(project_id):
         return None
     r = requests.get(f'https://api.scratch.mit.edu/users/{project_creator}/projects/{project_id}/comments?limit=40')
     return r.json()
+
+def get_ocular(username):
+    print(username)
+    try:
+        info = requests.get(f'https://my-ocular.jeffalo.net/api/user/{username}')
+        a = info.json()["name"]
+    except:
+        return {"name":None,"status":None,"color":None} #i had  to spell colour wrong for it to work
+    print(info)
+    print(info.json())
+    return info.json()

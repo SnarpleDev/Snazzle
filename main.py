@@ -1,10 +1,7 @@
-from flask import Flask, render_template, stream_template, request, redirect
+﻿from flask import Flask, render_template, stream_template, request, redirect
 from werkzeug import exceptions as werkexcept
 import scratchdb
-debug = 79
-while not debug == "T" or debug == "F":
-    debug = input("Run in comment test mode? (T or F)") #get rid of this when comments are done
-
+debug = False
 app = Flask(__name__)
 
 HOST, PORT = '127.0.0.1', 3000
@@ -116,11 +113,18 @@ def project(project_id):
         colour = "%23202d38"
     else:
         colour = "%23c8c8c8"
-    if debug == "F":
-        return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name,creator_name=creator_name)
+    ocular = scratchdb.get_ocular(creator_name)
+    ocular_colour = ocular["color"]
+    if ocular_colour == None or ocular_colour == 'null':
+        ocular_colour = "#999999"
+    else:
+        creator_name =+ "●" #add the dot
+    ocular_colour = f'color:{ocular_colour}'
+    if debug == False:
+        return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name,creator_name=creator_name,ocularcolour=ocular_colour)
     else:
         comments = scratchdb.get_comments(project_id)
-        return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name,creator_name=creator_name,comments=f'<div>{comments}</div>')
+        return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name,creator_name=creator_name,comments=f'<div>{comments}</div>',ocularcolour=ocular_colour)
 
 @app.route('/settings', methods=('GET', 'POST'))
 def settings():
