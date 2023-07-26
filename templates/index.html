@@ -11,11 +11,10 @@
         <section>
             <h2>Featured projects</h2>
             <div class="scrollpane sp-horiz sp-projects">
-                {% for project in featured %}
+                {% for project in featured_projects %}
                 <a href="/projects/{{project['id']}}" style="text-decoration: none;">
                     <div class="sp-item" style="height: 200px;">
-                        <img src="{{ project['thumbnail_url'] }}" alt="{{ project['title'] }}"
-                            style="height: 90px; width: 120px;">
+                        <img src="{{ project['thumbnail_url'] }}" alt="{{ project['title'] }}" height="90" width="120">
                         <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ project["title"]
                             }}
                         </div>
@@ -29,11 +28,12 @@
         <section>
             <h2>Featured studios</h2>
             <div class="scrollpane sp-horiz sp-studios">
-                {% for i in range(50) %}
-                <div class="sp-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg"
-                        alt="pizza" width="140" height="70">cool pizza recipes by coolgamer69420
-                    <span class="stats">1 view</span>
+                {% for studio in featured_studios %}
+                <div class="sp-item" style="display: block; text-align: center;">
+                    <img src="{{ studio['thumbnail_url'] }}" alt="pizza" width="140" height="90">
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ studio["title"]
+                        }}
+                    </div>
                 </div>
                 {% endfor %}
             </div>

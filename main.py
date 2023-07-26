@@ -89,9 +89,11 @@ def context():
 @app.get("/")
 def index():
     projects = scratchdb.get_featured_projects()
-    print(projects["community_featured_projects"])
+    print(projects["community_featured_studios"])
     return stream_template(
-        "index.html", featured=projects["community_featured_projects"]
+        "index.html",
+        featured_projects=projects["community_featured_projects"],
+        featured_studios=projects["community_featured_studios"],
     )
 
 
