@@ -15,7 +15,8 @@
                 <a href="/projects/{{project['id']}}" style="text-decoration: none;">
                     <div class="sp-item" style="height: 200px;">
                         <img src="{{ project['thumbnail_url'] }}" alt="{{ project['title'] }}" height="90" width="120">
-                        <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ project["title"]
+                        <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                            title="{{ project['title'] }}">{{ project["title"]
                             }}
                         </div>
                         by {{ project["creator"] }}
@@ -31,7 +32,8 @@
                 {% for studio in featured_studios %}
                 <div class="sp-item" style="display: block; text-align: center;">
                     <img src="{{ studio['thumbnail_url'] }}" alt="pizza" width="140" height="90">
-                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ studio["title"]
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                        title="{{ studio['title'] }}">{{ studio["title"]
                         }}
                     </div>
                 </div>
@@ -45,11 +47,12 @@
                 {% for projeck in trending_projects %}
                 <div class="sp-item">
                     <img src="{{ projeck['thumbnail_url'] }}" alt="pizza" width="120" height="90">
-                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ projeck["title"]
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                        title="{{ projeck['title'] }}">{{ projeck["title"]
                         }}
                     </div>
                     by {{ projeck["creator"] }}
-                    <span class="stats">1 view</span>
+                    <span class="stats"><i class="fa-regular fa-heart"></i> {{ projeck["love_count"] }}</span>
                 </div>
                 {% endfor %}
             </div>
@@ -57,30 +60,37 @@
         <section>
             <h2>What the community is loving</h2>
             <div class="scrollpane sp-horiz sp-projects">
-                {% for i in range(50) %}
+                {% for projeckt in loving %}
                 <div class="sp-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg"
-                        alt="pizza" width="140" height="70">
-                    pizza recipe by coolgamer69420
-                    <span class="stats">1 view</span>
+                    <img src="{{ projeckt['thumbnail_url'] }}" alt="pizza" width="120" height="90">
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                        title="{{ projeckt['title'] }}">{{ projeckt["title"]
+                        }}
+                    </div>
+                    by {{ projeckt["creator"] }}
+                    <span class="stats"><i class="fa-regular fa-heart"></i> {{ projeckt["love_count"] }}</span>
                 </div>
                 {% endfor %}
             </div>
-        </section><br>
-        <section>
-            <h2>What the community is remixing</h2>
-            <div class="scrollpane sp-horiz sp-projects">
-                {% for i in range(50) %}
-                <div class="sp-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg"
-                        alt="pizza" width="140" height="70">
-                    pizza recipe by coolgamer69420
-                    <span class="stats">1 view</span>
-                </div>
-                {% endfor %}
-            </div>
-        </section>
     </div>
-    {% endif %}
+    </section><br>
+    <section>
+        <h2>What the community is remixing</h2>
+        <div class="scrollpane sp-horiz sp-projects">
+            {% for projeck in remixed %}
+            <div class="sp-item">
+                <img src="{{ projeck['thumbnail_url'] }}" alt="pizza" width="120" height="90">
+                <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                    title="{{ projeck['title'] }}">{{ projeck["title"]
+                    }}
+                </div>
+                by {{ projeck["creator"] }}
+                <span class="stats"><i class="fa-regular fa-heart"></i> {{ projeck["love_count"] }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endif %}
 </div>
 {% endblock %}
