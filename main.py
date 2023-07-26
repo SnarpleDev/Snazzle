@@ -111,14 +111,18 @@ def project(project_id):
         colour = "%23212820"
     elif theme == "ice":
         colour = "%23202d38"
-    else:
+    elif theme == "newspaper":
         colour = "%23c8c8c8"
+    elif theme == "nord":
+        colour = "%232e3440"
+    elif theme == "gruvbox":
+        colour = "%23282828"
     ocular = scratchdb.get_ocular(creator_name)
     ocular_colour = ocular["color"]
     if ocular_colour == None or ocular_colour == 'null':
         ocular_colour = "#999999"
     else:
-        creator_name =+ "●" #add the dot
+        creator_name = str(creator_name) + " ●" #add the dot
     ocular_colour = f'color:{ocular_colour}'
     if debug == False:
         return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name,creator_name=creator_name,ocularcolour=ocular_colour)
