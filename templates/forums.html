@@ -5,26 +5,44 @@
 <div class="omni">
 
     <section>
-        <h1>Forums are almost functional</h1>
+        <h1>Discuss</h1>
+        <p>A re-implementation of the Scratch forums, basically</p>
     </section>
 
-    <section>
-        <h2>Pinned subforums</h2>
-        <div class="scrollpane sp-vert sp-forum">
-            {% for subforum in pinned_subforums %}
-                <a href="forums/{{subforum}}"><button class="sp-item"><i class="fa-solid fa-thumbtack"></i>{{ subforum }}</button></a>
-            {% endfor %}
-        </div>
-    </section>
+    {% if pinned_subforums %}
+        <section>
+            <h2>Pinned subforums</h2>
+            <div class="scrollpane sp-forum">
+                {% for subforum in pinned_subforums %}
+                    <div class="sp-item">
+                        <p>
+                            <a href="unpin-subforum/{{subforum}}" class="unpin-btn"><i class="fa-solid fa-thumbtack pin-icon"></i></a>
+                            <a href="forums/{{subforum}}">{{ subforum }}</a>
+                            <a href="unpin-subforum/{{subforum}}" class="unpin-btn"><button>Unpin</button></a>
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
 
     {% for title, subforums in data %}
         <section>
             <h2>{{ title }}</h2>
-            <div class="scrollpane sp-vert sp-forum">
+            <div class="scrollpane sp-forum sp-vert">
                 {% for subforum in subforums %}
-                    {% if not subforum in pinned_subforums %}
-                        <a href="forums/{{subforum}}"><button class="sp-item">{{ subforum }}</button></a>
-                    {% endif %}
+                    <div class="sp-item">
+                        <p>
+                            <a href="forums/{{subforum}}">{{ subforum }}</a>
+                            <a href="pin-subforum/{{subforum}}">
+                                {% if not subforum in pinned_subforums %}
+                                    <i class="fa-solid fa-thumbtack pin-btn"></i>
+                                {% else %}
+                                    <span class="pin-btn">Already pinned</span>
+                                {% endif %}
+                            </a>
+                        </p>
+                    </div>
                 {% endfor %}
             </div>
         </section>

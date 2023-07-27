@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6, p, div, button, input, article {
 }
 
 input::placeholder {
-    color: #6f6259;
+    color: #ca6120;
 }
 
 body {
@@ -220,12 +220,28 @@ select:hover {
 
 /* Forums scrollpane */
 .scrollpane.sp-forum {
-    max-height: 200px;
+    max-height: 300px;
 }
 
 .scrollpane.sp-forum .sp-item {
     transition: 0.5s all;
-    margin: 1em;
+    margin: 0.25em;
+    padding: 5px;
+}
+
+.scrollpane.sp-forum .sp-item:hover {
+    box-shadow: none;
+    transform: none;
+    border: 1px solid #ff9654;
+}
+
+.scrollpane.sp-forum .sp-item a {
+    color: #ca6120;
+    transition: 0.5s color;
+}
+
+.scrollpane.sp-forum .sp-item:hover a {
+    color: #ff9654;
 }
 
 span.stats {
@@ -366,4 +382,29 @@ button a, button a:visited {
 
 img {
     border-radius: 10px;
+}
+
+.sp-forum div.sp-item {
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ca6120;
+    background-color: #00000067;
+    color: white;
+}
+
+.sp-item a > i.pin-btn, .sp-item a > span.pin-btn {
+    display: none;
+}
+
+.sp-item:hover a > i.pin-btn, .sp-item:hover a > span.pin-btn {
+    display: inline;
+}
+
+blockquote {
+    background-color: #803d14;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
 }

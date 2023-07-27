@@ -1,25 +1,57 @@
 {% extends '_base.html' %}
 
-{% macro forum_post(author, time, content, index) %}
+{% block content %}
+    {% macro forum_post(author, time, content, index, is_deleted) %}
 
-<section id="{{ index }}">
-    <p>{{ index }} <a href="javascript:void(0)" onclick="copyLink()">copy link</a></p>
-    <h2>{{ author }} at {{ time }}</h2>
-    <article>
-        {{ content | safe }}
-    </article>
-</section>
+        {% if is_deleted and show_deleted or not is_deleted %}
+            <section id="{{ index }}">
+                <input type="text" value="{{ index }}" hidden="true" id="{{ index }}-value">
+                <p>{{ index }} <a href="javascript:void(0)" onclick="copyLink()">copy link</a></p>
+                <h2>{{ author }} at {{ time }}</h2>
+                <article>
+                    {{ content | safe }}
+                </article>
+            </section>
+        {% endif %}
 
-{% endmacro %}
+    {% endmacro %}
 
-<script>
-    function copyLink(id) {
-        navigator.clipboard.writeText(``).then(() => {
-            console.log('Content copied to clipboard');
-            /* Resolved - text copied to clipboard successfully */
-        },() => {
-            console.error('Failed to copy');
-            /* Rejected - text failed to copy to the clipboard */
-        });
-    }
-</script>
+    {% macro pagination() %}
+        <p>(insert pagination)</p>
+    {% endmacro %}
+
+    <div class="omni">
+
+        <section>
+            <h1>{{ topic_name }}</h1>
+            <button onclick="history.back()">Back</button>
+        </section>
+
+        <section>
+            {{ pagination() }}
+        </section>
+
+        {% for post in topic_posts %}
+            {{ forum_post(post['author'], post['time'], post['html_content'], post['index'], post['is_deleted']) }}
+        {% endfor %}
+
+        <section>
+            {{ pagination() }}
+        </section>
+
+    </div>
+
+    <script>
+        function copyLink(id) {
+            navigator.clipboard.writeText(document.getElementById(id + '-value').value).then(() => {
+                alert('Copied post link')
+                console.log('Content copied to clipboard');
+                /* Resolved - text copied to clipboard successfully */
+            },() => {
+                alert('Failed to copy post link')
+                console.error('Failed to copy');
+                /* Rejected - text failed to copy to the clipboard */
+            });
+        }
+    </script>
+{% endblock %}

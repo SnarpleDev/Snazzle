@@ -1,8 +1,43 @@
-﻿from flask import Flask, render_template, stream_template, request, redirect
+
+HOST, PORT = '127.0.0.1', 3000
+from flask import Flask, render_template, stream_template, request, redirect
 from werkzeug import exceptions as werkexcept
 import scratchdb
 debug = False
 app = Flask(__name__)
+
+REPLIT_MODE = True
+USE_SCRATCHDB = True
+subforums_data = (("Welcome", ["Announcements", "New Scratchers"]),
+        ("Making Scratch Projects", ["Help with Scripts", "Show and Tell", "Project Ideas", "Collaboration", "Requests", "Project Save & Level Codes"]),
+        ("About Scratch", ["Questions about Scratch", "Suggestions", "Bugs and Glitches", "Advanced Topics", "Connecting to the Physical World", "Scratch Extensions", "Open Source Projects"]),
+        ("Interests Beyond Scratch", ["Things I'm Making and Creating", "Things I'm Reading and Playing"]))
+
+user_data = dict(
+    theme="choco",
+    user_name="CoolScratcher123",
+    pinned_subforums=[],
+    saved_posts=[],
+    max_topic_posts=20,
+    show_deleted_posts=True
+)
+
+scratchdb.use_scratchdb(True)
+
+def get_themes():
+    return [item[7:item.index(".css")] for item in listdir("static") if item.startswith("styles-") and item.endswith(".css")]
+
+# https://stackoverflow.com/questions/34066804/disabling-caching-in-flask
+@app.after_request
+def add_header(r):
+    """
+    Stops the page from being cached so that the forums actually work correctly
+    There's gotta be a better way, though, I don't want to stop all pages, just the forums
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    return r
 
 HOST, PORT = "127.0.0.1", 3000
 
@@ -76,10 +111,9 @@ def context():
     # Play with this and the user_data dict to manipulate app state
     print(user_data)
     return dict(
-        theme=user_data["user_theme"],
-        username=user_data["user_name"],
+        theme=user_data['theme'],
+        username=user_data['user_name'],
         signed_in=False,
-        get_sfid_from_name=get_sfid_from_name,
         to_str=lambda x: str(x),
         get_author_of=scratchdb.get_author_of,
         len=len,
@@ -89,41 +123,50 @@ def context():
 
 @app.get("/")
 def index():
-    return stream_template("index.html")
-
+    """
+    The home page of the app
+    """
+    return stream_template('index.html')
 
 @app.get("/editor")
 def editor():
+    """
+    Unused editor page. Will be removed soon as part of cleanup
+    """
     # unused editor page
     return render_template("editor.html")
 
 
 @app.get("/trending")
 def trending():
+    """
+    Explore page.
+    """
+    if filter := request.args.get('filter'):
+        return render_template('trending.html', filter=filter)
+        
     return render_template("trending.html")
 
 
 @app.get("/forums")
 def categories():
-    return render_template(
-        "forums.html",
-        data=subforums_data,
-        pinned_subforums=user_data["pinned_subforums"],
-    )
+    """
+    A page that lists all the subforums in the forums
+    """
+    return render_template('forums.html', data=subforums_data, pinned_subforums=user_data["pinned_subforums"])
 
-
-@app.get("/forums/<category>")
-def topics(category):
-    topic_list = scratchdb.get_topics(category)
-    if not topic_list:
-        return
-    return stream_template("forum-topics.html", category=category, topics=topic_list)
-
-
-@app.get("/topic/<topic_id>")
-def topic(topic_id):
-    return f'<a href="https://scratch.mit.edu/discuss/topic/{topic_id}">view on scratch</a> (for now while we get the forums fully working and not slow as hell)'
-
+@app.get('/forums/<subforum>')
+def topics(subforum):
+    """
+    A page that lists all the topics in the subforum
+    """
+    
+    show_deleted_topics = False
+    
+    response = scratchdb.get_topics(subforum)
+    if response['error']:
+        return render_template('scratchdb-error.html', err=response['message'])
+    return stream_template('forum-topics.html', subforum=subforum, topics=response['topics'], pinned_subforums=user_data["pinned_subforums"], str=str)
 @app.get('/projects/scratch/<project_id>')
 def scratchproject(project_id):
     return stream_template('projects-scratch.html', project_id=project_id)
@@ -168,10 +211,30 @@ def project(project_id):
         comments = scratchdb.get_comments(project_id)
         return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name,creator_name=creator_name,comments=f'<div>{comments}</div>',ocularcolour=ocular_colour)
 
-@app.route("/settings", methods=("GET", "POST"))
+@app.get('/forums/topic/<topic_id>')
+def topic(topic_id):
+    """
+    Shows all posts in a topic.
+    """
+    
+    show_deleted_posts = False
+    
+    topic_title = scratchdb.get_topic_data(topic_id)['title']
+    topic_posts = scratchdb.get_topic_posts(topic_id)['posts']
+    return stream_template('forum-topic.html', topic_id=topic_id, topic_title=topic_title, topic_posts=topic_posts, max_posts=user_data['max_topic_posts'], show_deleted=show_deleted_posts, list=list)
+
+@app.route('/settings', methods=['GET'])
 def settings():
-    # will have a form to change theme, instead of /change_theme
-    return render_template("settings.html")
+    """
+    Settings page.
+    Change theme, status, link github account
+    """
+    for key, value in request.args.items():
+        user_data[key.replace('-', '_')] = value
+        
+    return render_template('settings.html', 
+                           themes=get_themes(),
+                           str_title=str.title)
 
 
 @app.get("/change_theme")
@@ -184,31 +247,36 @@ def theme_change():
 
 @app.get("/downloads")
 def downloads():
-    # old download page
-    return render_template("download.html")
-
+    """old download page"""
+    return render_template('download.html')
 
 @app.get("/secret/dl_mockup")
 def dl_mockup():
     return render_template("dlm.html")
-
-
-@app.get("/pin-subforum")
-def pin_sub():
-    sf = request.args.get("subforum")
-    if sf not in user_data["pinned_subforums"]:
+  
+@app.get('/pin-subforum/<sf>')
+def pin_sub(sf):
+    """route that pins a subforum"""
+    if not sf in user_data["pinned_subforums"]:
         arr = user_data["pinned_subforums"].copy()
-        arr.append(request.args.get("subforum"))
-        user_data["pinned_subforums"] = arr
-        return redirect("/forums/" + request.args.get("subforum"))
+        arr.append(sf)
+        user_data['pinned_subforums'] = arr
+        return f'<script>history.back();</script>'
     else:
-        return '<script>alert("You already pinned this!");</script>'
-
+        return '<script>alert("You already pinned this!"); history.back()</script>'
+    
+@app.get('/unpin-subforum/<sf>')
+def unpin_sub(sf):
+    """route that unpins a subforum"""
+    if sf in user_data["pinned_subforums"]:
+        arr = user_data["pinned_subforums"].copy()
+        arr.remove(sf)
+        user_data['pinned_subforums'] = arr
+        return f'<script>history.back();</script>'
 
 @app.errorhandler(werkexcept.NotFound)
-def err404(e):
-    # route for 404 error
-    return render_template("_err404.html"), 404
-
+def err404(e: Exception):
+    # route for error
+    return render_template('_error.html', errdata=e), 404
 
 app.run(host=HOST, port=PORT, debug=True)
