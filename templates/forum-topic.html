@@ -4,13 +4,18 @@
     {% macro forum_post(author, time, content, index, is_deleted) %}
 
         {% if is_deleted and show_deleted or not is_deleted %}
-            <section id="{{ index }}">
+            <section id="{{ index }}" class="forum-post">
                 <input type="text" value="{{ index }}" hidden="true" id="{{ index }}-value">
                 <p>{{ index }} <a href="javascript:void(0)" onclick="copyLink()">copy link</a></p>
-                <h2>{{ author }} at {{ time }}</h2>
-                <article>
-                    {{ content | safe }}
-                </article>
+                <div class="flex-cont">
+                    <div class="width-20 forum-aside">
+                        <h2>{{ author }}</h2>
+                        <p>{{ time }}</p>
+                    </div>
+                    <article class="width-80">   
+                        {{ content | safe }}
+                    </article>
+                </div>
             </section>
         {% endif %}
 
@@ -23,7 +28,7 @@
     <div class="omni">
 
         <section>
-            <h1>{{ topic_name }}</h1>
+            <h1>{{ topic_title }}</h1>
             <button onclick="history.back()">Back</button>
         </section>
 

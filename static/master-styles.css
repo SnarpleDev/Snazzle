@@ -1,0 +1,15 @@
+span.bb-small {
+    font-size: 0.8rem;
+}
+
+span.bb-strikethrough {
+    text-decoration: line-through;
+}
+
+.width-80 {
+    width: 80%;
+}
+
+.width-20 {
+    width: 20%;
+}

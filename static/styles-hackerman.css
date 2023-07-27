@@ -221,6 +221,18 @@ select {
 
 /* Forums scrollpane */
 
+.scrollpane.sp-forum .sp-item a {
+    color: lime;
+    transition: 0.5s color;
+    margin: 0.5em;
+}
+
+.scrollpane.sp-forum .sp-item:hover a {
+    color: white;
+    margin: 0.5em;
+}
+
+
 span.stats {
     color: lightgray;
 }

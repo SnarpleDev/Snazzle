@@ -1,19 +1,40 @@
-useDB = False #always change to true if on replit or other online ides. only affects project info for now
 import sys
 import requests
+from time import time
+from datetime import datetime
 
 SCRATCHDB = "https://scratchdb.lefty.one/v3/"
-useDB = False #always change to true if on replit or other online ides. only affects project info for now
 
+cache = {
+    'topics': {
+        'Announcements': [],
+        'New Scratchers': [],
+        'Help with Scripts': [],
+        'Show and Tell': [],
+        'Project Ideas': [],
+        'Collaboration': [],
+        'Requests': [],
+        'Project Save & Level Codes': [],
+        'Questions about Scratch': [],
+        'Suggestions': [],
+        'Bugs and Glitches': [],
+        'Advanced Topics': [],
+        'Connecting to the Physical World': [],
+        'Developing Scratch Extensions': [],
+        'Open Source Projects': [],
+        "Things I'm Making and Creati   ng": [],
+        "Things I'm Reading and Playing": [],
+        
+    },
+    'timestamp': 0
+}
 
-
-def use_scratchdb(value):
-    global USE_SDB
-    USE_SDB = value
-    
+REPLIT_MODE = None
 def replit_mode(value):
     global REPLIT_MODE
     REPLIT_MODE = value
+    print(REPLIT_MODE)
+print(REPLIT_MODE)
 
 def remove_duplicates(input_list):
     # needs to work on unhashable datatypes
@@ -33,16 +54,22 @@ def get_topics(category):
                 'message': 'sdb_' + r.json()['error'].lower()
             }
         
+        topics = remove_duplicates(r.json())
+        
+        if cache['timestamp'] < time() - 15:
+            print(time(), 'Updating cache')
+            cache['timestamp'] = time()
+            cache['topics'][category] = topics
+            
         return {
             'error': False,
-            'topics': remove_duplicates(r.json())
+            'topics': topics
         }
     except requests.exceptions.JSONDecodeError:
         return {
             'error': True,
             'message': 'lib_scratchdbdown'
         }
-
 
 def get_post_info(post_id):
     r = requests.get(f"{SCRATCHDB}forum/post/info/{post_id}")
@@ -54,7 +81,7 @@ def get_author_of(post_id):
     # r = requests.get(f'{SCRATCHDB}forum/post/info/{post_id}')
     # return r.json()['username']
 def get_project_info(project_id):
-    if useDB == True:
+    if not REPLIT_MODE:
         r = requests.get(f'https://scratchdb.lefty.one/v2/project/info/id/{project_id}')
     else:
         r = requests.get(f'https://api.scratch.mit.edu/projects/{project_id}')
@@ -62,7 +89,7 @@ def get_project_info(project_id):
 
 
 def get_comments(project_id):
-    if useDB == True:
+    if not REPLIT_MODE:
         return None # i'll do this later
     try:
         project_creator = requests.get(f'https://api.scratch.mit.edu/projects/{project_id}').json()['author']['username']
@@ -86,7 +113,7 @@ def get_featured_projects():
 def get_topic_data(topic_id):
     r = requests.get(f'{SCRATCHDB}forum/topic/info/{topic_id}')
     try:
-        if type(r.json()) != list:
+        if type(r.json()) != dict:
             return {
                 'error': True,
                 'message': 'sdb_' + r.json()['error'].lower()
@@ -107,15 +134,9 @@ def get_topic_posts(topic_id, page = 0, order="oldest"):
     # post['author'], post['time'], post['html_content'], post['index'], post['is_deleted']
     try:
         if type(r.json()) != list:
-            return {
-                'error': True,
-                'message': 'sdb_' + r.json()['error'].lower()
-            }
+            return {'error': True, 'message': 'sdb_' + r.json()['error'].lower()}
         
-        return {
-            'error': False,
-            'posts': [{'author': post['username'], 'time': post['time']['first_checked'], 'html_content': post['content']['html'], 'is_deleted': post['deleted']} for post in r.json()]
-        }
+        return {'error': False, 'posts': [{'author': post['username'], 'time': post['time']['first_checked'], 'html_content': post['content']['html'], 'is_deleted': post['deleted']} for post in r.json()]}
     except requests.exceptions.JSONDecodeError:
         return {
             'error': True,

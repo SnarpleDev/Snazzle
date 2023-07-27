@@ -267,11 +267,11 @@ select:hover {
 .scrollpane.sp-forum .sp-item a {
     color: #ca6120;
     transition: 0.5s color;
+    margin: 0.5em;
 }
 
 .scrollpane.sp-forum .sp-item:hover a {
     color: #ff9654;
-    margin: 1em;
 }
 
 span.stats {

@@ -8,6 +8,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mynerve&display=swap');
 
+
+
 body {
 
     background-color: #282320;
@@ -253,6 +255,7 @@ select:hover {
 .scrollpane.sp-forum .sp-item a {
     color: #ca6120;
     transition: 0.5s color;
+    margin: 0.5em;
 }
 
 .scrollpane.sp-forum .sp-item:hover a {
@@ -413,6 +416,15 @@ img {
     border-radius: 10px;
 }
 
+.forum-post * {
+    max-width: 100%;
+}
+
+.forum-post blockquote img {
+    max-width: 50%;
+    max-height: 50%;
+}
+
 .sp-forum div.sp-item {
     transition: all 0.3s ease;
     padding: 10px;
@@ -430,7 +442,7 @@ img {
     display: inline;
 }
 
-blockquote {
+blockquote, .forum-aside {
     background-color: #803d14;
     box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
     border-radius: 10px;
