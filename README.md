@@ -1,3 +1,6 @@
+# NOTICE TO CONTRIBUTORS
+Please wait until I'm done with the `subforum-rework` branch to merge PRs, otherwise we'll be in 'merge hell' where we can't merge anything because of conflicts
+
 # Snazzle
 A better frontend for Scratch, built by the community, for the community
 
