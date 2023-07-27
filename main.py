@@ -185,7 +185,7 @@ def project(project_id):
             project_name = "A scratch project..."
             creator_name = "A scratch user..."
     theme = user_data["user_theme"]
-    if theme == "choco":
+    if theme == "choco":  #add new elif at the end
         colour = "%23282320"
     elif theme == "hackerman":
         colour = "%23212820"
@@ -197,6 +197,8 @@ def project(project_id):
         colour = "%232e3440"
     elif theme == "gruvbox":
         colour = "%23282828"
+   #elif theme == "new theme":
+       #colour = "%23[hex colour]"
     ocular = scratchdb.get_ocular(creator_name)
     ocular_colour = ocular["color"]
     if ocular_colour == None or ocular_colour == 'null':
