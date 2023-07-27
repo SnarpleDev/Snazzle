@@ -3,6 +3,7 @@ HOST, PORT = '127.0.0.1', 3000
 from flask import Flask, render_template, stream_template, request, redirect
 from werkzeug import exceptions as werkexcept
 import scratchdb
+import os
 debug = False
 app = Flask(__name__)
 
@@ -25,7 +26,7 @@ user_data = dict(
 scratchdb.use_scratchdb(True)
 
 def get_themes():
-    return [item[7:item.index(".css")] for item in listdir("static") if item.startswith("styles-") and item.endswith(".css")]
+    return [item[7:item.index(".css")] for item in os.listdir("static") if item.startswith("styles-") and item.endswith(".css")]
 
 # https://stackoverflow.com/questions/34066804/disabling-caching-in-flask
 @app.after_request
@@ -111,7 +112,7 @@ def context():
     # Play with this and the user_data dict to manipulate app state
     print(user_data)
     return dict(
-        theme=user_data['theme'],
+        theme=user_data['user_theme'],
         username=user_data['user_name'],
         signed_in=False,
         to_str=lambda x: str(x),
