@@ -1,4 +1,5 @@
-This is the branch to create stable releases from.
+This is the branch to create stable releases from. Every once in a while, I'll make one of these, which is essentially a frozen version of `main` that's stable to use as a release branch.
+
 # Snazzle
 A better frontend for Scratch, built by the community, for the community
 
