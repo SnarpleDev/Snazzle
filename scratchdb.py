@@ -1,9 +1,6 @@
 useDB = False #always change to true if on replit or other online ides. only affects project info for now
-
-
-import requests
 import sys
-from collections import OrderedDict
+import requests
 
 SCRATCHDB = "https://scratchdb.lefty.one/v3/"
 useDB = False #always change to true if on replit or other online ides. only affects project info for now
@@ -63,6 +60,7 @@ def get_project_info(project_id):
         r = requests.get(f'https://api.scratch.mit.edu/projects/{project_id}')
     return r.json()
 
+
 def get_comments(project_id):
     if useDB == True:
         return None # i'll do this later
@@ -80,6 +78,12 @@ def get_ocular(username):
     except:
         return {"name":None,"status":None,"color":None} #i had  to spell colour wrong for it to work
     return info.json()
+
+def get_featured_projects():
+    r = requests.get("https://api.scratch.mit.edu/proxy/featured")
+    return r.json()
+
+>
 def get_topic_data(topic_id):
     r = requests.get(f'{SCRATCHDB}forum/topic/info/{topic_id}')
     return r.json()

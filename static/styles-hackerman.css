@@ -19,7 +19,18 @@ body {
     margin-right: 10em;
 }
 
-h1, h2, h3, h4, h5, h6, p, div, button, input, select, article {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+button,
+input,
+select,
+article {
     /* font-family: 'Mynerve', sans-serif; */
     font-family: 'VT323', monospace;
 }
@@ -82,9 +93,11 @@ nav {
     font-weight: bold;
 }
 
-button, input, select {
+button,
+input,
+select {
     padding: 10px;
-    
+
     border: 1px solid hsl(112, 100%, 25%);
     background-color: hsl(112, 100%, 12%);
     color: white;
@@ -100,13 +113,15 @@ button:hover {
     cursor: pointer;
 }
 
-select { cursor: pointer; }
+select {
+    cursor: pointer;
+}
 
 .scrollpane {
 
     background-color: hsl(112, 2%, 43%);
     max-width: 100%;
-    
+
     display: flex;
     box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
 }
@@ -138,7 +153,7 @@ select { cursor: pointer; }
 /* Projects scrollpane */
 .scrollpane.sp-projects {
     min-height: 50px;
-    max-height: 200px;
+    max-height: 250px;
 }
 
 .scrollpane.sp-projects .sp-item {
@@ -148,17 +163,19 @@ select { cursor: pointer; }
     min-height: 70px;
     max-height: 180px;
     min-width: 140px;
-    
+
     padding: 1rem;
-    
+
 }
 
-.scrollpane.sp-projects .sp-item:hover, .project-grid .pg-project:hover {
+.scrollpane.sp-projects .sp-item:hover,
+.project-grid .pg-project:hover {
     background-color: hsl(112, 100%, 79%);
     color: black;
 }
 
-.scrollpane .sp-item:hover, .project-grid .pg-project:hover {
+.scrollpane .sp-item:hover,
+.project-grid .pg-project:hover {
     cursor: pointer;
 }
 
@@ -175,10 +192,10 @@ select { cursor: pointer; }
     min-height: 80px;
     max-height: 200px;
     min-width: 180px;
-    
+
     padding: 1rem;
-    
-    
+
+
 }
 
 .scrollpane.sp-studios .sp-item:hover {
@@ -190,6 +207,7 @@ select { cursor: pointer; }
     flex-flow: column nowrap;
     display: flex;
 }
+
 /* Filters scrollpane */
 
 .scrollpane.sp-filters .sp-item {
@@ -247,7 +265,7 @@ section {
     margin: 0.1em;
     background: rgba(66, 66, 66, 0.643);
     padding: 10px;
-    
+
     box-shadow: 0px 0px 10px rgba(66, 66, 66, 0.643);
     color: white;
 }
@@ -271,33 +289,43 @@ section {
     0% {
         transform: rotateZ(10deg)
     }
+
     5% {
         transform: rotateZ(-9deg)
     }
+
     10% {
         transform: rotateZ(8deg)
     }
+
     15% {
         transform: rotateZ(-7deg)
     }
+
     20% {
         transform: rotateZ(6deg)
     }
+
     25% {
         transform: rotateZ(-5deg)
     }
+
     30% {
         transform: rotateZ(4deg)
     }
+
     35% {
         transform: rotateZ(-3deg)
     }
+
     40% {
         transform: rotateZ(2deg)
     }
+
     45% {
         transform: rotateZ(-1deg)
     }
+
     50% {
         transform: rotateZ(0deg)
     }
@@ -318,9 +346,9 @@ section.project-grid {
     max-height: 180px;
     max-width: 130px;
     min-width: 130px;
-    
+
     padding: 1rem;
-    
+
 }
 
 a {
