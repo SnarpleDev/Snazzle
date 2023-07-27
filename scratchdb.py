@@ -83,7 +83,6 @@ def get_featured_projects():
     r = requests.get("https://api.scratch.mit.edu/proxy/featured")
     return r.json()
 
->
 def get_topic_data(topic_id):
     r = requests.get(f'{SCRATCHDB}forum/topic/info/{topic_id}')
     return r.json()
