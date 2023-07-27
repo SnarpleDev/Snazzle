@@ -416,36 +416,3 @@ img {
     border-radius: 10px;
 }
 
-.forum-post * {
-    max-width: 100%;
-}
-
-.forum-post blockquote img {
-    max-width: 50%;
-    max-height: 50%;
-}
-
-.sp-forum div.sp-item {
-    transition: all 0.3s ease;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ca6120;
-    background-color: #00000067;
-    color: white;
-}
-
-.sp-item a > i.pin-btn, .sp-item a > span.pin-btn {
-    display: none;
-}
-
-.sp-item:hover a > i.pin-btn, .sp-item:hover a > span.pin-btn {
-    display: inline;
-}
-
-blockquote, .forum-aside {
-    background-color: #803d14;
-    box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 5px;
-}
