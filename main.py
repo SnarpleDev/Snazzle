@@ -73,7 +73,7 @@ def add_header(r):
     """
     Stops forum pages from being cached so that they actually work correctly
     """
-    if "/forums" in request.url:
+    if "/forums" in request.url or "/settings" in request.url:
         r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
         r.headers["Pragma"] = "no-cache"
         r.headers["Expires"] = "0"
