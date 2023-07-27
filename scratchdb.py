@@ -85,7 +85,22 @@ def get_featured_projects():
 
 def get_topic_data(topic_id):
     r = requests.get(f'{SCRATCHDB}forum/topic/info/{topic_id}')
-    return r.json()
+    try:
+        if type(r.json()) != list:
+            return {
+                'error': True,
+                'message': 'sdb_' + r.json()['error'].lower()
+            }
+        
+        return {
+            'error': False,
+            'data': r.json()
+        }
+    except requests.exceptions.JSONDecodeError:
+        return {
+            'error': True,
+            'message': 'lib_scratchdbdown'
+        }
 
 def get_topic_posts(topic_id, page = 0, order="oldest"):
     r = requests.get(f'{SCRATCHDB}forum/topic/posts/{topic_id}/{page}?o={order}')
