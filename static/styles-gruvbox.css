@@ -425,3 +425,13 @@ a:hover {
 img {
     border-radius: 10px;
 }
+
+.proj-creator {
+    color: #ca6120;
+}
+
+p.bb-quote-author {
+    color: #ebdbb2;
+    font-size: 0.9rem;
+    font-style: italic;
+}

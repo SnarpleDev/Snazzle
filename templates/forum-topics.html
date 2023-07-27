@@ -1,5 +1,13 @@
 {% extends '_base.html' %}
 
+{% block title %}Forums - {{ subforum }}{% endblock %}
+
+{% macro pagination() %}
+    <a href="?page={{ topic_page - 1}}">Previous</a>
+    |
+    <a href="?page={{ topic_page + 1}}">Next</a>
+{% endmacro %}
+
 {% block content %}
 <div class="omni">
     <section>
@@ -13,12 +21,14 @@
                 <button type="submit">Pin</button>
             </a>
         {% endif %}
+
         <h1>{{ subforum }}</h1>
-        <p>Loaded {{ len(topics) }} posts.</p>
+        <p>Loaded {{ len(topics) }} topics.</p>
+        {{ pagination() }}
     </section>
     <div class="scrollpane sp-forum sp-vert">
         {% for topic in topics %}
-            <a href="{{'topic/' + str(topic.id)}}"><button style="width: 100%;">{{ topic.title }} by {{ get_author_of(topic.id) }}</button></a>
+            <a href="{{'topic/' + str(topic.id) + '?page=0'}}"><button style="width: 100%;">{{ topic.title }} by {{ get_author_of(topic.id) }}</button></a>
         {% endfor %}
     </div>
 </div>

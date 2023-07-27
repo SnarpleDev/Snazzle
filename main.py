@@ -5,7 +5,7 @@ import scratchdb
 
 REPLIT_MODE = True
 USE_SCRATCHDB = True
-HOST, PORT = "127.0.0.1", 3000
+HOST, PORT = "localhost", 3000
 debug = True
 
 """
@@ -148,6 +148,7 @@ def get_name_from_sfid(sfid):
 # def split_comments(json):
 
 
+
 @app.context_processor
 def context():
     # Play with this and the user_data dict to manipulate app state
@@ -159,6 +160,7 @@ def context():
         get_author_of=scratchdb.get_author_of,
         len=len,
         host=HOST,
+        get_status=scratchdb.get_status,
     )
 
 
@@ -220,7 +222,9 @@ def topics(subforum):
 
     show_deleted_topics = False
 
-    response = scratchdb.get_topics(subforum)
+    sf_page = request.args.get('page')
+    
+    response = scratchdb.get_topics(subforum, sf_page)
     if response["error"]:
         return render_template("scratchdb-error.html", err=response["message"])
     return stream_template(
@@ -228,7 +232,10 @@ def topics(subforum):
         subforum=subforum,
         topics=response["topics"],
         pinned_subforums=user_data["pinned_subforums"],
+        url=request.url,
         str=str,
+        topic_page=int(sf_page),
+        len=len
     )
 
 
@@ -303,8 +310,10 @@ def topic(topic_id):
 
     show_deleted_posts = False
 
+    topic_page = request.args.get('page')
+    
     topic_data = scratchdb.get_topic_data(topic_id)
-    topic_posts = scratchdb.get_topic_posts(topic_id)
+    topic_posts = scratchdb.get_topic_posts(topic_id, page=topic_page)
 
     if topic_data["error"]:
         return render_template("scratchdb-error.html", err=topic_data["message"])
@@ -315,9 +324,12 @@ def topic(topic_id):
         topic_id=topic_id,
         topic_title=topic_data["data"]["title"],
         topic_posts=topic_posts["posts"],
+        topic_page=int(topic_page),
         max_posts=user_data["max_topic_posts"],
         show_deleted=show_deleted_posts,
         list=list,
+        len=len,
+        get_pfp=scratchdb.get_pfp_url,
     )
 
 

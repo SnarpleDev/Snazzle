@@ -1,18 +1,21 @@
 {% extends '_base.html' %}
 
+{% block title %}Forums - {{ topic_title }}{% endblock %}
+
 {% block content %}
     {% macro forum_post(author, time, content, index, is_deleted) %}
 
         {% if is_deleted and show_deleted or not is_deleted %}
             <section id="{{ index }}" class="forum-post">
                 <input type="text" value="{{ index }}" hidden="true" id="{{ index }}-value">
-                <p>{{ index }} <a href="javascript:void(0)" onclick="copyLink()">copy link</a></p>
                 <div class="flex-cont">
                     <div class="width-20 forum-aside">
+                        <img src="{{ get_pfp(author) }}" alt="{{ author }}'s profile picture">
                         <h2>{{ author }}</h2>
+                        <p>{{ author_status }}</p>
                         <p>{{ time }}</p>
                     </div>
-                    <article class="width-80">   
+                    <article class="width-80">
                         {{ content | safe }}
                     </article>
                 </div>
@@ -21,8 +24,12 @@
 
     {% endmacro %}
 
-    {% macro pagination() %}
-        <p>(insert pagination)</p>
+    {% macro pagination(route) %}
+    <p>
+        <a href="{{ route }}?page={{ topic_page - 1}}">Previous</a>
+        |
+        <a href="{{ route }}?page={{ topic_page + 1}}">Next</a>
+    </p>
     {% endmacro %}
 
     <div class="omni">
@@ -33,7 +40,7 @@
         </section>
 
         <section>
-            {{ pagination() }}
+            {{ pagination("/forums/topic/{{ topic_id }}") }}
         </section>
 
         {% for post in topic_posts %}
@@ -41,22 +48,9 @@
         {% endfor %}
 
         <section>
-            {{ pagination() }}
+            {{ pagination("/forums/topic/{{ topic_id }}") }}
+            <button onclick="history.back()">Back</button>
         </section>
 
     </div>
-
-    <script>
-        function copyLink(id) {
-            navigator.clipboard.writeText(document.getElementById(id + '-value').value).then(() => {
-                alert('Copied post link')
-                console.log('Content copied to clipboard');
-                /* Resolved - text copied to clipboard successfully */
-            },() => {
-                alert('Failed to copy post link')
-                console.error('Failed to copy');
-                /* Rejected - text failed to copy to the clipboard */
-            });
-        }
-    </script>
 {% endblock %}
