@@ -20,15 +20,6 @@ subforums_data = (("Welcome", ["Announcements", "New Scratchers"]),
         ("About Scratch", ["Questions about Scratch", "Suggestions", "Bugs and Glitches", "Advanced Topics", "Connecting to the Physical World", "Scratch Extensions", "Open Source Projects"]),
         ("Interests Beyond Scratch", ["Things I'm Making and Creating", "Things I'm Reading and Playing"]))
 
-user_data = dict(
-    theme="choco",
-    user_name="CoolScratcher123",
-    pinned_subforums=[],
-    saved_posts=[],
-    max_topic_posts=20,
-    show_deleted_posts=True
-)
-
 scratchdb.use_scratchdb(True)
 
 def get_themes():
@@ -118,7 +109,7 @@ def context():
     # Play with this and the user_data dict to manipulate app state
     print(user_data)
     return dict(
-        theme=user_data['theme'],
+        theme=user_data['user_theme'],
         username=user_data['user_name'],
         signed_in=False,
         to_str=lambda x: str(x),
