@@ -1,3 +1,4 @@
+This is the branch to create stable releases from.
 # Snazzle
 A better frontend for Scratch, built by the community, for the community
 
