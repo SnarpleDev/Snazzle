@@ -200,16 +200,6 @@ def settings():
                            themes=get_themes(),
                            str_title=str.title)
 
-@app.get("/topic/<topic_id>")
-def topic(topic_id):
-    return f'<a href="https://scratch.mit.edu/discuss/topic/{topic_id}">view on scratch</a> (for now while we get the forums fully working and not slow as hell)'
-
-
-@app.route("/settings", methods=("GET", "POST"))
-def settings():
-    # will have a form to change theme, instead of /change_theme
-    return render_template("settings.html")
-
 
 @app.get("/change_theme")
 def theme_change():
@@ -247,18 +237,6 @@ def unpin_sub(sf):
         arr.remove(sf)
         user_data['pinned_subforums'] = arr
         return f'<script>history.back();</script>'
-
-@app.get("/pin-subforum")
-def pin_sub():
-    sf = request.args.get("subforum")
-    if sf not in user_data["pinned_subforums"]:
-        arr = user_data["pinned_subforums"].copy()
-        arr.append(request.args.get("subforum"))
-        user_data["pinned_subforums"] = arr
-        return redirect("/forums/" + request.args.get("subforum"))
-    else:
-        return '<script>alert("This is not pinned!");</script>'
-
 
 @app.errorhandler(werkexcept.NotFound)
 def err404(e: Exception):
