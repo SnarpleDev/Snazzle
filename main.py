@@ -1,20 +1,14 @@
-REPLIT_MODE = True
-USE_SCRATCHDB = True
+
 HOST, PORT = '127.0.0.1', 3000
-
-"""
-      **** Snazzle Server Code ****
- Made in Flask by the Snazzle team over at 
-https://github.com/redstone-scratch/Snazzle/
-"""
-
 from flask import Flask, render_template, stream_template, request, redirect
-from os import listdir
 from werkzeug import exceptions as werkexcept
 import scratchdb
-
+import os
+debug = False
 app = Flask(__name__)
 
+REPLIT_MODE = True
+USE_SCRATCHDB = True
 subforums_data = (("Welcome", ["Announcements", "New Scratchers"]),
         ("Making Scratch Projects", ["Help with Scripts", "Show and Tell", "Project Ideas", "Collaboration", "Requests", "Project Save & Level Codes"]),
         ("About Scratch", ["Questions about Scratch", "Suggestions", "Bugs and Glitches", "Advanced Topics", "Connecting to the Physical World", "Scratch Extensions", "Open Source Projects"]),
@@ -23,7 +17,7 @@ subforums_data = (("Welcome", ["Announcements", "New Scratchers"]),
 scratchdb.use_scratchdb(True)
 
 def get_themes():
-    return [item[7:item.index(".css")] for item in listdir("static") if item.startswith("styles-") and item.endswith(".css")]
+    return [item[7:item.index(".css")] for item in os.listdir("static") if item.startswith("styles-") and item.endswith(".css")]
 
 # https://stackoverflow.com/questions/34066804/disabling-caching-in-flask
 @app.after_request
@@ -69,7 +63,6 @@ subforums_data = (
         ["Things I'm Making and Creating", "Things I'm Reading and Playing"],
     ),
 )
-
 user_data = dict(user_theme="choco", user_name="CoolScratcher123", pinned_subforums=[])
 
 categories = {
@@ -103,6 +96,7 @@ def get_name_from_sfid(sfid):
         arr[value] = key
     return arr
 
+#def split_comments(json):
 
 @app.context_processor
 def context():
@@ -172,6 +166,49 @@ def topics(subforum):
     if response['error']:
         return render_template('scratchdb-error.html', err=response['message'])
     return stream_template('forum-topics.html', subforum=subforum, topics=response['topics'], pinned_subforums=user_data["pinned_subforums"], str=str)
+@app.get('/projects/scratch/<project_id>')
+def scratchproject(project_id):
+    return stream_template('projects-scratch.html', project_id=project_id)
+
+@app.get('/projects/<project_id>')
+def project(project_id):
+    global user_data
+    project_info = scratchdb.get_project_info(project_id)
+    try:
+        project_name = project_info['title']
+        creator_name = project_info['username']
+    except:
+        try:
+            project_name = project_info['title']
+            creator_name = project_info['author']['username']
+        except:
+            project_name = "A scratch project..."
+            creator_name = "a scratch user..."
+    theme = user_data["user_theme"]
+    if theme == "choco":
+        colour = "%23282320"
+    elif theme == "hackerman":
+        colour = "%23212820"
+    elif theme == "ice":
+        colour = "%23202d38"
+    elif theme == "newspaper":
+        colour = "%23c8c8c8"
+    elif theme == "nord":
+        colour = "%232e3440"
+    elif theme == "gruvbox":
+        colour = "%23282828"
+    ocular = scratchdb.get_ocular(creator_name)
+    ocular_colour = ocular["color"]
+    if ocular_colour == None or ocular_colour == 'null':
+        ocular_colour = "#999999"
+    else:
+        creator_name = str(creator_name) + " ●" #add the dot
+    ocular_colour = f'color:{ocular_colour}'
+    if debug == False:
+        return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name,creator_name=creator_name,ocularcolour=ocular_colour)
+    else:
+        comments = scratchdb.get_comments(project_id)
+        return stream_template('projects.html', project_id=project_id, colour=colour,name=project_name,creator_name=creator_name,comments=f'<div>{comments}</div>',ocularcolour=ocular_colour)
 
 @app.get('/forums/topic/<topic_id>')
 def topic(topic_id):

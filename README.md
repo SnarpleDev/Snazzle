@@ -17,9 +17,10 @@ But for now, this is how you do it:
 2. (optional but recommended) Create a Python virtual environment. We recommend Python 3.11 or later.
 3. Run `pip3 install -r requirements.txt`.
    > If you are on an Arch based linux distro, you will have to run "sudo pacman -S python-flask
-4. Once deps are installed, run `python3 main.py`. This will set up a Flask server at `127.0.0.1:3000`. If you find any bugs, please report them.
+4. If you are using Replit or another website blocked from Scratch's API, change the variable "useDB" at the top of scratchdb.py to True.
+5. Once deps are installed, run `python3 main.py`. This will set up a Flask server at `127.0.0.1:3000`. If you find any bugs, please report them.
    > If you're on Windows, run `py main.py` instead.
-5. Go to `127.0.0.1:3000` in your favourite browser and play around with it!
+6. Go to `127.0.0.1:3000` in your favourite browser and play around with it!
 
 ## Hosting on Replit
-Just Import from Github. In the future, you'll have to enable a variable called `REPLIT_MODE` at the very top of `main.py`.
+Some features currently won't work properly due to usage of Scratch's API.

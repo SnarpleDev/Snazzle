@@ -1,7 +1,10 @@
+useDB = False #always change to true if on replit or other online ides. only affects project info for now
 import sys
 import requests
 
 SCRATCHDB = "https://scratchdb.lefty.one/v3/"
+useDB = False #always change to true if on replit or other online ides. only affects project info for now
+
 
 
 def use_scratchdb(value):
@@ -50,6 +53,31 @@ def get_author_of(post_id):
     return "user"
     # r = requests.get(f'{SCRATCHDB}forum/post/info/{post_id}')
     # return r.json()['username']
+def get_project_info(project_id):
+    if useDB == True:
+        r = requests.get(f'https://scratchdb.lefty.one/v2/project/info/id/{project_id}')
+    else:
+        r = requests.get(f'https://api.scratch.mit.edu/projects/{project_id}')
+    return r.json()
+
+
+def get_comments(project_id):
+    if useDB == True:
+        return None # i'll do this later
+    try:
+        project_creator = requests.get(f'https://api.scratch.mit.edu/projects/{project_id}').json()['author']['username']
+    except:
+        return None
+    r = requests.get(f'https://api.scratch.mit.edu/users/{project_creator}/projects/{project_id}/comments?limit=40')
+    return r.json()
+
+def get_ocular(username):
+    try:
+        info = requests.get(f'https://my-ocular.jeffalo.net/api/user/{username}')
+        a = info.json()["name"]
+    except:
+        return {"name":None,"status":None,"color":None} #i had  to spell colour wrong for it to work
+    return info.json()
 
 def get_featured_projects():
     r = requests.get("https://api.scratch.mit.edu/proxy/featured")
