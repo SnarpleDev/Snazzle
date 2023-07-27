@@ -1,51 +1,57 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Snazzle</title>
   <style>
     html {
       scroll-behavior: smooth;
     }
+
     /* for mobile */
     @media screen and (max-width: 768px) {
       .flex-cont {
         display: block;
       }
+
       [class*="width-"] {
         display: block;
         width: 100% !important;
       }
     }
+
     #banner div section {
       font-size: 1.5em;
     }
+
     h1:not(#banner section h1) {
       font-size: 3em;
     }
   </style>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles-' + (theme or 'default') + '.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='master-styles.css') }}">
-  
+
   <script src="https://kit.fontawesome.com/4bcf06ab35.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
   <nav>
     <div class="navbar-container">
       <div class="logo"><a href="/">Snazzle</a></div>
       <ul class="nav-links">
-        <li><a href="/trending"><button>Explore</button></a></li>
-        <li><a href="/forums"><button>Discuss</button></a></li>
-        <li><a href="/settings"><button class="secondary">Settings</button></a></li>
+        <li><a href="/trending"><button><i class="fa-solid fa-earth-americas"></i> Explore</button></a></li>
+        <li><a href="/forums"><button><i class="fa-regular fa-comments"></i> Discuss</button></a></li>
+        <li><a href="/settings"><button class="secondary"><i class="fa-solid fa-gear"></i> Settings</button></a></li>
       </ul>
     </div>
   </nav>
 
   <!-- Your content goes here -->
   {% block content %}
-    <section>
-      <h1>Something went wrong.</h1>
-      <p>The page didn't load properly.</p>
-    </section>
+  <section>
+    <h1>Something went wrong.</h1>
+    <p>The page didn't load properly.</p>
+  </section>
   {% endblock %}
 
   {% include '_footer.html' %}

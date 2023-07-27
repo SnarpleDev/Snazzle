@@ -107,7 +107,6 @@ def get_name_from_sfid(sfid):
 @app.context_processor
 def context():
     # Play with this and the user_data dict to manipulate app state
-    print(user_data)
     return dict(
         theme=user_data['user_theme'],
         username=user_data['user_name'],
@@ -124,7 +123,15 @@ def index():
     """
     The home page of the app
     """
-    return stream_template('index.html')
+    projects = scratchdb.get_featured_projects()
+    return stream_template(
+        "index.html",
+        featured_projects=projects["community_featured_projects"],
+        featured_studios=projects["community_featured_studios"],
+        trending_projects=projects["community_newest_projects"],
+        loving=projects["community_most_loved_projects"],
+        remixed=projects["community_most_remixed_projects"],
+    )
 
 @app.get("/editor")
 def editor():

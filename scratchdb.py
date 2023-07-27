@@ -1,6 +1,5 @@
-import requests
 import sys
-from collections import OrderedDict
+import requests
 
 SCRATCHDB = "https://scratchdb.lefty.one/v3/"
 
@@ -51,6 +50,10 @@ def get_author_of(post_id):
     return "user"
     # r = requests.get(f'{SCRATCHDB}forum/post/info/{post_id}')
     # return r.json()['username']
+
+def get_featured_projects():
+    r = requests.get("https://api.scratch.mit.edu/proxy/featured")
+    return r.json()
 
 def get_topic_data(topic_id):
     r = requests.get(f'{SCRATCHDB}forum/topic/info/{topic_id}')
