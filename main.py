@@ -198,26 +198,7 @@ def settings():
         
     return render_template('settings.html', 
                            themes=get_themes(),
-                           str_title=str.title,)
-
-# @app.post('/change-setting')
-# def theme_change():
-
-#     return redirect('/settings')
-    return render_template(
-        "forums.html",
-        data=subforums_data,
-        pinned_subforums=user_data["pinned_subforums"],
-    )
-
-
-@app.get("/forums/<category>")
-def topics(category):
-    topic_list = scratchdb.get_topics(category)
-    if not topic_list:
-        return
-    return stream_template("forum-topics.html", category=category, topics=topic_list)
-
+                           str_title=str.title)
 
 @app.get("/topic/<topic_id>")
 def topic(topic_id):
