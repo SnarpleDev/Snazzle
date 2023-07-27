@@ -6,7 +6,7 @@
     <section>
         <h1>Settings</h1>
         <p>Customize Snazzle to your liking.</p>
-    </section>
+    </section><br>
 
 
     <!--
@@ -35,12 +35,12 @@
     <section>
         <form action="/settings" id="form">
             <h2>Change Theme</h2>
-            <label for="theme">Theme 
-                <select name="theme">
+            <label for="theme">Theme
+                <select name="theme" id="theme_value" oninput="update_url()">
                     <!-- <optgroup label="Dark theme"> -->
                     <option value="default">--- Select an option ---</option>
                     {% for theme in themes %}
-                        <option value="{{ theme }}">{{ str_title(theme) }}</option>
+                    <option value="{{ theme }}">{{ str_title(theme) }}</option>
                     {% endfor %}
                     <!-- </optgroup> -->
                 </select>
@@ -48,6 +48,7 @@
             <button type="submit">Change Theme</button>
         </form>
     </section>
+    <br>
     <!-- <section>
         <h2>Link Accounts (coming soon)</h2>
         <label for="github">GitHub <button><span class="fa-brands fa-github"></span> Link</button></label>
@@ -55,9 +56,11 @@
     <section>
         <form action="/settings">
             <h2>Forums</h2>
-            <label for="max-topic-posts">Maximum visible posts on a page <input type="number" id="max-posts" name="max-posts" placeholder='20'></label>
+            <label for="max-topic-posts">Maximum visible posts on a page <input type="number" id="max-posts"
+                    name="max-posts" placeholder='20'></label>
             <br>
-            <label for="show-deleted-posts">Show deleted posts on a topic <input type="checkbox" id="show-deleted-posts" name="show-deleted-posts"></label>
+            <label for="show-deleted-posts">Show deleted posts on a topic <input type="checkbox" id="show-deleted-posts"
+                    name="show-deleted-posts"></label>
         </form>
     </section>
     <!-- <section>
