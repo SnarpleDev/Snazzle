@@ -220,6 +220,11 @@ def topic(topic_id):
     
     topic_title = scratchdb.get_topic_data(topic_id)['title']
     topic_posts = scratchdb.get_topic_posts(topic_id)['posts']
+    
+    if topic_title['error']:
+        return render_template('scratchdb-error.html', err=topic_title['message'])
+    if topic_posts['error']:
+        return render_template('scratchdb-error.html', err=topic_posts['message'])
     return stream_template('forum-topic.html', topic_id=topic_id, topic_title=topic_title, topic_posts=topic_posts, max_posts=user_data['max_topic_posts'], show_deleted=show_deleted_posts, list=list)
 
 @app.route('/settings', methods=['GET'])
