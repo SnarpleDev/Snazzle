@@ -63,7 +63,7 @@ subforums_data = (
         ["Things I'm Making and Creating", "Things I'm Reading and Playing"],
     ),
 )
-user_data = dict(user_theme="choco", user_name="CoolScratcher123", pinned_subforums=[])
+user_data = dict(user_theme="choco", user_name="CoolScratcher123", pinned_subforums=[],max_topic_posts=20)
 
 categories = {
     "Announcements": 5,
