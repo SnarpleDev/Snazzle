@@ -51,7 +51,7 @@ def get_author_of(post_id):
 
 @lru_cache(maxsize=15)
 def get_project_info(project_id):
-    if not REPLIT_MODE:
+    if not useDB:
         r = requests.get(f'https://scratchdb.lefty.one/v2/project/info/id/{project_id}')
     else:
         r = requests.get(f"https://api.scratch.mit.edu/projects/{project_id}")
