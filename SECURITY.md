@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Snazzle basically works on a rolling release, so it's always the latest version of Snazzle.
+We support just the latest `release-x.y` branch and its `release-x.y.z` versions, so you're always going to want to update your Snazzle to the latest version.
 
 ## Reporting a Vulnerability
 

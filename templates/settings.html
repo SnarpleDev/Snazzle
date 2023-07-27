@@ -36,7 +36,7 @@
         <form action="/settings" id="form">
             <h2>Change Theme</h2>
             <label for="theme">Theme 
-                <select onchange="changeForm()" name="theme" id="theme_value" oninput="update_url()">
+                <select name="theme">
                     <!-- <optgroup label="Dark theme"> -->
                     <option value="default">--- Select an option ---</option>
                     {% for theme in themes %}
@@ -66,10 +66,6 @@
     </section> -->
 </div>
 <script>
-function changeForm() {
-    console.log("/settings" + "?theme=" + document.getElementById('theme_value').value);
-    document.getElementById('form').action = "/change_theme" + "?theme=" + document.getElementById('theme_value').value;
-}
 </script>
 
 {% endblock %}
