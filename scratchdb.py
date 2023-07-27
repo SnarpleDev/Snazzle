@@ -97,7 +97,7 @@ def get_featured_projects():
 def get_topic_data(topic_id):
     r = requests.get(f"{SCRATCHDB}forum/topic/info/{topic_id}")
     try:
-        if not isinstance(r.json(), list):
+        if "error" in r.json().keys():
             return {"error": True, "message": "sdb_" + r.json()["error"].lower()}
 
         return {"error": False, "data": r.json()}
@@ -119,21 +119,6 @@ def get_topic_posts(topic_id, page=0, order="oldest"):
     r = requests.get(f"{SCRATCHDB}forum/topic/posts/{topic_id}/{page}?o={order}")
     # post['author'], post['time'], post['html_content'], post['index'], post['is_deleted']
     try:
-        if not isinstance(r.json(), list):
-            return {"error": True, "message": "sdb_" + r.json()["error"].lower()}
-
-        return {
-            "error": False,
-            "posts": [
-                {
-                    "author": post["username"],
-                    "time": post["time"]["first_checked"],
-                    "html_content": post["content"]["html"],
-                    "is_deleted": post["deleted"],
-                }
-                for post in r.json()
-            ],
-        }
         if type(r.json()) != list:
             return {'error': True, 'message': 'sdb_' + r.json()['error'].lower()}
         

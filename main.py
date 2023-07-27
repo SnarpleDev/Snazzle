@@ -314,7 +314,7 @@ def topic(topic_id):
         "forum-topic.html",
         topic_id=topic_id,
         topic_title=topic_data["data"]["title"],
-        topic_posts=topic_posts,
+        topic_posts=topic_posts["posts"],
         max_posts=user_data["max_topic_posts"],
         show_deleted=show_deleted_posts,
         list=list,
