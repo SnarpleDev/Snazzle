@@ -350,3 +350,6 @@ blockquote, .forum-aside {
     padding: 10px;
     margin: 5px;
 }
+.bb-big {
+    font-size: 1.8rem;
+}

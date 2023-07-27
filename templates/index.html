@@ -3,7 +3,7 @@
 {% block content %}
 <div class="omni">
     {% if signed_in %}
-    {% include 'loggedin.html' %}
+        {% include 'loggedin.html' %}
     {% else %}
     <div class="hero-banner">
         {% include '_banner.html' %}
@@ -20,7 +20,7 @@
                             title="{{ project['title'] }}">{{ project["title"]
                             }}
                         </div>
-                        by {{ project["creator"] }}
+                        by <span class="proj-creator">{{ project["creator"] }}</span>
                         <span class="stats"><i class="fa-regular fa-heart"></i> {{project["love_count"]}}</span>
                     </div>
                 </a>

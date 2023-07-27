@@ -38,7 +38,7 @@
             <label for="theme">Theme 
                 <select name="theme">
                     <!-- <optgroup label="Dark theme"> -->
-                    <option value="default">--- Select an option ---</option>
+                    <option value="choco">--- Select an option ---</option>
                     {% for theme in themes %}
                     <option value="{{ theme }}">{{ str_title(theme) }}</option>
                     {% endfor %}
@@ -68,7 +68,5 @@
         <label for="status">Status <input type="text" id="status" name="status" placeholder='E.g., "Hello world!"'></label>
     </section> -->
 </div>
-<script>
-</script>
 
 {% endblock %}

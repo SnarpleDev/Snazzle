@@ -1,5 +1,7 @@
 {% extends "_base.html" %}
 
+{% block title %}Forums{% endblock %}
+
 {% block content %}
 
 <div class="omni">
@@ -16,7 +18,7 @@
                     <div class="sp-item">
                         <p>
                             <a href="unpin-subforum/{{subforum}}" class="unpin-btn"><i class="fa-solid fa-thumbtack pin-icon"></i></a>
-                            <a href="forums/{{subforum}}">{{ subforum }}</a>
+                            <a href="forums/{{subforum}}?page=0">{{ subforum }}</a>
                             <a href="unpin-subforum/{{subforum}}" class="unpin-btn"><button>Unpin</button></a>
                         </p>
                     </div>
@@ -32,7 +34,7 @@
                 {% for subforum in subforums %}
                     <div class="sp-item">
                         <p>
-                            <a href="forums/{{subforum}}">{{ subforum }}</a>
+                            <a href="forums/{{subforum}}?page=0">{{ subforum }}</a>
                             <a href="pin-subforum/{{subforum}}">
                                 {% if not subforum in pinned_subforums %}
                                     <i class="fa-solid fa-thumbtack pin-btn"></i>

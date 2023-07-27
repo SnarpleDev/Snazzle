@@ -5,7 +5,7 @@ from datetime import datetime
 
 SCRATCHDB = "https://scratchdb.lefty.one/v3/"
 useDB = False  # always change to true if on replit or other online ides. only affects project info for now
-
+REPLIT_MODE = False
 
 def use_scratchdb(value):
     global USE_SDB
@@ -26,8 +26,8 @@ def remove_duplicates(input_list):
 
 
 @lru_cache(maxsize=15)
-def get_topics(category):
-    r = requests.get(f"{SCRATCHDB}forum/category/topics/{category}/2?detail=0&filter=1")
+def get_topics(category, page):
+    r = requests.get(f"{SCRATCHDB}forum/category/topics/{category}/{page}?detail=0&filter=1")
     try:
         if type(r.json()) != list:
             return {"error": True, "message": "sdb_" + r.json()["error"].lower()}
@@ -121,11 +121,22 @@ def get_topic_posts(topic_id, page=0, order="oldest"):
     try:
         if type(r.json()) != list:
             return {'error': True, 'message': 'sdb_' + r.json()['error'].lower()}
-        
+
         return {'error': False, 'posts': [{'author': post['username'], 'time': post['time']['first_checked'], 'html_content': post['content']['html'], 'is_deleted': post['deleted']} for post in r.json()]}
     except requests.exceptions.JSONDecodeError:
         return {"error": True, "message": "lib_scratchdbdown"}
 
+def get_pfp_url(username, size = 50):
+    r = requests.get(f"https://api.scratch.mit.edu/users/{username}")
+    
+    return r.json()['profile']['images'][str(size) + 'x' + str(size)]
+
+def get_status(username):
+    r = requests.get(f"https://aviate.scratchers.tech/api/{username}")
+    if r['success'] == False:
+        return ''
+    else:
+        return r["status"]
 
 # Below this line is all stuff used for the REPL mode which is used for debugging
 # Generally, don't touch this, unless there's a severe flaw or something
