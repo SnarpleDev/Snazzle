@@ -33,10 +33,10 @@
     -->
 
     <section>
-        <form action="/settings">
+        <form action="/settings" id="form">
             <h2>Change Theme</h2>
             <label for="theme">Theme 
-                <select name="theme" id="theme_value" oninput="update_url()">
+                <select onchange="changeForm()" name="theme" id="theme_value" oninput="update_url()">
                     <!-- <optgroup label="Dark theme"> -->
                     <option value="default">--- Select an option ---</option>
                     {% for theme in themes %}
@@ -47,21 +47,6 @@
             </label>
             <button type="submit">Change Theme</button>
         </form>
-        <h2>Change Theme</h2>
-        <label for="theme">Theme
-            <select name="" id="theme_value" oninput="update_url()">
-                <!-- <optgroup label="Dark theme"> -->
-                <option value="default">--- Select an option ---</option>
-                <option value="choco">Choco</option>
-                <option value="ice">Ice</option>
-                <option value="hackerman">Greenspace</option>
-                <option value="nord">Nord</option>
-                <option value="newspaper">Newspaper</option>
-                <option value="gruvbox">Gruvbox</option>
-                <!-- </optgroup> -->
-            </select>
-        </label>
-        <a href="" id="change_theme"><button>change theme</button></a>
     </section>
     <!-- <section>
         <h2>Link Accounts (coming soon)</h2>
@@ -80,5 +65,11 @@
         <label for="status">Status <input type="text" id="status" name="status" placeholder='E.g., "Hello world!"'></label>
     </section> -->
 </div>
+<script>
+function changeForm() {
+    console.log("/settings" + "?theme=" + document.getElementById('theme_value').value);
+    document.getElementById('form').action = "/change_theme" + "?theme=" + document.getElementById('theme_value').value;
+}
+</script>
 
 {% endblock %}
