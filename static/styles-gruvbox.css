@@ -1,7 +1,8 @@
 /*
 
-    A warm, cozy dark mode theme for Snazzle, inspired by chocolate.
-    Author: @ajskateboarder
+    A Gruvbox theme for Snazzle, updated by @redstone-scratch
+    Original author: @ajskateboarder
+    Modified by: @redstone-scratch
 
 */
 
@@ -243,11 +244,30 @@ select:hover {
 
 /* Forums scrollpane */
 .scrollpane.sp-forum {
-    max-height: 200px;
+    max-height: 300px;
 }
 
 .scrollpane.sp-forum .sp-item {
     transition: 0.5s all;
+    margin: 0.25em;
+    padding: 5px;
+    border: 3px solid #eb8c3e;
+    border-radius: 10px;
+}
+
+.scrollpane.sp-forum .sp-item:hover {
+    box-shadow: none;
+    rotate: none !important;
+    border: 3px solid #fbf1c7;
+}
+
+.scrollpane.sp-forum .sp-item a {
+    color: #ca6120;
+    transition: 0.5s color;
+}
+
+.scrollpane.sp-forum .sp-item:hover a {
+    color: #ff9654;
     margin: 1em;
 }
 
