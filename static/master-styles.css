@@ -361,3 +361,7 @@ section, #banner {
 .pfp {
     width: 100px;
 }
+
+div.code {
+    overflow-x: scroll;
+}
