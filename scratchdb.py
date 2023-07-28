@@ -135,7 +135,7 @@ def get_topic_posts(topic_id, page=0, order="oldest"):
             return {'error': True, 'message': 'sdb_' + r.json()['error'].lower()}
 
         # Time formatting thanks to ChatGPT
-        return {'error': False, 'posts': [{'author': post['username'], 'time': datetime.fromisoformat(post['time']['first_checked'].replace("Z", "+00:00")).strftime("%B %d, %Y at %I:%M %p UTC"), 'html_content': post['content']['html'], 'is_deleted': post['deleted']} for post in r.json()]}
+        return {'error': False, 'posts': [{'author': post['username'], 'time': datetime.fromisoformat(post['time']['first_checked'].replace("Z", "+00:00")).strftime("%B %d, %Y at %I:%M %p UTC"), 'html_content': post['content']['html'], 'is_deleted': post['deleted'], 'index': i} for i, post in enumerate(r.json())]}
     except requests.exceptions.JSONDecodeError:
         return {"error": True, "message": "lib_scratchdbdown"}
 
