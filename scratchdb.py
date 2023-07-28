@@ -134,7 +134,7 @@ def get_topic_posts(topic_id, page=0, order="oldest"):
     except requests.exceptions.JSONDecodeError:
         return {"error": True, "message": "lib_scratchdbdown"}
 
-def get_pfp_url(username, size = 50):
+def get_pfp_url(username, size = 90):
     r = requests.get(f"https://api.scratch.mit.edu/users/{username}")
     
     return r.json()['profile']['images'][str(size) + 'x' + str(size)]
