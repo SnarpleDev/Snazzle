@@ -13,6 +13,10 @@ body {
     color: lime;
 }
 
+* {
+    border-radius: 0px !important
+}
+
 h1,
 h2,
 h3,
@@ -70,19 +74,28 @@ button:hover {
 .scrollpane.sp-projects .sp-item {
     background-color: hsl(112, 100%, 21%);
     color: rgb(255, 255, 255);
-
+    transition: unset !important;
 }
 
 .scrollpane.sp-projects .sp-item:hover,
 .project-grid .pg-project:hover {
     background-color: hsl(112, 100%, 79%);
     color: black;
+    transition: unset;
 }
 
 .scrollpane.sp-studios .sp-item {
     background-color: hsl(112, 100%, 21%);
     color: white;
+    transition: unset;
+}
 
+.scrollpane.sp-projects .sp-item:hover,
+.project-grid .pg-project:hover {
+    background-color: hsl(112, 100%, 79%);
+    color: black;
+    transform: unset;
+    transition: unset;
 }
 
 .scrollpane.sp-studios .sp-item:hover {
