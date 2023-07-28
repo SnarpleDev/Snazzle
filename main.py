@@ -171,7 +171,6 @@ def index():
     """
     projects = scratchdb.get_featured_projects()
     trending = scratchdb.get_trending_projects()
-
     return stream_template(
         "index.html",
         featured_projects=projects["community_featured_projects"],
