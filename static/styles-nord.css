@@ -1,6 +1,27 @@
+/*
+    Credit to the team at https://www.nordtheme.com/ for this wonderful theme
+    Actual CSS written by Darth-Ness with modified (as in mostly copied) code of Redstone's 'Choco' theme
+*/
+
 @import url("master-styles.css");
+@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
+
 body {
     background-color: #2e3440;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+button,
+input,
+article {
+    font-family: 'Jost', sans-serif;
 }
 
 input::placeholder {
@@ -10,89 +31,109 @@ input::placeholder {
 nav {
     background: rgba(46, 52, 64, 0.544);
 }
+
 .logo a {
     color: #d8dee9;
-}   
+}
+
 .logo a:hover {
     text-shadow: 0px 0px 3px #d08770;
 }
+
 .nav-links li a {
     color: #d8dee9;
 }
+
 button,
 select {
     border: 1px solid #434c5e;
     background-color: #bf616a;
     color: #d8dee9;
 }
+
 input {
     border: 1px solid #bf616a;
     background-color: transparent;
     color: #d8dee9;
 }
+
 input:focus {
     outline: 1px solid #d8dee9;
 }
+
 button:hover {
     background-color: transparent;
     color: #d8dee9;
 }
+
 .scrollpane {
 
     background-color: #4c566a;
     box-shadow: 0px 0px 10px #2e3440 inset;
 }
+
 .scrollpane.sp-projects .sp-item,
 .project-grid .pg-project {
     background-color: #5e81ac;
     color: #d8dee9;
 
 }
+
 .scrollpane.sp-projects .sp-item:hover,
 .project-grid .pg-project:hover {
     background-color: #8fbcbb;
     color: #2e3440;
     box-shadow: 5px 5px 3px rgba(46, 34, 64, 0.5);
 }
+
 .scrollpane.sp-studios .sp-item {
     background-color: #5e81ac;
     color: #d8dee9;
 
 }
+
 .scrollpane.sp-studios .sp-item:hover {
     background-color: #8fbcbb;
     color: #2e3440;
 }
+
 span.stats {
     color: #4c566a;
 }
+
 .scrollpane .sp-header {
     background-color: rgba(46, 52, 64, 0.544);
 }
+
 section {
     background: #4c566a;
     box-shadow: 0px 0px 10px #4c566a;
     color: #d8dee8;
 }
+
 #banner {
     background: linear-gradient(90deg, #5e81ac, #d8dee9);
     box-shadow: 0px 0px 10px #2e3440;
     color: #d8dee9;
 }
+
 #banner button.purple,
 button.secondary {
     background-color: transparent;
     color: #d8dee9;
 }
+
 #banner button.purple:hover,
 button.secondary:hover {
     background-color: #bf616a;
     color: #d8dee9;
 }
+
 a,
 a:visited {
     color: #b48ead;
 }
+
 button a,
 button a:visited {
     color: #d8dee9;

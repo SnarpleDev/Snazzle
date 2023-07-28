@@ -5,8 +5,25 @@
 
 */
 @import url("master-styles.css");
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
 body {
     background-color: #c8c8c8;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+button,
+input,
+select,
+article {
+    font-family: 'Playfair Display', serif;
 }
 
 input::placeholder {
@@ -16,84 +33,102 @@ input::placeholder {
 nav {
     background: rgba(0, 0, 0, 0.544);
 }
+
 .logo a {
     color: #fff;
-}   
+}
+
 .logo a:hover {
     text-shadow: 0px 0px 3px rgb(255, 255, 255);
 }
+
 .nav-links li a {
     color: #fff;
 }
+
 button,
 select {
     border: 1px solid #000;
     background-color: #fff;
     color: black;
 }
+
 input {
     border: 1px solid #000;
     background-color: #fff;
     color: black;
 }
+
 input:focus {
     outline: 1px solid #fff;
 }
+
 button:hover {
     background-color: #000;
     color: white;
 }
+
 .scrollpane {
 
     background-color: #7a7a7a;
     box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
 }
+
 .scrollpane.sp-projects .sp-item,
 .project-grid .pg-project {
     background-color: #8d8d8d;
     color: #fff;
 
 }
+
 .scrollpane.sp-projects .sp-item:hover,
 .project-grid .pg-project:hover {
     background-color: #fff;
     color: black !important;
 }
+
 .scrollpane.sp-studios .sp-item {
     background-color: #ca6120;
     color: white;
 
 }
+
 .scrollpane.sp-studios .sp-item:hover {
     background-color: #8d8d8d;
     color: white;
 }
+
 span.stats {
     color: lightgrey;
 }
+
 section {
     background: #fff;
     color: black;
 }
+
 #banner {
     background: linear-gradient(90deg, rgb(195, 195, 195) 0%, rgb(102, 102, 102) 100%);
     color: black;
 }
+
 #banner button.purple,
 button.secondary {
     background-color: transparent;
     color: white;
 }
+
 #banner button.purple:hover,
 button.secondary:hover {
     color: black;
 }
+
 a,
 a:visited {
     color: #2064ca;
 }
+
 button a,
 button a:visited {
     color: black;
 }
-

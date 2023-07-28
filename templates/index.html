@@ -3,7 +3,7 @@
 {% block content %}
 <div class="omni">
     {% if signed_in %}
-        {% include 'loggedin.html' %}
+    {% include 'loggedin.html' %}
     {% else %}
     <div class="hero-banner">
         {% include '_banner.html' %}
@@ -12,18 +12,18 @@
             <h2>Featured projects</h2>
             <div class="scrollpane sp-horiz sp-projects">
                 {% for project in featured_projects %}
-                <a href="/projects/{{project['id']}}" style="text-decoration: none;">
-                    <div class="sp-item" style="height: 200px;">
+                <div class="sp-item" style="height: 200px;">
+                    <a href="/projects/{{project['id']}}" style="text-decoration: none;">
                         <img src="{{ project['thumbnail_url'] }}" alt="{{ project['title'] }}"
                             title="{{ project['title'] }}" height="90" width="120">
-                        <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
-                            title="{{ project['title'] }}">{{ project["title"]
-                            }}
-                        </div>
-                        by <span class="proj-creator">{{ project["creator"] }}</span>
-                        <span class="stats"><i class="fa-regular fa-heart"></i> {{project["love_count"]}}</span>
+                    </a>
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
+                        title="{{ project['title'] }}">{{ project["title"]
+                        }}
                     </div>
-                </a>
+                    <div style="z-index: 0;">by <span class="proj-creator">{{ project["creator"] }}</span></div>
+                    <span class="stats"><i class="fa-regular fa-heart"></i> {{project["love_count"]}}</span>
+                </div>
                 {% endfor %}
             </div>
         </section><br>
@@ -43,7 +43,6 @@
             </div>
         </section><br>
         <section>
-            <!-- is this what redstone meant idk -->
             <h2>Trending projects</h2>
             <div class="scrollpane sp-horiz sp-projects">
                 {% for projeck in trending_projects %}
@@ -54,7 +53,8 @@
                         title="{{ projeck['title'] }}">{{ projeck["title"]
                         }}
                     </div>
-                    by {{ projeck["creator"] }}
+                    <div style="z-index: 0;">by <span class="proj-creator">{{ projeck["author"]["username"] }}</span>
+                    </div>
                     <span class="stats"><i class="fa-regular fa-heart"></i> {{ projeck["stats"]["loves"] }}</span>
                 </div>
                 {% endfor %}

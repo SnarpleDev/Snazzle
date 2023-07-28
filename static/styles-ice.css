@@ -5,12 +5,30 @@
 
 */
 @import url("master-styles.css");
+@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
+
 body {
     background-color: #202d38;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+button,
+input,
+article {
+    font-family: 'Jost', sans-serif;
+}
+
 * {
     color: white;
 }
+
 input::placeholder {
     color: #46637b;
 }
@@ -18,80 +36,98 @@ input::placeholder {
 nav {
     background: rgba(0, 0, 0, 0.544);
 }
+
 .logo a {
     color: #fff;
-}   
+}
+
 .logo a:hover {
     text-shadow: 0px 0px 3px #91caf9;
 }
+
 .nav-links li a {
     color: #fff;
 }
+
 button,
 select {
     border: 1px solid #008cff;
     background-color: #008cff;
     color: white;
 }
+
 input {
     border: 1px solid #008cff;
     background-color: transparent;
     color: white;
 }
+
 input:focus {
     outline: 1px solid transparent;
 }
+
 button:hover {
     background-color: transparent;
     color: white;
 }
+
 .scrollpane {
 
     background-color: rgb(107, 109, 111);
     box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
 }
+
 .scrollpane.sp-projects .sp-item,
 .project-grid .pg-project {
     background-color: #008cff;
     color: rgb(255, 255, 255);
 
 }
+
 .scrollpane.sp-projects .sp-item:hover,
 .project-grid .pg-project:hover {
     background-color: #78c2ff;
     color: black;
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.643);
 }
+
 .scrollpane.sp-studios .sp-item {
     background-color: #008cff;
     color: white;
 
 }
+
 .scrollpane.sp-studios .sp-item:hover {
     background-color: #78c2ff;
     color: black;
 }
+
 span.stats {
     color: lightgrey;
 }
+
 .scrollpane .sp-header {
     background-color: rgba(119, 119, 119, 0.643);
 }
+
 section {
     background: rgba(119, 119, 119, 0.643);
     box-shadow: 0px 0px 10px rgba(119, 119, 119, 0.643);
     color: white;
 }
+
 #banner {
     background: linear-gradient(90deg, rgba(120, 194, 255, 1) 0%, rgba(135, 120, 255, 1) 100%);
     box-shadow: 0px 0px 10px linear-gradient(00deg, rgba(120, 194, 255, 1) 0%, rgba(135, 120, 255, 1) 100%);
     color: white;
 }
+
 #banner button.purple,
 button.secondary {
     background-color: transparent;
     color: white;
 }
+
 #banner button.purple:hover,
 button.secondary:hover {
     background-color: #008cff;

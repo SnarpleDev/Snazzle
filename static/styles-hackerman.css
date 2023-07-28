@@ -4,17 +4,28 @@
     Author: @redstone-scratch
 
 */
-/*
-
-    "I'm in."
-    Author: @redstone-scratch
-
-*/
 
 @import url("master-styles.css");
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 body {
-    background-color: hsl(112,11%, 14%);
+    background-color: hsl(112, 11%, 14%);
     color: lime;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+button,
+input,
+select,
+article {
+    font-family: 'VT323', monospace;
 }
 
 input::placeholder {
@@ -24,15 +35,19 @@ input::placeholder {
 nav {
     background: rgba(0, 0, 0, 1);
 }
+
 .logo a {
     color: #fff;
-}   
+}
+
 .logo a:hover {
     text-shadow: 0px 0px 3px hsl(112, 100%, 29%);
 }
+
 .nav-links li a {
     color: #fff;
 }
+
 button,
 input,
 select {
@@ -40,54 +55,66 @@ select {
     background-color: hsl(112, 100%, 12%);
     color: white;
 }
+
 button:hover {
     background-color: black;
     color: white;
 }
+
 .scrollpane {
 
     background-color: hsl(112, 2%, 43%);
     box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
 }
+
 .scrollpane.sp-projects .sp-item {
     background-color: hsl(112, 100%, 21%);
     color: rgb(255, 255, 255);
 
 }
+
 .scrollpane.sp-projects .sp-item:hover,
 .project-grid .pg-project:hover {
     background-color: hsl(112, 100%, 79%);
     color: black;
 }
+
 .scrollpane.sp-studios .sp-item {
     background-color: hsl(112, 100%, 21%);
     color: white;
 
 }
+
 .scrollpane.sp-studios .sp-item:hover {
     background-color: hsl(112, 100%, 85%);
     color: black;
 }
+
 span.stats {
     color: lightgrey;
 }
+
 .scrollpane .sp-header {
     background-color: rgba(0, 0, 0, 0.544);
 }
+
 section {
     background: (66, 66, 66, 0.643);
     box-shadow: 0px 0px 10px hsl(112, 100%, 71%);
     color: white;
 }
+
 #banner {
     background: hsl(112, 100%, 33%);
     box-shadow: 0px 0px 10px hsl(112, 100%, 71%);
     color: white;
 }
+
 .project-grid .pg-project {
     background-color: hsl(112, 100%, 50%);
     color: rgb(255, 255, 255);
 }
+
 a {
     color: lime;
 }
