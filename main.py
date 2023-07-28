@@ -54,10 +54,13 @@ user_data = dict(
     saved_posts=[],
     max_topic_posts=20,
     show_deleted_posts=True,
+    ocular_ov=True, # for 'ocular override'
 )
 
 scratchdb.use_scratchdb(True)
 
+global get_status
+get_status = scratchdb.get_ocular if user_data['ocular_ov'] else scratchdb.get_aviate
 
 def get_themes():
     return [
@@ -113,36 +116,8 @@ subforums_data = (
     ),
 )
 
-categories = {
-    "Announcements": 5,
-    "New Scratchers": 6,
-    "Help with Scripts": 7,
-    "Show and Tell": 8,
-    "Project Ideas": 9,
-    "Collaboration": 10,
-    "Requests": 11,
-    "Project Save & Level Codes": 60,
-    "Questions about Scratch": 4,
-    "Suggestions": 1,
-    "Bugs and Glitches": 3,
-    "Advanced Topics": 31,
-    "Connecting to the Physical World": 32,
-    "Developing Scratch Extensions": 48,
-    "Open Source Projects": 49,
-    "Things I'm Making and Creating": 29,
-    "Things I'm Reading and Playing": 30,
-}
 
 
-def get_sfid_from_name(name):
-    return categories[name] or 0
-
-
-def get_name_from_sfid(sfid):
-    arr = [None] * (max(categories.values()) + 1)
-    for key, value in categories.items():
-        arr[value] = key
-    return arr
 
 
 # def split_comments(json):
@@ -160,7 +135,7 @@ def context():
         get_author_of=scratchdb.get_author_of,
         len=len,
         host=HOST,
-        get_status=scratchdb.get_status,
+        get_status=get_status,
     )
 
 
@@ -180,16 +155,6 @@ def index():
         loving=projects["community_most_loved_projects"],
         remixed=projects["community_most_remixed_projects"],
     )
-
-
-@app.get("/editor")
-def editor():
-    """
-    Unused editor page. Will be removed soon as part of cleanup
-    """
-    # unused editor page
-    return render_template("editor.html")
-
 
 @app.get("/trending")
 def trending():
@@ -220,8 +185,6 @@ def topics(subforum):
     A page that lists all the topics in the subforum
     """
 
-    show_deleted_topics = False
-
     sf_page = request.args.get('page')
     
     response = scratchdb.get_topics(subforum, sf_page)
@@ -237,7 +200,41 @@ def topics(subforum):
         topic_page=int(sf_page),
         len=len
     )
+    
+@app.get("/forums/topic/<topic_id>")
+def topic(topic_id):
+    """
+    Shows all posts in a topic.
+    """
 
+    show_deleted_posts = user_data["show_deleted_posts"]
+
+    topic_page = request.args.get('page')
+    
+    topic_data = scratchdb.get_topic_data(topic_id)
+    topic_posts = scratchdb.get_topic_posts(topic_id, page=topic_page)
+
+    if topic_data["error"]:
+        return render_template("scratchdb-error.html", err=topic_data["message"])
+    if topic_posts["error"]:
+        return render_template("scratchdb-error.html", err=topic_posts["message"])
+    return stream_template(
+        "forum-topic.html",
+        topic_id=topic_id,
+        topic_title=topic_data["data"]["title"],
+        topic_posts=[{"author_status": get_status(post["author"]), **post} for post in topic_posts["posts"]],
+        topic_page=int(topic_page),
+        max_posts=user_data["max_topic_posts"],
+        show_deleted=show_deleted_posts,
+        list=list,
+        len=len,
+        get_pfp=scratchdb.get_pfp_url,
+        get_status=get_status
+    )
+    
+@app.get("/img-fullscreen")
+def img():
+    return render_template("img.html", img_url=request.args.get('url'))
 
 @app.get("/projects/scratch/<project_id>")
 def scratchproject(project_id):
@@ -297,44 +294,12 @@ def project(project_id):
             colour=colour,
             name=project_name,
             creator_name=creator_name,
-            comments=f"<div>{comments}</div>",
+            comments=[{"username": comment["author"]["username"], "content": comment["content"], "visibility": comment["visibility"]} for comment in comments],
             ocularcolour=ocular_colour,
         )
 
-
-@app.get("/forums/topic/<topic_id>")
-def topic(topic_id):
-    """
-    Shows all posts in a topic.
-    """
-
-    show_deleted_posts = False
-
-    topic_page = request.args.get('page')
-    
-    topic_data = scratchdb.get_topic_data(topic_id)
-    topic_posts = scratchdb.get_topic_posts(topic_id, page=topic_page)
-
-    if topic_data["error"]:
-        return render_template("scratchdb-error.html", err=topic_data["message"])
-    if topic_posts["error"]:
-        return render_template("scratchdb-error.html", err=topic_posts["message"])
-    return stream_template(
-        "forum-topic.html",
-        topic_id=topic_id,
-        topic_title=topic_data["data"]["title"],
-        topic_posts=topic_posts["posts"],
-        topic_page=int(topic_page),
-        max_posts=user_data["max_topic_posts"],
-        show_deleted=show_deleted_posts,
-        list=list,
-        len=len,
-        get_pfp=scratchdb.get_pfp_url,
-    )
-
-
 @app.route("/settings", methods=["GET"])
-def settings():
+def settings(): 
     """
     Settings page.
     Change theme, status, link github account
@@ -342,16 +307,7 @@ def settings():
     for key, value in request.args.items():
         user_data[key.replace("-", "_")] = value
 
-    return render_template("settings.html", themes=get_themes(), str_title=str.title)
-
-
-@app.get("/change_theme")
-def theme_change():
-    # to-be-unused route to change theme
-    requested_theme = request.args.get("theme")
-    user_data["user_theme"] = requested_theme
-    return redirect("/settings")
-
+    return render_template("settings.html", themes=get_themes(), str_title=str.title, values=[user_data['theme'], user_data["max_topic_posts"], user_data["show_deleted_posts"], user_data["ocular_ov"]])
 
 @app.get("/downloads")
 def downloads():
@@ -362,7 +318,6 @@ def downloads():
 @app.get("/secret/dl_mockup")
 def dl_mockup():
     return render_template("dlm.html")
-
 
 @app.get("/pin-subforum/<sf>")
 def pin_sub(sf):

@@ -3,10 +3,11 @@
 {% block content %}
 
 <div class="omni">
+<form action="/settings">
     <section>
         <h1>Settings</h1>
         <p>Customize Snazzle to your liking.</p>
-    </section><br>
+    </section>
 
 
     <!--
@@ -33,40 +34,51 @@
     -->
 
     <section>
-        <form action="/settings" id="form">
-            <h2>Change Theme</h2>
-            <label for="theme">Theme 
-                <select name="theme">
-                    <!-- <optgroup label="Dark theme"> -->
-                    <option value="choco">--- Select an option ---</option>
-                    {% for theme in themes %}
-                    <option value="{{ theme }}">{{ str_title(theme) }}</option>
-                    {% endfor %}
-                    <!-- </optgroup> -->
-                </select>
-            </label>
-            <button type="submit">Change Theme</button>
-        </form>
+        <h2>Change Theme</h2>
+        <label for="theme">Theme 
+            <select name="theme">
+                <!-- <optgroup label="Dark theme"> -->
+                <option value="choco">--- Select an option ---</option>
+                {% for theme in themes %}
+                <option value="{{ theme }}">{{ str_title(theme) }}</option>
+                {% endfor %}
+                <!-- </optgroup> -->
+            </select>
+        </label>
+        <button type="submit">Change Theme</button>
     </section>
-    <br>
     <!-- <section>
         <h2>Link Accounts (coming soon)</h2>
         <label for="github">GitHub <button><span class="fa-brands fa-github"></span> Link</button></label>
     </section> -->
     <section>
-        <form action="/settings">
-            <h2>Forums</h2>
-            <label for="max-topic-posts">Maximum visible posts on a page <input type="number" id="max-posts"
-                    name="max-posts" placeholder='20'></label>
-            <br>
-            <label for="show-deleted-posts">Show deleted posts on a topic <input type="checkbox" id="show-deleted-posts"
-                    name="show-deleted-posts"></label>
-        </form>
+        <h2>Forums</h2>
+        <label for="max-topic-posts">Maximum visible posts on a page <input type="number" id="max-posts"
+                name="max-posts" placeholder='20' value="{{ values[1] }}"></label>
+        <br>
+        <label for="show-deleted-posts">Show deleted posts on a topic <input type="checkbox" id="show-deleted-posts"
+                name="show-deleted-posts" value="{{ values[2] }}"></label>
+    </section>
+    <section>
+        <h2>Profiles</h2>
+
+        <h3>Statuses</h3>
+        <label for="ocular-ov">Show ocular instead of Aviate statuses <input type="checkbox" id="status-type" name="ocular-ov" value="{{ values[3] }}" /></label>
+        <br>
+
+        <!-- <h3>BlockBit</h3>
+        <label for="show-blockbit">Show how much BlockBit you have on your profile <input type="checkbox" id="status-type" name="show-blockbit" /></label>
+        <br> 
+        <label for="disable-blockbit">Disable BlockBit integration<input type="checkbox" id="status-type" name="disable-blockbit" />-->
     </section>
     <!-- <section>
         <h2>Ocular Status</h2>
         <label for="status">Status <input type="text" id="status" name="status" placeholder='E.g., "Hello world!"'></label>
     </section> -->
+    <section>
+        <button type="submit">Save Changes</button>
+    </section>
+</form>
 </div>
 
 {% endblock %}

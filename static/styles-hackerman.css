@@ -5,8 +5,8 @@
 
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Mynerve&display=swap');
+@import '/static/master-styles.css';
+
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 body {
@@ -370,4 +370,8 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+blockquote, .forum-aside {
+    border-radius: none !important;
 }

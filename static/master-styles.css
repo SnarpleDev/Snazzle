@@ -56,3 +56,11 @@ blockquote, .forum-aside {
 .bb-big {
     font-size: 1.8rem;
 }
+
+section, #banner {
+    margin-bottom: 10px;
+}
+
+.pfp {
+    width: 100px;
+}

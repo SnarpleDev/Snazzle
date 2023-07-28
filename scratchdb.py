@@ -11,7 +11,6 @@ def use_scratchdb(value):
     global USE_SDB
     USE_SDB = value
 
-
 def replit_mode(value):
     global REPLIT_MODE
     REPLIT_MODE = value
@@ -87,6 +86,15 @@ def get_ocular(username):
         }  # i had  to spell colour wrong for it to work
     return info.json()
 
+@lru_cache(maxsize=5)
+def get_aviate(username):
+    # Aviate API is much simple very wow
+    # Better than ocular API imo
+    r = requests.get(f"https://aviate.scratchers.tech/api/{username}")
+    if r['success'] == False:
+        return ''
+    else:
+        return r["status"]
 
 def get_featured_projects():
     r = requests.get("https://api.scratch.mit.edu/proxy/featured")
@@ -130,13 +138,6 @@ def get_pfp_url(username, size = 50):
     r = requests.get(f"https://api.scratch.mit.edu/users/{username}")
     
     return r.json()['profile']['images'][str(size) + 'x' + str(size)]
-
-def get_status(username):
-    r = requests.get(f"https://aviate.scratchers.tech/api/{username}")
-    if r['success'] == False:
-        return ''
-    else:
-        return r["status"]
 
 # Below this line is all stuff used for the REPL mode which is used for debugging
 # Generally, don't touch this, unless there's a severe flaw or something

@@ -3,16 +3,16 @@
 {% block title %}Forums - {{ topic_title }}{% endblock %}
 
 {% block content %}
-    {% macro forum_post(author, time, content, index, is_deleted) %}
+    {% macro forum_post(author, status, time, content, index, is_deleted) %}
 
         {% if is_deleted and show_deleted or not is_deleted %}
             <section id="{{ index }}" class="forum-post">
                 <input type="text" value="{{ index }}" hidden="true" id="{{ index }}-value">
                 <div class="flex-cont">
                     <div class="width-20 forum-aside">
-                        <img src="{{ get_pfp(author) }}" alt="{{ author }}'s profile picture">
+                        <img src="{{ get_pfp(author) }}" alt="{{ author }}'s profile picture" class="pfp">
                         <h2>{{ author }}</h2>
-                        <p>{{ author_status }}</p>
+                        <p>{{ status }}</p>
                         <p>{{ time }}</p>
                     </div>
                     <article class="width-80">
@@ -44,7 +44,7 @@
         </section>
 
         {% for post in topic_posts %}
-            {{ forum_post(post['author'], post['time'], post['html_content'], post['index'], post['is_deleted']) }}
+            {{ forum_post(post['author'], post['author_status']['status'], post['time'], post['html_content'], post['index'], post['is_deleted']) }}
         {% endfor %}
 
         <section>
