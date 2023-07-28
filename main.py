@@ -286,14 +286,14 @@ def project(project_id):
             ocularcolour=ocular_colour,
         )
     else:
-        comments = scratchdb.get_comments(project_id)
+        scomments = scratchdb.get_comments(project_id)
         return stream_template(
             "projects.html",
             project_id=project_id,
             colour=colour,
             name=project_name,
             creator_name=creator_name,
-            comments=[{"username": comment["author"]["username"], "content": comment["content"], "visibility": comment["visibility"]} for comment in comments],
+            #comments=[{"username": comment["author"]["username"], "content": comment["content"], "visibility": comment["visibility"]} for comment in scomments],
             ocularcolour=ocular_colour,
         )
 

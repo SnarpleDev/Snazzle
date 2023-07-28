@@ -1,6 +1,6 @@
 ﻿{% extends '_base.html' %}
 
-{% block title %}Downloads{% endblock %}
+{% block title %}Projects - {{name}}{% endblock %}
 
 {% block content %}
 
@@ -18,16 +18,21 @@
             allowfullscreen
         ></iframe>
     </section>
-    {% for comment in comments %}
-        <section class="flex-cont">
-            <div class="forum-aside width-20">
-                <h2>{{ comment['author'] }}</h2>
-            </div>
-            <article class="width-80">
-                {{ comment['content'] }}
-            </article>
-        </section>
-    {% endfor %}
+    <section>
+        <p>Comments are bugged so we can't display them</p>
+    </section>
+    {# scratchdb.get_comments() doesn't work, so comments won't load
+        {% for comment in comments %}
+            <section class="flex-cont">
+                <div class="forum-aside width-20">
+                    <h2>{{ comment['author'] }}</h2>
+                </div>
+                <article class="width-80">
+                    {{ comment['content'] }}
+                </article>
+            </section>
+        {% endfor %}
+    #}
 </div>
 
 <!-- <h1><p align="center"><b>{{ name }}</b></p></h1>

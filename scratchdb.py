@@ -66,7 +66,7 @@ def get_comments(project_id):
             f"https://api.scratch.mit.edu/projects/{project_id}"
         ).json()["author"]["username"]
     except Exception:
-        return None
+        return Exception
     r = requests.get(
         f"https://api.scratch.mit.edu/users/{project_creator}/projects/{project_id}/comments?limit=40"
     )
