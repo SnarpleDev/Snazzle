@@ -14,7 +14,7 @@ nav {
     color: #d8dee9;
 }   
 .logo a:hover {
-    text-shadow: 0px 0px 3px orange;
+    text-shadow: 0px 0px 3px #d08770;
 }
 .nav-links li a {
     color: #d8dee9;
@@ -26,12 +26,12 @@ select {
     color: #d8dee9;
 }
 input {
-    border: 1px solid #ca6120;
+    border: 1px solid #bf616a;
     background-color: transparent;
     color: #d8dee9;
 }
 input:focus {
-    outline: 1px solid #fff;
+    outline: 1px solid #d8dee9;
 }
 button:hover {
     background-color: transparent;
@@ -40,19 +40,19 @@ button:hover {
 .scrollpane {
 
     background-color: #4c566a;
-    box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
+    box-shadow: 0px 0px 10px #2e3440 inset;
 }
 .scrollpane.sp-projects .sp-item,
 .project-grid .pg-project {
     background-color: #5e81ac;
-    color: rgb(255, 255, 255);
+    color: #d8dee9;
 
 }
 .scrollpane.sp-projects .sp-item:hover,
 .project-grid .pg-project:hover {
     background-color: #8fbcbb;
     color: #2e3440;
-    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.643);
+    box-shadow: 5px 5px 3px rgba(46, 34, 64, 0.5);
 }
 .scrollpane.sp-studios .sp-item {
     background-color: #5e81ac;
@@ -76,7 +76,7 @@ section {
 }
 #banner {
     background: linear-gradient(90deg, #5e81ac, #d8dee9);
-    box-shadow: 0px 0px 10px linear-gradient(180deg, rgba(139, 82, 46, 1) 0%, rgba(114, 67, 38, 1) 100%);
+    box-shadow: 0px 0px 10px #2e3440;
     color: #d8dee9;
 }
 #banner button.purple,
