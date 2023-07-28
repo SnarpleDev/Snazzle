@@ -286,7 +286,7 @@ def project(project_id):
             ocularcolour=ocular_colour,
         )
     else:
-        scomments = scratchdb.get_comments(project_id)
+        #scomments = scratchdb.get_comments(project_id)
         return stream_template(
             "projects.html",
             project_id=project_id,
