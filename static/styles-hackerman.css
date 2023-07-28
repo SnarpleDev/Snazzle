@@ -4,370 +4,90 @@
     Author: @redstone-scratch
 
 */
+/*
 
-@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Mynerve&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+    "I'm in."
+    Author: @redstone-scratch
 
+*/
+
+@import url("master-styles.css");
 body {
-    background-color: hsl(112, 11%, 14%);
+    background-color: hsl(112,11%, 14%);
     color: lime;
-}
-
-.omni {
-    margin-left: 10em;
-    margin-right: 10em;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-div,
-button,
-input,
-select,
-article {
-    /* font-family: 'Mynerve', sans-serif; */
-    font-family: 'VT323', monospace;
 }
 
 input::placeholder {
     color: hsl(112, 100%, 25%);
 }
 
-body {
-    margin: 0;
-    font-family: 'Jost', Arial, sans-serif;
-}
-
 nav {
     background: rgba(0, 0, 0, 1);
-    padding: 10px 0;
-    position: sticky;
-    top: 0px;
-    z-index: 1000;
-    /* backdrop-filter: blur(10px); */
 }
-
 .logo a {
     color: #fff;
-    font-size: 24px;
-    font-weight: bold;
-    margin-left: 20px;
-    text-decoration: none;
-}
-
+}   
 .logo a:hover {
     text-shadow: 0px 0px 3px hsl(112, 100%, 29%);
-    cursor: pointer;
 }
-
-.navbar-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-height: 2em;
-}
-
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    margin-right: 20px;
-}
-
-.nav-links li {
-    margin-left: 20px;
-}
-
 .nav-links li a {
     color: #fff;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
 }
-
 button,
 input,
 select {
-    padding: 10px;
-
     border: 1px solid hsl(112, 100%, 25%);
     background-color: hsl(112, 100%, 12%);
     color: white;
 }
-
-input:focus {
-    outline: none;
-}
-
 button:hover {
     background-color: black;
     color: white;
-    cursor: pointer;
 }
-
-select {
-    cursor: pointer;
-}
-
 .scrollpane {
 
     background-color: hsl(112, 2%, 43%);
-    max-width: 100%;
-
-    display: flex;
     box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
 }
-
-.scrollpane.sp-horiz {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    flex-direction: row;
-}
-
-.scrollpane.sp-vert {
-    overflow-x: hidden;
-    overflow-y: scroll;
-    flex-direction: column;
-}
-
-.scrollpane.sp-horiz_reverse {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    flex-direction: row-reverse;
-}
-
-.scrollpane.sp-vert_reverse {
-    overflow-x: hidden;
-    overflow-y: scroll;
-    flex-direction: column-reverse;
-}
-
-/* Projects scrollpane */
-.scrollpane.sp-projects {
-    min-height: 50px;
-    max-height: 250px;
-}
-
 .scrollpane.sp-projects .sp-item {
     background-color: hsl(112, 100%, 21%);
     color: rgb(255, 255, 255);
-    margin: 10px;
-    min-height: 70px;
-    max-height: 180px;
-    min-width: 140px;
-
-    padding: 1rem;
 
 }
-
 .scrollpane.sp-projects .sp-item:hover,
 .project-grid .pg-project:hover {
     background-color: hsl(112, 100%, 79%);
     color: black;
 }
-
-.scrollpane .sp-item:hover,
-.project-grid .pg-project:hover {
-    cursor: pointer;
-}
-
-/* Studios scrollpane */
-.scrollpane.sp-studios {
-    min-height: 60px;
-    max-height: 210px;
-}
-
 .scrollpane.sp-studios .sp-item {
     background-color: hsl(112, 100%, 21%);
     color: white;
-    margin: 10px;
-    min-height: 80px;
-    max-height: 200px;
-    min-width: 180px;
-
-    padding: 1rem;
-
 
 }
-
 .scrollpane.sp-studios .sp-item:hover {
     background-color: hsl(112, 100%, 85%);
     color: black;
 }
-
-.scrollpane .sp-item {
-    flex-flow: column nowrap;
-    display: flex;
-}
-
-/* Filters scrollpane */
-
-.scrollpane.sp-filters .sp-item {
-    min-width: 100px;
-    max-width: 200px;
-}
-
-.scrollpane.sp-filters .sp-spacer {
-    min-width: 10px;
-}
-
-/* Forums scrollpane */
-
-.scrollpane.sp-forum .sp-item a {
-    color: lime;
-    transition: 0.5s color;
-    margin: 0.5em;
-}
-
-.scrollpane.sp-forum .sp-item:hover a {
-    color: white;
-    margin: 0.5em;
-}
-
-
 span.stats {
-    color: lightgray;
+    color: lightgrey;
 }
-
-.flex-cont {
-    display: flex;
-}
-
-.flex-cont.fc-vert {
-    flex-direction: column;
-}
-
-.width-70 {
-    width: 70%;
-}
-
-.width-60 {
-    width: 60%;
-}
-
-.width-50 {
-    width: 50%;
-}
-
-.width-40 {
-    width: 40%;
-}
-
-.width-30 {
-    width: 30%;
-}
-
-.width-third {
-    width: calc(100% / 3)
-}
-
 .scrollpane .sp-header {
     background-color: rgba(0, 0, 0, 0.544);
 }
-
 section {
-    margin: 0.1em;
-    background: rgba(66, 66, 66, 0.643);
-    padding: 10px;
-
-    box-shadow: 0px 0px 10px rgba(66, 66, 66, 0.643);
-    color: white;
-}
-
-#banner {
-    margin: 0.1em;
-    background: hsl(112, 100%, 33%);
-    color: white !important;
+    background: (66, 66, 66, 0.643);
     box-shadow: 0px 0px 10px hsl(112, 100%, 71%);
     color: white;
-    height: 50vh;
-    padding: 2.5rem;
-    /* z-index: 999; */
 }
-
-.update {
-    animation: jiggle 2s forwards;
+#banner {
+    background: hsl(112, 100%, 33%);
+    box-shadow: 0px 0px 10px hsl(112, 100%, 71%);
+    color: white;
 }
-
-@keyframes jiggle {
-    0% {
-        transform: rotateZ(10deg)
-    }
-
-    5% {
-        transform: rotateZ(-9deg)
-    }
-
-    10% {
-        transform: rotateZ(8deg)
-    }
-
-    15% {
-        transform: rotateZ(-7deg)
-    }
-
-    20% {
-        transform: rotateZ(6deg)
-    }
-
-    25% {
-        transform: rotateZ(-5deg)
-    }
-
-    30% {
-        transform: rotateZ(4deg)
-    }
-
-    35% {
-        transform: rotateZ(-3deg)
-    }
-
-    40% {
-        transform: rotateZ(2deg)
-    }
-
-    45% {
-        transform: rotateZ(-1deg)
-    }
-
-    50% {
-        transform: rotateZ(0deg)
-    }
-}
-
-section.project-grid {
-    display: flex;
-    flex-wrap: wrap;
-    padding: none;
-    margin: none;
-}
-
 .project-grid .pg-project {
     background-color: hsl(112, 100%, 50%);
     color: rgb(255, 255, 255);
-    margin: 10px;
-    min-height: 70px;
-    max-height: 180px;
-    max-width: 130px;
-    min-width: 130px;
-
-    padding: 1rem;
-
 }
-
 a {
     color: lime;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
 }
