@@ -312,13 +312,11 @@ span.bb-strikethrough {
     width: 20%;
 }
 
+
+
 .forum-post * {
     max-width: 100% !important;
     
-}
-
-.forum-post div.code {
-    overflow-x: wrap;
 }
 
 .forum-post blockquote img {
