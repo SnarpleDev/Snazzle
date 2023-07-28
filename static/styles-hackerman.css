@@ -6,8 +6,7 @@
 */
 
 @import '/static/master-styles.css';
-
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('VT323.tff');
 
 body {
     background-color: hsl(112, 11%, 14%);
