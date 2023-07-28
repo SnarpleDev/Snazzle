@@ -1,11 +1,10 @@
 from functools import lru_cache
 import requests
-from time import time
-from datetime import datetime
 
 SCRATCHDB = "https://scratchdb.lefty.one/v3/"
 useDB = False  # always change to true if on replit or other online ides. only affects project info for now
 REPLIT_MODE = False
+USE_PROXY
 
 def use_scratchdb(value):
     global USE_SDB
@@ -14,6 +13,10 @@ def use_scratchdb(value):
 def replit_mode(value):
     global REPLIT_MODE
     REPLIT_MODE = value
+    
+def use_proxy(value):
+    global USE_PROXY
+    USE_PROXY = value
 
 def remove_duplicates(input_list):
     # needs to work on unhashable datatypes
