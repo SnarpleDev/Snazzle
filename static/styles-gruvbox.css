@@ -424,3 +424,7 @@ a:hover {
 img {
     border-radius: 10px;
 }
+
+.bb-quote-author {
+    color: #ca6120;
+}

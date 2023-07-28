@@ -1,10 +1,11 @@
 from functools import lru_cache
 import requests
+from datetime import datetime
 
 SCRATCHDB = "https://scratchdb.lefty.one/v3/"
-useDB = False  # always change to true if on replit or other online ides. only affects project info for now
+useDB       = False  # always change to true if on replit or other online ides. only affects project info for now
 REPLIT_MODE = False
-USE_PROXY
+USE_PROXY   = False
 
 def use_scratchdb(value):
     global USE_SDB
@@ -133,7 +134,8 @@ def get_topic_posts(topic_id, page=0, order="oldest"):
         if type(r.json()) != list:
             return {'error': True, 'message': 'sdb_' + r.json()['error'].lower()}
 
-        return {'error': False, 'posts': [{'author': post['username'], 'time': post['time']['first_checked'], 'html_content': post['content']['html'], 'is_deleted': post['deleted']} for post in r.json()]}
+        # Time formatting thanks to ChatGPT
+        return {'error': False, 'posts': [{'author': post['username'], 'time': datetime.fromisoformat(post['time']['first_checked'].replace("Z", "+00:00")).strftime("%B %d, %Y at %I:%M %p UTC"), 'html_content': post['content']['html'], 'is_deleted': post['deleted']} for post in r.json()]}
     except requests.exceptions.JSONDecodeError:
         return {"error": True, "message": "lib_scratchdbdown"}
 

@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-We support just the latest `release-x.y` branch and its `release-x.y.z` versions, so you're always going to want to update your Snazzle to the latest version.
+We support just the latest `release-x.y` branch and its `release-x.y.z` versions, as well as the `main` branch, so you're always going to want to have your Snazzle instance updated to the latest version.
 
 ## Reporting a Vulnerability
 
