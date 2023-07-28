@@ -43,13 +43,13 @@ button,
 select {
     border: 1px solid #ca6120;
     background-color: #ca6120;
-    color: #white;
+    color: white;
 }
 
 input {
     border: 1px solid #ca6120;
     background-color: transparent;
-    color: #white;
+    color: white;
 }
 
 input:focus {
