@@ -9,9 +9,11 @@ HOST, PORT = "localhost", 3000
 debug = True
 
 """
-      **** Snazzle Server Code ****
+       **** Snazzle Server Code ****
  Made in Flask by the Snazzle team over at 
 https://github.com/redstone-scratch/Snazzle/
+
+
 """
 
 app = Flask(__name__)
@@ -115,14 +117,6 @@ subforums_data = (
         ["Things I'm Making and Creating", "Things I'm Reading and Playing"],
     ),
 )
-
-
-
-
-
-# def split_comments(json):
-
-
 
 @app.context_processor
 def context():
