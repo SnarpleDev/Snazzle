@@ -4,7 +4,7 @@ from functools import lru_cache
 import requests
 from datetime import datetime
 
-SCRATCHDB = "https://scratchdb.lefty.one/v3/"
+SCRATCHDB   = "https://scratchdb.lefty.one/v3/"
 useDB       = False  # always change to true if on replit or other online ides. only affects project info for now
 REPLIT_MODE = False
 USE_PROXY   = False
