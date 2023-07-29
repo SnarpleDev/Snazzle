@@ -5,7 +5,7 @@ import requests
 from datetime import datetime
 
 SCRATCHDB   = "https://scratchdb.lefty.one/v3/"
-DAZZLE_DIR  = ".dazzle-archive"
+DAZZLE_DIR  = "./.dazzle-archive"
 useDB       = False  # always change to true if on replit or other online ides. only affects project info for now
 REPLIT_MODE = False
 USE_PROXY   = False
@@ -20,22 +20,25 @@ def archive_result(filename):
         The only reason this exists is because ScratchDB goes down all the time, but there's no alternative.
         I wish Lefty would just fix their service but it's not an option.
     """
-    fname = filename
     def decorate(ofunc):
         @wraps(ofunc)
         def wrapper(*args, **kwargs):
+            print(args)
+            fname = filename
             func_result = ofunc(*args, **kwargs)
             
             if '$' in fname:
                 count = 0
                 while '$' in fname:
-                    fname.replace('$', args[count])
+                    print(count)
+                    fname = fname.replace('$', str(args[count]))
                     count += 1
+                count = 0
                 while '%' in fname:
-                    fname.replace('$', kwargs.values()[count])
+                    fname = fname.replace('$', str(kwargs.values()[count]))
                     count += 1
             
-            with open(fname, "at") as f:
+            with open(f'{DAZZLE_DIR}/{fname}', "at", encoding='utf-8') as f:
                 f.write(str(func_result))
             
             return func_result
