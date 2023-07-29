@@ -1,9 +1,11 @@
 @import url("master-styles.css");
+
 @font-face {
   font-family: "Jost";
   src: url("Jost.ttf") format("truetype");
   font-weight: 400;
 }
+
 body {
     background-color: #282320;
 }

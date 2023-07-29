@@ -12,14 +12,16 @@
                     <div class="width-20 forum-aside">
                         <img src="{{ get_pfp(author) }}" alt="{{ author }}'s profile picture" class="pfp">
                         <h2>{{ author }}</h2>
-                        <p>{{ status or '' }}</p>
+                        <p>{{ status }}</p>
                         <p>{{ time }}</p>
                     </div>
                     <article class="width-80">
                         {{ content | safe }}
                         
                         <div>
-                            <a href="?save={{ index }}"><button>Save this post</button></a>
+                            <a href=" ?save={{ index }}"><button>Save this post</button></a>
+                            <a href="?upvote={{ index }}"><button><span class="fa "></span></button></a>
+                            <a href="?downvote={{ index }}"><button><span></span></button></a>
                         </div>
                     </article>
                 </div>
@@ -44,7 +46,7 @@
         </section>
 
         <section>
-            {{ pagination("/forums/topic/" + topic_id) }}
+            {{ pagination("/forums/topic/{{ topic_id }}") }}
         </section>
 
         {% for post in topic_posts %}

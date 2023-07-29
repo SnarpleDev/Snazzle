@@ -211,18 +211,31 @@ def topic(topic_id):
         return render_template("scratchdb-error.html", err=topic_data["message"])
     if topic_posts["error"]:
         return render_template("scratchdb-error.html", err=topic_posts["message"])
+    data_dict = {
+        "topic_id": topic_id,
+        "topic_title": topic_data["data"]["title"],
+        "topic_posts": [
+            {"author_status": get_status(post["author"]), **post}
+            for post in topic_posts["posts"]
+        ],
+        "topic_page": int(topic_page),
+        "max_posts": user_data["max_topic_posts"],
+        "show_deleted": show_deleted_posts,
+        "list": list,
+        "len": len,
+        "get_pfp": dazzle.get_pfp_url,
+        "get_status": get_status,
+    }
+    
+    # if topic_id == 'Suggestions':
+    #     return stream_template(
+    #         "suggestions-post.html",
+    #         **data_dict
+    #     )
+    # else:
     return stream_template(
         "forum-topic.html",
-        topic_id=topic_id,
-        topic_title=topic_data["data"]["title"],
-        topic_posts=[{"author_status": get_status(post["author"]), **post} for post in topic_posts["posts"]],
-        topic_page=int(topic_page),
-        max_posts=user_data["max_topic_posts"],
-        show_deleted=show_deleted_posts,
-        list=list,
-        len=len,
-        get_pfp=dazzle.get_pfp_url,
-        get_status=get_status
+        **data_dict
     )
     
 @app.get("/img-fullscreen")
