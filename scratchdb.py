@@ -1,3 +1,5 @@
+# Dazzle v0.1
+
 from functools import lru_cache
 import requests
 from datetime import datetime
