@@ -5,8 +5,11 @@
 
 */
 @import url("master-styles.css");
-@import url('PlayfairDisplay.ttf');
-
+@font-face {
+  font-family: "Playfair Display";
+  src: url("PlayFairDisplay.ttf") format("truetype");
+  font-weight: 400;
+}
 body {
     background-color: #c8c8c8;
 }

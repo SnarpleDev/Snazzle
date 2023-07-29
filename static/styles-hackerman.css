@@ -5,9 +5,12 @@
 
 */
 
-@import '/static/master-styles.css';
-@import url('VT323.tff');
-
+@import url('/static/master-styles.css');
+@font-face {
+  font-family: "VT323";
+  src: url("VT323.ttf") format("truetype");
+  font-weight: 400;
+}
 body {
     background-color: hsl(112, 11%, 14%);
     color: lime;

@@ -7,8 +7,11 @@
 */
 
 @import url("master-styles.css");
-@import url('Jost.ttf');
-
+@font-face {
+  font-family: "Jost";
+  src: url("Jost.ttf") format("truetype");
+  font-weight: 400;
+}
 body {
 
     background-color: #282828;
