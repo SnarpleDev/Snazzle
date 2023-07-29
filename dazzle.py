@@ -38,7 +38,7 @@ def archive_result(filename):
                     fname = fname.replace('$', str(kwargs.values()[count]))
                     count += 1
             
-            with open(f'{DAZZLE_DIR}/{fname}', "at", encoding='utf-8') as f:
+            with open(f'{DAZZLE_DIR}/{fname}', "wt", encoding='utf-8') as f:
                 f.write(str(func_result))
             
             return func_result

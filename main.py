@@ -1,7 +1,7 @@
 from flask import Flask, render_template, stream_template, request, redirect
 from os import listdir
 from werkzeug import exceptions as werkexcept
-import scratchdb
+import dazzle
 
 REPLIT_MODE = True
 USE_SCRATCHDB = True
@@ -57,10 +57,10 @@ user_data = dict(
     ocular_ov=True, # for 'ocular override'
 )
 
-scratchdb.use_scratchdb(True)
+dazzle.use_scratchdb(True)
 
 global get_status
-get_status = scratchdb.get_ocular if user_data['ocular_ov'] else scratchdb.get_aviate
+get_status = dazzle.get_ocular if user_data['ocular_ov'] else dazzle.get_aviate
 
 def get_themes():
     return [
@@ -132,7 +132,7 @@ def context():
         username=user_data["user_name"],
         signed_in=False,
         to_str=lambda x: str(x),
-        get_author_of=scratchdb.get_author_of,
+        get_author_of=dazzle.get_author_of,
         len=len,
         host=HOST,
         get_status=get_status,
@@ -144,8 +144,8 @@ def index():
     """
     The home page of the app
     """
-    projects = scratchdb.get_featured_projects()
-    trending = scratchdb.get_trending_projects()
+    projects = dazzle.get_featured_projects()
+    trending = dazzle.get_trending_projects()
     return stream_template(
         "index.html",
         featured_projects=projects["community_featured_projects"],
@@ -186,7 +186,7 @@ def topics(subforum):
 
     sf_page = request.args.get('page')
     
-    response = scratchdb.get_topics(subforum, sf_page)
+    response = dazzle.get_topics(subforum, sf_page)
     if response["error"]:
         return render_template("scratchdb-error.html", err=response["message"])
     return stream_template(
@@ -210,8 +210,8 @@ def topic(topic_id):
 
     topic_page = request.args.get('page')
     
-    topic_data = scratchdb.get_topic_data(topic_id)
-    topic_posts = scratchdb.get_topic_posts(topic_id, page=topic_page)
+    topic_data = dazzle.get_topic_data(topic_id)
+    topic_posts = dazzle.get_topic_posts(topic_id, page=topic_page)
 
     if topic_data["error"]:
         return render_template("scratchdb-error.html", err=topic_data["message"])
@@ -227,7 +227,7 @@ def topic(topic_id):
         show_deleted=show_deleted_posts,
         list=list,
         len=len,
-        get_pfp=scratchdb.get_pfp_url,
+        get_pfp=dazzle.get_pfp_url,
         get_status=get_status
     )
     
@@ -243,7 +243,7 @@ def scratchproject(project_id):
 @app.get("/projects/<project_id>")
 def project(project_id):
     global user_data
-    project_info = scratchdb.get_project_info(project_id)
+    project_info = dazzle.get_project_info(project_id)
     try:
         project_name = project_info["title"]
         creator_name = project_info["username"]
@@ -269,7 +269,7 @@ def project(project_id):
         colour = "%23282828"
     # elif theme == "new theme":
     # colour = "%23[hex colour]"
-    ocular = scratchdb.get_ocular(creator_name)
+    ocular = dazzle.get_ocular(creator_name)
     ocular_colour = ocular["color"]
     if ocular_colour in (None, "null"):
         ocular_colour = "#999999"
