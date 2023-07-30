@@ -366,3 +366,7 @@ section, #banner {
 div.code {
     overflow-x: scroll;
 }
+
+#replit-logo {
+    width: 1em;
+}

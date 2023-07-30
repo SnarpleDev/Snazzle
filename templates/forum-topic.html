@@ -19,7 +19,7 @@
                         {{ content | safe }}
                         
                         <div>
-                            <a href="?save={{ index }}"><button>Save this post</button></a>
+                            <a href="?page={{ topic_page }}&save={{ index }}"><button>Save this post</button></a>
                         </div>
                     </article>
                 </div>
@@ -52,7 +52,7 @@
         {% endfor %}
 
         <section>
-            {{ pagination("/forums/topic/{{ topic_id }}") }}
+            {{ pagination("/forums/topic/" + topic_id) }}
             <button onclick="history.back()">Back</button>
         </section>
 

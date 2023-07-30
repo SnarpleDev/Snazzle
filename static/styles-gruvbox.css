@@ -324,6 +324,7 @@ section {
 }
 
 section:first-child:not(.width-third) {
+    border: 6px solid #3c3836;
     background: transparent;
 }
 
