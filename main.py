@@ -3,7 +3,7 @@ from os import listdir
 from werkzeug import exceptions as werkexcept
 import dazzle
 
-REPLIT_MODE = True
+REPLIT_MODE = False
 USE_SCRATCHDB = True
 HOST, PORT = "localhost", 3000
 debug = True
