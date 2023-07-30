@@ -23,4 +23,7 @@ But for now, this is how you do it:
 6. Go to `localhost:3000` in your favourite browser and play around with it!
 
 ## Hosting on Replit
-Some features currently won't work properly due to usage of Scratch's API.
+Some features currently won't work properly due to usage of Scratch's API. With this in mind, [there's a version on replit that works around these limitations.](https://snazzle-repl.redstonescratch.repl.co/) However, because of these limitations, there are the following disadvantages to using the repl:
+1. No projects or studios on the front page
+2. All profile pictures are the default one
+3. May be slower
