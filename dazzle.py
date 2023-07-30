@@ -6,7 +6,7 @@ from datetime import datetime
 import os
 
 SCRATCHDB   = "https://scratchdb.lefty.one/v3/"
-DAZZLE_DIR  = "./.dazzle-archive"
+DAZZLE_DIR  = ".dazzle-archive"
 useDB       = False  # always change to true if on replit or other online ides. only affects project info for now
 REPLIT_MODE = False
 USE_PROXY   = False
@@ -39,8 +39,8 @@ def archive_result(filename):
                     fname = fname.replace('$', str(kwargs.values()[count]))
                     count += 1
             if not DAZZLE_DIR in os.listdir():
-                os.mkdir(DAZZLE_DIR)
-            with open(f'{DAZZLE_DIR}/{fname}', "wt", encoding='utf-8') as f:
+                os.mkdir('./' + DAZZLE_DIR)
+            with open(f'./{DAZZLE_DIR}/{fname}', "wt", encoding='utf-8') as f:
                 f.write(str(func_result))
             
             return func_result
