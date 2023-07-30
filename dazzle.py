@@ -1,16 +1,36 @@
 # Dazzle library
 
+"""
+    Dazzle is a helper library for Snazzle
+    that helps get stuff from ScratchDB 
+    and the Scratch API.
+    
+    It makes things easier to work with :)
+    
+    This library is mostly undocumented.
+    Writing documentation would help us greatly :D
+"""
+
 from functools import lru_cache, wraps
 import requests
 from datetime import datetime
+from dotenv import dotenv_values
 import os
+from sys import exit
+from uuid import uuid4
+import base64
+import supabase as sb
 
-SCRATCHDB   = "https://scratchdb.lefty.one/v3/"
-DAZZLE_DIR  = ".dazzle-archive"
+env = dotenv_values(".env")
+
+SCRATCHDB           = "https://scratchdb.lefty.one/v3/"
+DAZZLE_DIR          = ".dazzle-archive"
+ENABLE_SCRATCH_AUTH = True
+
 useDB       = False  # always change to true if on replit or other online ides. only affects project info for now
 REPLIT_MODE = False
-USE_PROXY   = False
-
+USE_PROXY   = False        
+        
 def archive_result(filename):
     """
         Archives a function's results in `filename`.
@@ -18,8 +38,10 @@ def archive_result(filename):
         that get stuff from ScratchDB so that 
         Snazzle can be used when ScratchDB is down.
         
-        The only reason this exists is because ScratchDB goes down all the time, but there's no alternative.
-        I wish Lefty would just fix their service but it's not an option.
+        The only reason this exists is because ScratchDB 
+        goes down all the time, but there's no alternative. 
+        I wish Lefty would just fix their service but it's
+        not an option.
     """
     def decorate(ofunc):
         @wraps(ofunc)
@@ -47,6 +69,10 @@ def archive_result(filename):
         
         return wrapper
     return decorate
+
+def set_server_host(host):
+    global SERVER_HOST
+    SERVER_HOST = host
 
 def use_scratchdb(value):
     """
@@ -191,6 +217,11 @@ def get_aviate(username):
         return r["status"]
 
 def get_featured_projects():
+    """
+    Retrieve the featured projects from the Scratch API.
+
+    Returns a JSON object containing the featured projects.
+    """
     r = requests.get("https://api.scratch.mit.edu/proxy/featured")
     return r.json()
 
@@ -234,6 +265,46 @@ def get_pfp_url(username, size = 90):
     r = requests.get(f"https://api.scratch.mit.edu/users/{username}")
     
     return r.json()['profile']['images'][str(size) + 'x' + str(size)]
+
+def ask_for_redirect(location):
+    return "redirect_to_" + location
+
+def scratch_auth_login(step = 1, url_data = None):
+    if step == 1:
+        if not env['SERVER_MODE'] or env['SERVER_MODE'] == False:
+            print('[Dazzle] Snazzle must be run in server mode for Scratch Auth to work.')
+            print('. . . . .For more information: https://tinyurl.com/snazzle-server')
+        elif not env['USE_SUPABASE']:
+            print('[Dazzle] Supabase must be enabled in .env for Scratch Auth to work.')
+            exit(1)
+        elif env['USE_SUPABASE'] and not env['SUPABASE_KEY']:
+            print('[Dazzle] Supabase is enabled, but you need to enter your API key.')
+            print('. . . . .For more information: https://tinyurl.com/snazzle-server')
+            exit(1)
+        else:
+            print('[Dazzle] Supabase is set up correctly.')
+            print('. . . . .Now authenticating using Scratch Auth. Please wait.')
+            redir_loc = str(base64.b64encode("/handle-scratch-auth"))
+            print('. . . . .Redirecting user to ' + redir_loc)
+            return ask_for_redirect(redir_loc)
+    elif step == 2:
+        data = requests.get(f'https://auth.itinerary.eu.org/api/auth/verifyToken?privateCode={url_data["private_code"]}').json()
+
+        if data['valid'] and data.redirect == env['SERVER_HOST'] + '/handle-scratch-auth':
+            session_id = uuid4()
+            sb_client = sb.create_client(env['SUPABASE_KEY'], env['SUPABASE_URL'])
+            data, count = sb_client \
+                .table('users_new') \
+                .insert({
+                    {"satoken": session_id,
+                     "username": data['username'],}
+                }) \
+                .execute()
+                
+        else:
+            return 'lib_data_invalid'
+    else:
+        return 'lib_invalid_step'
 
 # Below this line is all stuff used for the REPL debugging mode
 # Generally, don't touch this, unless there's a severe flaw or something

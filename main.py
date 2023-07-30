@@ -346,11 +346,24 @@ def unpin_sub(sf):
         user_data["pinned_subforums"] = arr
         return "<script>history.back();</script>"
 
+@app.get("/handle-scratch-auth")
+def scratch_auth():
+    # TODO: test this on a machine
+    if not request.args:
+        if sa_login := dazzle.scratch_auth_login(1):
+            return request.redirect(sa_login)
+        else:
+            return "<script>alert('Auth failed');history.back()</script>"
+    else:
+        code = request.args.get("privateCode")
+        dazzle.scratch_auth_login(2, url_data={
+            "private_code": code
+        })
 
 @app.errorhandler(werkexcept.NotFound)
 def err404(e: Exception):
     # route for error
     return render_template("_error.html", errdata=e), 404
 
-
+# CHANGE THIS IF YOU'RE RUNNING A PUBLIC SERVER
 app.run(host="localhost", port=3000, debug=True)
