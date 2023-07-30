@@ -28,7 +28,7 @@
     </section>
     <div class="scrollpane sp-forum sp-vert">
         {% for topic in topics %}
-            <a href="{{'topic/' + str(topic.id) + '?page=0'}}"><button style="width: 100%;">{{ topic.title }} by {{ get_author_of(topic.id) }}</button></a>
+            <a href="{{'topic/' + str(topic.id) + '?page=0'}}"><button style="width: 100%;">{{ topic.title }} <span class="topic-author">by {{ get_author_of(topic.id) }}</span></button></a>
         {% endfor %}
     </div>
 </div>

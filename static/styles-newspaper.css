@@ -135,3 +135,13 @@ button a,
 button a:visited {
     color: black;
 }
+
+.topic-author {
+	color: rgba(0, 0, 0, 0.5);
+	font-weight: bold;
+}
+
+.scrollpane.sp-forum.sp-vert a button:hover .topic-author {
+	color: rgba(255, 255, 255, 0.5);
+	font-weight: bold;
+}

@@ -84,9 +84,6 @@ def add_header(r):
         r.headers["Expires"] = "0"
     return r
 
-
-HOST, PORT = "127.0.0.1", 3000
-
 subforums_data = (
     ("Welcome", ["Announcements", "New Scratchers"]),
     (
@@ -200,6 +197,9 @@ def topic(topic_id):
     Shows all posts in a topic.
     """
 
+    if post_to_save := request.args.get("save"):
+        user_data["saved_posts"].append((topic_id, post_to_save))
+    
     show_deleted_posts = user_data["show_deleted_posts"]
 
     topic_page = request.args.get('page')
@@ -353,4 +353,4 @@ def err404(e: Exception):
     return render_template("_error.html", errdata=e), 404
 
 
-app.run(host=HOST, port=PORT, debug=debug)
+app.run(host="localhost", port=3000, debug=True)

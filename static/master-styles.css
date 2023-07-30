@@ -218,7 +218,8 @@ section {
 #banner {
     margin: 0.1em;
     border-radius: 10px;
-    height: 60vh;
+    height: calc(50vh + 100px) !important;
+
     padding: 2.5rem;
     /* z-index: 999; */
 }
@@ -369,4 +370,9 @@ div.code {
 
 #replit-logo {
     width: 1em;
+}
+
+.topic-author {
+	color: rgba(255, 255, 255, 0.5);
+	font-weight: bold;
 }

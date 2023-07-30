@@ -28,15 +28,16 @@
             <p>If you're more than a casual user of the Scratch website for whatever reason, then you'll like Snazzle.
             </p>
             <p>It's like a giant vat of coffee brewed with ingredients from the Scratch community.</p>
-            <button>Login with Scratch Auth (coming soon)</button>
+            <button id="scratch-auth">Login with Scratch Auth (coming soon)</button>
             <a href="#downloads"><button class="purple">Desktop versions (coming soon)</button></a>
         </div>
         <section class="width-40">
             <h1>Features of Snazzle</h1>
             <ul class="flex-cont fc-vert">
-                <li>Nicer-looking</li>
-                <li>Do things faster</li>
-                <li>Customizable</li>
+                <li>Themeable</li>
+                <li>Forum browsing</li>
+                <li>Project pages</li>
+				<li>Open source! All of it!</li>
                 <li>Desktop version (coming soon)</li>
             </ul>
         </section>
@@ -44,9 +45,22 @@
 </div>
 
 <script>
-    function closeBanner() {
-        var banner = document.getElementById('banner')
+	// old function we don't need
+    // function closeBanner() {
+    //     var banner = document.getElementById('banner')
 
-        banner.hidden = true;
-    }
+    //     banner.hidden = true;
+    // }
+
+	// auth code (sorta)
+	let canAuth = true;
+	if (localStorage.getItem("token")) {
+		canAuth = false;
+	}
+
+	if (canAuth) {
+		document.getElementById("scratch-auth").display = 'block';
+	} else {
+		document.getElementById("scratch-auth").display = 'none';
+	}
 </script>
