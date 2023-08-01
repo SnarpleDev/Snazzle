@@ -1,12 +1,16 @@
 from flask import Flask, render_template, stream_template, request, redirect
 from os import listdir
+from os.path import exists
 from werkzeug import exceptions as werkexcept
 import dazzle
+import json
 
-REPLIT_MODE = False
-USE_SCRATCHDB = True
-HOST, PORT = "localhost", 3000
-debug = True
+
+REPLIT_MODE = True if dazzle.env["REPLIT_MODE"] == "yes" else False
+USE_SCRATCHDB = True if dazzle.env["USE_SCRATCHDB"] == "yes" else False
+HOST, PORT = dazzle.env["SERVER_HOST"].split(":")
+DEBUG = True if dazzle.env["DEBUG"] == "yes" else False
+FLASK_DEBUG = True if dazzle.env["FLASK_DEBUG"] == "yes" else False
 
 """
        **** Snazzle Server Code ****
@@ -283,7 +287,7 @@ def project(project_id):
     else:
         creator_name = str(creator_name) + " ●"  # add the dot
     ocular_colour = f"color:{ocular_colour}"
-    if not debug:
+    if not DEBUG:
         return stream_template(
             "projects.html",
             project_id=project_id,
@@ -366,4 +370,5 @@ def err404(e: Exception):
     return render_template("_error.html", errdata=e), 404
 
 # CHANGE THIS IF YOU'RE RUNNING A PUBLIC SERVER
-app.run(host="localhost", port=3000, debug=True)
+if __name__ == "__main__":
+    app.run(host=HOST, port=PORT, debug=FLASK_DEBUG)
