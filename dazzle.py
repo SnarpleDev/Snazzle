@@ -23,107 +23,118 @@ import supabase as sb
 
 env = dotenv_values(".env")
 
-SCRATCHDB           = "https://scratchdb.lefty.one/v3/"
-DAZZLE_DIR          = ".dazzle-archive"
+SCRATCHDB = "https://scratchdb.lefty.one/v3/"
+DAZZLE_DIR = ".dazzle-archive"
 ENABLE_SCRATCH_AUTH = True
 
-useDB       = False  # always change to true if on replit or other online ides. only affects project info for now
+useDB = False  # always change to true if on replit or other online ides. only affects project info for now
 REPLIT_MODE = False
-USE_PROXY   = False        
-        
+USE_PROXY = False
+
+
 def archive_result(filename):
     """
-        Archives a function's results in `filename`.
-        This is mainly used for functions 
-        that get stuff from ScratchDB so that 
-        Snazzle can be used when ScratchDB is down.
-        
-        The only reason this exists is because ScratchDB 
-        goes down all the time, but there's no alternative. 
-        I wish Lefty would just fix their service but it's
-        not an option.
+    Archives a function's results in `filename`.
+    This is mainly used for functions
+    that get stuff from ScratchDB so that
+    Snazzle can be used when ScratchDB is down.
+
+    The only reason this exists is because ScratchDB
+    goes down all the time, but there's no alternative.
+    I wish Lefty would just fix their service but it's
+    not an option.
     """
+
     def decorate(ofunc):
         @wraps(ofunc)
         def wrapper(*args, **kwargs):
             print(args)
             fname = filename
             func_result = ofunc(*args, **kwargs)
-            
-            if '$' in fname:
+
+            if "$" in fname:
                 count = 0
-                while '$' in fname:
+                while "$" in fname:
                     print(count)
-                    fname = fname.replace('$', str(args[count]))
+                    fname = fname.replace("$", str(args[count]))
                     count += 1
                 count = 0
-                while '%' in fname:
-                    fname = fname.replace('$', str(kwargs.values()[count]))
+                while "%" in fname:
+                    fname = fname.replace("$", str(kwargs.values()[count]))
                     count += 1
             if not DAZZLE_DIR in os.listdir():
-                os.mkdir('./' + DAZZLE_DIR)
-            with open(f'./{DAZZLE_DIR}/{fname}', "wt", encoding='utf-8') as f:
+                os.mkdir("./" + DAZZLE_DIR)
+            with open(f"./{DAZZLE_DIR}/{fname}", "wt", encoding="utf-8") as f:
                 f.write(str(func_result))
-            
+
             return func_result
-        
+
         return wrapper
+
     return decorate
+
 
 def set_server_host(host):
     global SERVER_HOST
     SERVER_HOST = host
 
+
 def use_scratchdb(value):
     """
-        Force ScratchDB to be used.
+    Force ScratchDB to be used.
     """
     global USE_SDB
     USE_SDB = value
 
+
 def replit_mode(value):
     """
-        Enable Replit mode so that Snazzle can be used on Replit.
-        
-        This is a stricter version of the `use_scratchdb` function.
+    Enable Replit mode so that Snazzle can be used on Replit.
+
+    This is a stricter version of the `use_scratchdb` function.
     """
     global REPLIT_MODE
     REPLIT_MODE = value
-    
+
+
 def use_proxy(value):
     """
-        Force proxy to be used so that Snazzle
-        can be used on Replit without ScratchDB
-        because ScratchDB goes down all the time
-        and it's also a little slow.
-        
-        The archiving solution may work but it's
-        not ideal.
+    Force proxy to be used so that Snazzle
+    can be used on Replit without ScratchDB
+    because ScratchDB goes down all the time
+    and it's also a little slow.
+
+    The archiving solution may work but it's
+    not ideal.
     """
     global USE_PROXY
     USE_PROXY = value
 
+
 def remove_duplicates(input_list):
     """
-        Removes duplicates from a list.
-        
-        Needs to work on unhashable datatypes
-        which is why it's so slow and hacky and ew.
+    Removes duplicates from a list.
+
+    Needs to work on unhashable datatypes
+    which is why it's so slow and hacky and ew.
     """
     result_list = []
-    for dict in input_list:
-        if dict not in result_list:
-            result_list.append(dict)
+    for d in input_list:
+        if d not in result_list:
+            result_list.append(d)
     return result_list
 
 
-@archive_result(f'gettopics-category_$-page_$')
+@archive_result(f"gettopics-category_$-page_$")
 @lru_cache(maxsize=15)
 def get_topics(category, page):
     """
-        Gets topics in a subforum from ScratchDB.
+    Gets topics in a subforum from ScratchDB.
     """
-    r = requests.get(f"{SCRATCHDB}forum/category/topics/{category}/{page}?detail=0&filter=1")
+    r = requests.get(
+        f"{SCRATCHDB}forum/category/topics/{category}/{page}?detail=0&filter=1",
+        timeout=10,
+    )
     try:
         if type(r.json()) != list:
             return {"error": True, "message": "sdb_" + r.json()["error"].lower()}
@@ -133,68 +144,75 @@ def get_topics(category, page):
         return {"error": True, "message": "lib_scratchdbdown"}
 
 
-@archive_result(f'getpostinfo-$')
+@archive_result(f"getpostinfo-$")
 @lru_cache(maxsize=15)
 def get_post_info(post_id):
     """
-        Gets info about a forum post from ScratchDB.
+    Gets info about a forum post from ScratchDB.
     """
-    r = requests.get(f"{SCRATCHDB}forum/post/info/{post_id}")
+    r = requests.get(f"{SCRATCHDB}forum/post/info/{post_id}", timeout=10)
     return r.json()
 
 
 def get_author_of(post_id):
     """
-        Intended to get the author of a forum topic.
-        
-        For now it just returns "user" because it's very slow
-        when you have to loop over all the posts in a topic
-        to get one singular piece of data.
+    Intended to get the author of a forum topic.
+
+    For now it just returns "user" because it's very slow
+    when you have to loop over all the posts in a topic
+    to get one singular piece of data.
     """
     return "user"
     # r = requests.get(f'{SCRATCHDB}forum/post/info/{post_id}')
     # return r.json()['username']
 
 
-@archive_result(f'projectinfo-id_$')
+@archive_result(f"projectinfo-id_$")
 @lru_cache(maxsize=15)
 def get_project_info(project_id):
     """
-        Get info about a project from ScratchDB.
+    Get info about a project from ScratchDB.
     """
     if not useDB:
-        r = requests.get(f'https://scratchdb.lefty.one/v2/project/info/id/{project_id}')
+        r = requests.get(
+            f"https://scratchdb.lefty.one/v2/project/info/id/{project_id}", timeout=10
+        )
     else:
-        r = requests.get(f"https://api.scratch.mit.edu/projects/{project_id}")
+        r = requests.get(
+            f"https://api.scratch.mit.edu/projects/{project_id}", timeout=10
+        )
     return r.json()
 
 
 @lru_cache(maxsize=15)
 def get_comments(project_id):
     if not REPLIT_MODE:
-        return None # i'll do this later
+        return None  # i'll do this later
     try:
         project_creator = requests.get(
-            f"https://api.scratch.mit.edu/projects/{project_id}"
+            f"https://api.scratch.mit.edu/projects/{project_id}", timeout=10
         ).json()["author"]["username"]
     except Exception:
         return Exception
     r = requests.get(
-        f"https://api.scratch.mit.edu/users/{project_creator}/projects/{project_id}/comments?limit=40"
+        f"https://api.scratch.mit.edu/users/{project_creator}/projects/{project_id}/comments?limit=40",
+        timeout=10,
     )
     return r.json()
 
 
-@archive_result(f'ocular-username_$')
+@archive_result(f"ocular-username_$")
 @lru_cache(maxsize=5)
 def get_ocular(username):
     """
-        Get a user's status from ocular.
+    Get a user's status from ocular.
     """
     try:
-        info = requests.get(f"https://my-ocular.jeffalo.net/api/user/{username}")
+        info = requests.get(
+            f"https://my-ocular.jeffalo.net/api/user/{username}", timeout=10
+        )
         info.json()["name"]
-    except Exception:
+    except KeyError:
         return {
             "name": None,
             "status": None,
@@ -202,19 +220,21 @@ def get_ocular(username):
         }  # i had  to spell colour wrong for it to work
     return info.json()
 
-@archive_result(f'aviate-username_$')
+
+@archive_result(f"aviate-username_$")
 @lru_cache(maxsize=5)
 def get_aviate(username):
     """
-        Get a user's status from Aviate.
+    Get a user's status from Aviate.
     """
     # Aviate API is much simple very wow
     # Better than ocular API imo
-    r = requests.get(f"https://aviate.scratchers.tech/api/{username}")
-    if r['success'] == False:
-        return ''
+    r = requests.get(f"https://aviate.scratchers.tech/api/{username}", timeout=10)
+    if r["success"] == False:
+        return ""
     else:
         return r["status"]
+
 
 def get_featured_projects():
     """
@@ -222,13 +242,14 @@ def get_featured_projects():
 
     Returns a JSON object containing the featured projects.
     """
-    r = requests.get("https://api.scratch.mit.edu/proxy/featured")
+    r = requests.get("https://api.scratch.mit.edu/proxy/featured", timeout=10)
     return r.json()
 
-@archive_result(f'topic-data-id_$')
+
+@archive_result("topic-data-id_$")
 @lru_cache(maxsize=15)
 def get_topic_data(topic_id):
-    r = requests.get(f"{SCRATCHDB}forum/topic/info/{topic_id}")
+    r = requests.get(f"{SCRATCHDB}forum/topic/info/{topic_id}", timeout=10)
     try:
         if "error" in r.json().keys():
             return {"error": True, "message": "sdb_" + r.json()["error"].lower()}
@@ -247,67 +268,84 @@ def get_trending_projects():
     )
     return r.json()
 
-@archive_result(f'posts-id_$-page_$')
+
+@archive_result("posts-id_$-page_$")
 def get_topic_posts(topic_id, page=0, order="oldest"):
-    r = requests.get(f"{SCRATCHDB}forum/topic/posts/{topic_id}/{page}?o={order}")
+    r = requests.get(
+        f"{SCRATCHDB}forum/topic/posts/{topic_id}/{page}?o={order}", timeout=10
+    )
     # post['author'], post['time'], post['html_content'], post['index'], post['is_deleted']
     try:
-        if type(r.json()) != list:
-            return {'error': True, 'message': 'sdb_' + r.json()['error'].lower()}
+        if not isinstance(r.json(), list):
+            return {"error": True, "message": "sdb_" + r.json()["error"].lower()}
 
         # Time formatting thanks to ChatGPT
-        return {'error': False, 'posts': [{'author': post['username'], 'time': datetime.fromisoformat(post['time']['first_checked'].replace("Z", "+00:00")).strftime("%B %d, %Y at %I:%M %p UTC"), 'html_content': post['content']['html'], 'is_deleted': post['deleted'], 'index': i} for i, post in enumerate(r.json())]}
+        return {
+            "error": False,
+            "posts": [
+                {
+                    "author": post["username"],
+                    "time": datetime.fromisoformat(
+                        post["time"]["first_checked"].replace("Z", "+00:00")
+                    ).strftime("%B %d, %Y at %I:%M %p UTC"),
+                    "html_content": post["content"]["html"],
+                    "is_deleted": post["deleted"],
+                    "index": i,
+                }
+                for i, post in enumerate(r.json())
+            ],
+        }
     except requests.exceptions.JSONDecodeError:
         return {"error": True, "message": "lib_scratchdbdown"}
 
-@archive_result('pfp_url')
-def get_pfp_url(username, size = 90):
-    r = requests.get(f"https://api.scratch.mit.edu/users/{username}")
-    
-    return r.json()['profile']['images'][str(size) + 'x' + str(size)]
 
-def ask_for_redirect(location):
-    return "redirect_to_" + location
+@archive_result("pfp_url")
+def get_pfp_url(username, size=90):
+    r = requests.get(f"https://api.scratch.mit.edu/users/{username}", timeout=10)
 
-def scratch_auth_login(step = 1, url_data = None):
-    if step == 1:
-        if not env['SERVER_MODE'] or env['SERVER_MODE'] == False:
-            print('[Dazzle] Snazzle must be run in server mode for Scratch Auth to work.')
-            print('. . . . .For more information: https://tinyurl.com/snazzle-server')
-        elif not env['USE_SUPABASE']:
-            print('[Dazzle] Supabase must be enabled in .env for Scratch Auth to work.')
-            exit(1)
-        elif env['USE_SUPABASE'] and not env['SUPABASE_KEY']:
-            print('[Dazzle] Supabase is enabled, but you need to enter your API key.')
-            print('. . . . .For more information: https://tinyurl.com/snazzle-server')
-            exit(1)
-        else:
-            print('[Dazzle] Supabase is set up correctly.')
-            print('. . . . .Now authenticating using Scratch Auth. Please wait.')
-            redir_loc = str(base64.b64encode("/handle-scratch-auth"))
-            print('. . . . .Redirecting user to ' + redir_loc)
-            return ask_for_redirect(redir_loc)
-    elif step == 2:
-        data = requests.get(f'https://auth.itinerary.eu.org/api/auth/verifyToken?privateCode={url_data["private_code"]}').json()
+    return r.json()["profile"]["images"][str(size) + "x" + str(size)]
 
-        if data['valid'] and data.redirect == env['SERVER_HOST'] + '/handle-scratch-auth':
-            session_id = uuid4()
-            sb_client = sb.create_client(env['SUPABASE_KEY'], env['SUPABASE_URL'])
-            data, count = sb_client \
-                .table('users_new') \
-                .insert({
-                    {"satoken": session_id,
-                     "username": data['username'],}
-                }) \
-                .execute()
-                
-        else:
-            return 'lib_data_invalid'
-    else:
-        return 'lib_invalid_step'
+
+def get_redirect_url() -> str:
+    assert not (
+        not env["SERVER_MODE"] or not env["SERVER_MODE"]
+    ), "Snazzle must be run in server mode for Scratch Auth to work. See https://tinyurl.com/snazzle-server"
+    assert env[
+        "USE_SUPABASE"
+    ], "Supabase must be enabled in .env for Scratch Auth to work."
+    assert (
+        env["USE_SUPABASE"] and env["SUPABASE_KEY"]
+    ), "Supabase is enabled, but you need to enter your API key. See https://tinyurl.com/snazzle-server"
+    redir_loc = base64.b64encode(
+        "http://localhost:3000/handle-scratch-auth".encode()
+    ).decode()
+    return f"https://auth.itinerary.eu.org/auth?name=snazzle&redirect={redir_loc}"
+
+
+def login(code: str):
+    data = requests.get(
+        f"https://auth.itinerary.eu.org/api/auth/verifyToken?privateCode={code}",
+        timeout=10,
+    ).json()
+    print(data)
+
+    if (
+        data["valid"]
+        and data["redirect"] == env["SERVER_HOST"] + "/handle-scratch-auth"
+    ):
+        session_id = uuid4()
+        print(env["SUPABASE_URL"])
+        sb_client = sb.create_client(env["SUPABASE_URL"], env["SUPABASE_KEY"])
+        return (
+            sb_client.table("users_new")
+            .insert({"satoken": session_id, "username": data["username"]})
+            .execute()
+        )
+
 
 # Below this line is all stuff used for the REPL debugging mode
 # Generally, don't touch this, unless there's a severe flaw or something
+
 
 def parse_token(token: str, i: int):
     if isinstance(token, str) and i > 0 and "." in token:
