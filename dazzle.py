@@ -312,7 +312,7 @@ def get_redirect_url() -> str:
         not env["SERVER_MODE"] or not env["SERVER_MODE"]
     ), "Snazzle must be run in server mode for Scratch Auth to work. See https://tinyurl.com/snazzle-server"
     redir_loc = base64.b64encode(
-        "http://localhost:3000/handle-scratch-auth".encode()
+        f"http://{env['SERVER_HOST']}/handle-scratch-auth".encode()
     ).decode()
     return f"https://auth.itinerary.eu.org/auth?name=snazzle&redirect={redir_loc}"
 
@@ -333,14 +333,13 @@ def login(code: str):
         cursor.execute(
             f"CREATE TABLE IF NOT EXISTS {env['DB_TABLE']}( username, token )"
         )
+        # TODO: insert only if user doesn't exist
         cursor.execute(
             f"INSERT INTO {env['DB_TABLE']} VALUES (?, ?)",
             (data["username"], session_id),
         )
         conn.commit()
         conn.close()
-
-        return None
 
 
 # Below this line is all stuff used for the REPL debugging mode

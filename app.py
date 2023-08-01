@@ -5,7 +5,7 @@ import dazzle
 
 REPLIT_MODE = False
 USE_SCRATCHDB = True
-HOST, PORT = "localhost", 3000
+
 debug = True
 
 """
@@ -335,7 +335,6 @@ def unpin_sub(sf):
 
 @app.get("/handle-scratch-auth")
 def scratch_auth():
-    # TODO: test this on a machine
     if not request.args:
         if sa_login := dazzle.get_redirect_url():
             return redirect(sa_login)
@@ -343,15 +342,11 @@ def scratch_auth():
             return "<script>alert('Auth failed');history.back()</script>"
     else:
         code = request.args.get("privateCode")
-        data = dazzle.login(code)
-        return "done"
+        dazzle.login(code)
+        return "<h1>Login successful</h1><script>window.location.href = `${window.location.protocol}//${window.location.host}`</script>"
 
 
 @app.errorhandler(werkexcept.NotFound)
 def err404(e: Exception):
     # route for error
     return render_template("_error.html", errdata=e), 404
-
-
-# CHANGE THIS IF YOU'RE RUNNING A PUBLIC SERVER
-app.run(host="localhost", port=3000, debug=True)
