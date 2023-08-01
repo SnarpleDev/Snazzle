@@ -29,7 +29,7 @@ ENABLE_SCRATCH_AUTH = True
 
 useDB       = False  # always change to true if on replit or other online ides. only affects project info for now
 REPLIT_MODE = False
-USE_PROXY   = False        
+USE_PROXY   = False
         
 def archive_result(filename):
     """
@@ -284,7 +284,7 @@ def scratch_auth_login(step = 1, url_data = None):
         else:
             print('[Dazzle] Supabase is set up correctly.')
             print('. . . . .Now authenticating using Scratch Auth. Please wait.')
-            redir_loc = str(base64.b64encode("/handle-scratch-auth"))
+            redir_loc = str(base64.b64encode(bytes(env["SERVER_HOST"] + "/handle-scratch-auth", encoding='utf-8')))
             print('. . . . .Redirecting user to ' + redir_loc)
             return ask_for_redirect(redir_loc)
     elif step == 2:

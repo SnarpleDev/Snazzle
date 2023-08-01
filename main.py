@@ -2,6 +2,7 @@ from flask import Flask, render_template, stream_template, request, redirect
 from os import listdir
 from werkzeug import exceptions as werkexcept
 import dazzle
+import supabase
 
 REPLIT_MODE = False
 USE_SCRATCHDB = True
@@ -351,7 +352,7 @@ def scratch_auth():
     # TODO: test this on a machine
     if not request.args:
         if sa_login := dazzle.scratch_auth_login(1):
-            return request.redirect(sa_login)
+            return redirect(sa_login)
         else:
             return "<script>alert('Auth failed');history.back()</script>"
     else:
