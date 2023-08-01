@@ -12,14 +12,15 @@
 """
 
 from functools import lru_cache, wraps
-import requests
-from datetime import datetime
-from dotenv import dotenv_values
-import os
-from sys import exit
-from uuid import uuid4
 import base64
-import supabase as sb
+import os
+
+from datetime import datetime
+from uuid import uuid4
+import sqlite3
+
+from dotenv import dotenv_values
+import requests
 
 env = dotenv_values(".env")
 
@@ -230,10 +231,9 @@ def get_aviate(username):
     # Aviate API is much simple very wow
     # Better than ocular API imo
     r = requests.get(f"https://aviate.scratchers.tech/api/{username}", timeout=10)
-    if r["success"] == False:
+    if not r["success"]:
         return ""
-    else:
-        return r["status"]
+    return r["status"]
 
 
 def get_featured_projects():
@@ -264,7 +264,8 @@ def get_trending_projects():
     # TODO: implement limits and offsets
     # language parameter seems to be ineffectual when set to another lang
     r = requests.get(
-        "https://api.scratch.mit.edu/explore/projects?limit=20&language=en&mode=trending&q=*"
+        "https://api.scratch.mit.edu/explore/projects?limit=20&language=en&mode=trending&q=*",
+        timeout=10,
     )
     return r.json()
 
@@ -310,12 +311,6 @@ def get_redirect_url() -> str:
     assert not (
         not env["SERVER_MODE"] or not env["SERVER_MODE"]
     ), "Snazzle must be run in server mode for Scratch Auth to work. See https://tinyurl.com/snazzle-server"
-    assert env[
-        "USE_SUPABASE"
-    ], "Supabase must be enabled in .env for Scratch Auth to work."
-    assert (
-        env["USE_SUPABASE"] and env["SUPABASE_KEY"]
-    ), "Supabase is enabled, but you need to enter your API key. See https://tinyurl.com/snazzle-server"
     redir_loc = base64.b64encode(
         "http://localhost:3000/handle-scratch-auth".encode()
     ).decode()
@@ -327,20 +322,25 @@ def login(code: str):
         f"https://auth.itinerary.eu.org/api/auth/verifyToken?privateCode={code}",
         timeout=10,
     ).json()
-    print(data)
 
     if (
         data["valid"]
         and data["redirect"] == env["SERVER_HOST"] + "/handle-scratch-auth"
     ):
-        session_id = uuid4()
-        print(env["SUPABASE_URL"])
-        sb_client = sb.create_client(env["SUPABASE_URL"], env["SUPABASE_KEY"])
-        return (
-            sb_client.table("users_new")
-            .insert({"satoken": session_id, "username": data["username"]})
-            .execute()
+        session_id = str(uuid4())
+        conn = sqlite3.connect(env["DB_LOCATION"])
+        cursor = conn.cursor()
+        cursor.execute(
+            f"CREATE TABLE IF NOT EXISTS {env['DB_TABLE']}( username, token )"
         )
+        cursor.execute(
+            f"INSERT INTO {env['DB_TABLE']} VALUES (?, ?)",
+            (data["username"], session_id),
+        )
+        conn.commit()
+        conn.close()
+
+        return None
 
 
 # Below this line is all stuff used for the REPL debugging mode

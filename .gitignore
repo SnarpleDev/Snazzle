@@ -3,6 +3,7 @@
 
 # Dazzle archive files
 .dazzle-archive/
+users.sqlite
 
 # vscode files
 .vscode/
