@@ -267,7 +267,7 @@ def get_pfp_url(username, size = 90):
     return r.json()['profile']['images'][str(size) + 'x' + str(size)]
 
 def ask_for_redirect(location):
-    return "redirect_to_" + location
+    return location
 
 def scratch_auth_login(step = 1, url_data = None):
     if step == 1:
@@ -286,7 +286,7 @@ def scratch_auth_login(step = 1, url_data = None):
             print('. . . . .Now authenticating using Scratch Auth. Please wait.')
             redir_loc = str(base64.b64encode(bytes(env["SERVER_HOST"] + "/handle-scratch-auth", encoding='utf-8')))
             print('. . . . .Redirecting user to ' + redir_loc)
-            return ask_for_redirect(redir_loc)
+            return ask_for_redirect("https://auth.itinerary.eu.org/auth/?redirect=" + redir_loc + "&name=Snazzle")
     elif step == 2:
         data = requests.get(f'https://auth.itinerary.eu.org/api/auth/verifyToken?privateCode={url_data["private_code"]}').json()
 
