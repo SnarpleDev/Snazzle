@@ -355,6 +355,7 @@ def err404(e: Exception):
     # route for error
     return render_template("_error.html", errdata=e), 404
 
+
 # CHANGE THIS IF YOU'RE RUNNING A PUBLIC SERVER
 if __name__ == "__main__":
     app.run(host=HOST, port=PORT, debug=FLASK_DEBUG)
