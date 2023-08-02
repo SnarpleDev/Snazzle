@@ -1,5 +1,5 @@
-from flask import Flask, render_template, stream_template, request, redirect
 from os import listdir
+from flask import Flask, render_template, stream_template, request, redirect
 from os.path import exists
 from werkzeug import exceptions as werkexcept
 import dazzle
@@ -22,37 +22,6 @@ https://github.com/redstone-scratch/Snazzle/
 
 app = Flask(__name__)
 
-subforums_data = (
-    ("Welcome", ["Announcements", "New Scratchers"]),
-    (
-        "Making Scratch Projects",
-        [
-            "Help with Scripts",
-            "Show and Tell",
-            "Project Ideas",
-            "Collaboration",
-            "Requests",
-            "Project Save & Level Codes",
-        ],
-    ),
-    (
-        "About Scratch",
-        [
-            "Questions about Scratch",
-            "Suggestions",
-            "Bugs and Glitches",
-            "Advanced Topics",
-            "Connecting to the Physical World",
-            "Scratch Extensions",
-            "Open Source Projects",
-        ],
-    ),
-    (
-        "Interests Beyond Scratch",
-        ["Things I'm Making and Creating", "Things I'm Reading and Playing"],
-    ),
-)
-
 user_data = dict(
     theme="choco",
     user_name="CoolScratcher123",
@@ -60,13 +29,14 @@ user_data = dict(
     saved_posts=[],
     max_topic_posts=20,
     show_deleted_posts=True,
-    ocular_ov=True, # for 'ocular override'
+    ocular_ov=True,  # for 'ocular override'
 )
 
 dazzle.use_scratchdb(True)
 
 global get_status
-get_status = dazzle.get_ocular if user_data['ocular_ov'] else dazzle.get_aviate
+get_status = dazzle.get_ocular if user_data["ocular_ov"] else dazzle.get_aviate
+
 
 def get_themes():
     return [
@@ -88,6 +58,7 @@ def add_header(r):
         r.headers["Expires"] = "0"
     return r
 
+
 subforums_data = (
     ("Welcome", ["Announcements", "New Scratchers"]),
     (
@@ -118,6 +89,7 @@ subforums_data = (
         ["Things I'm Making and Creating", "Things I'm Reading and Playing"],
     ),
 )
+
 
 @app.context_processor
 def context():
@@ -150,6 +122,7 @@ def index():
         remixed=projects["community_most_remixed_projects"],
     )
 
+
 @app.get("/trending")
 def trending():
     """
@@ -179,8 +152,8 @@ def topics(subforum):
     A page that lists all the topics in the subforum
     """
 
-    sf_page = request.args.get('page')
-    
+    sf_page = request.args.get("page")
+
     response = dazzle.get_topics(subforum, sf_page)
     if response["error"]:
         return render_template("scratchdb-error.html", err=response["message"])
@@ -192,9 +165,10 @@ def topics(subforum):
         url=request.url,
         str=str,
         topic_page=int(sf_page),
-        len=len
+        len=len,
     )
-    
+
+
 @app.get("/forums/topic/<topic_id>")
 def topic(topic_id):
     """
@@ -203,11 +177,11 @@ def topic(topic_id):
 
     if post_to_save := request.args.get("save"):
         user_data["saved_posts"].append((topic_id, post_to_save))
-    
+
     show_deleted_posts = user_data["show_deleted_posts"]
 
-    topic_page = request.args.get('page')
-    
+    topic_page = request.args.get("page")
+
     topic_data = dazzle.get_topic_data(topic_id)
     topic_posts = dazzle.get_topic_posts(topic_id, page=topic_page)
 
@@ -230,21 +204,20 @@ def topic(topic_id):
         "get_pfp": dazzle.get_pfp_url,
         "get_status": get_status,
     }
-    
+
     # if topic_id == 'Suggestions':
     #     return stream_template(
     #         "suggestions-post.html",
     #         **data_dict
     #     )
     # else:
-    return stream_template(
-        "forum-topic.html",
-        **data_dict
-    )
-    
+    return stream_template("forum-topic.html", **data_dict)
+
+
 @app.get("/img-fullscreen")
 def img():
-    return render_template("img.html", img_url=request.args.get('url'))
+    return render_template("img.html", img_url=request.args.get("url"))
+
 
 @app.get("/projects/scratch/<project_id>")
 def scratchproject(project_id):
@@ -297,19 +270,20 @@ def project(project_id):
             ocularcolour=ocular_colour,
         )
     else:
-        #scomments = scratchdb.get_comments(project_id)
+        # scomments = scratchdb.get_comments(project_id)
         return stream_template(
             "projects.html",
             project_id=project_id,
             colour=colour,
             name=project_name,
             creator_name=creator_name,
-            #comments=[{"username": comment["author"]["username"], "content": comment["content"], "visibility": comment["visibility"]} for comment in scomments],
+            # comments=[{"username": comment["author"]["username"], "content": comment["content"], "visibility": comment["visibility"]} for comment in scomments],
             ocularcolour=ocular_colour,
         )
 
+
 @app.route("/settings", methods=["GET"])
-def settings(): 
+def settings():
     """
     Settings page.
     Change theme, status, link github account
@@ -317,7 +291,18 @@ def settings():
     for key, value in request.args.items():
         user_data[key.replace("-", "_")] = value
 
-    return render_template("settings.html", themes=get_themes(), str_title=str.title, values=[user_data['theme'], user_data["max_topic_posts"], user_data["show_deleted_posts"], user_data["ocular_ov"]])
+    return render_template(
+        "settings.html",
+        themes=get_themes(),
+        str_title=str.title,
+        values=[
+            user_data["theme"],
+            user_data["max_topic_posts"],
+            user_data["show_deleted_posts"],
+            user_data["ocular_ov"],
+        ],
+    )
+
 
 @app.get("/downloads")
 def downloads():
@@ -328,6 +313,7 @@ def downloads():
 @app.get("/secret/dl_mockup")
 def dl_mockup():
     return render_template("dlm.html")
+
 
 @app.get("/pin-subforum/<sf>")
 def pin_sub(sf):
@@ -350,19 +336,19 @@ def unpin_sub(sf):
         user_data["pinned_subforums"] = arr
         return "<script>history.back();</script>"
 
+
 @app.get("/handle-scratch-auth")
 def scratch_auth():
-    # TODO: test this on a machine
     if not request.args:
-        if sa_login := dazzle.scratch_auth_login(1):
-            return request.redirect(sa_login)
+        if sa_login := dazzle.get_redirect_url():
+            return redirect(sa_login)
         else:
             return "<script>alert('Auth failed');history.back()</script>"
     else:
         code = request.args.get("privateCode")
-        dazzle.scratch_auth_login(2, url_data={
-            "private_code": code
-        })
+        dazzle.login(code)
+        return "<h1>Login successful</h1><script>window.location.href = `${window.location.protocol}//${window.location.host}`</script>"
+
 
 @app.errorhandler(werkexcept.NotFound)
 def err404(e: Exception):
