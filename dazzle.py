@@ -322,10 +322,11 @@ def login(code: str):
         f"https://auth.itinerary.eu.org/api/auth/verifyToken?privateCode={code}",
         timeout=10,
     ).json()
+    print(data)
 
     if (
         data["valid"]
-        and data["redirect"] == env["SERVER_HOST"] + "/handle-scratch-auth"
+        and data["redirect"] == f"http://{env['SERVER_HOST']}/handle-scratch-auth"
     ):
         session_id = str(uuid4())
         conn = sqlite3.connect(env["DB_LOCATION"])
@@ -333,13 +334,20 @@ def login(code: str):
         cursor.execute(
             f"CREATE TABLE IF NOT EXISTS {env['DB_TABLE']}( username, token )"
         )
-        # TODO: insert only if user doesn't exist
         cursor.execute(
-            f"INSERT INTO {env['DB_TABLE']} VALUES (?, ?)",
+            f"INSERT OR IGNORE INTO {env['DB_TABLE']} VALUES (?, ?)",
             (data["username"], session_id),
         )
         conn.commit()
         conn.close()
+        return session_id
+
+
+def token_matches_user(token: str):
+    conn = sqlite3.connect(env["DB_LOCATION"])
+    cursor = conn.cursor()
+    rows = cursor.execute("SELECT * from users WHERE token=?", (token,))
+    return rows.fetchall()
 
 
 # Below this line is all stuff used for the REPL debugging mode
