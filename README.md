@@ -10,6 +10,10 @@ Basically, this is a Scratch website just for ~~MagicCrayon9342~~ power users.
 > It's like a giant vat of coffee brewed with ingredients from the Scratch community.
 -- Snazzle's website
 
+## Contributing
+
+Format your code with [Black](https://github.com/psf/black) and make a pull request. If there is a feature branch for what you are changing, make the PR to that brach instead of main.
+
 ## Running your own instance locally
 
 Since Snazzle is very much still in development, this won't be representative of the final product's build steps.
