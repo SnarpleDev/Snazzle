@@ -356,10 +356,15 @@ def scratch_auth():
         else:
             return "<script>alert('Auth failed');history.back()</script>"
     else:
+        print('callback')
         code = request.args.get("privateCode")
-        dazzle.scratch_auth_login(2, url_data={
+        result = dazzle.scratch_auth_login(2, url_data={
             "private_code": code
         })
+        if result[0]:
+            return redirect('/')
+        else:
+            return render_template('_error.html', code='500', name=result[1], description=result[1])
 
 @app.errorhandler(werkexcept.NotFound)
 def err404(e: Exception):

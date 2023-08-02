@@ -284,27 +284,28 @@ def scratch_auth_login(step = 1, url_data = None):
         else:
             print('[Dazzle] Supabase is set up correctly.')
             print('. . . . .Now authenticating using Scratch Auth. Please wait.')
-            redir_loc = str(base64.b64encode(bytes(env["SERVER_HOST"] + "/handle-scratch-auth", encoding='utf-8')))
+            redir_loc = base64.b64encode(bytes(env["SERVER_HOST"] + "/handle-scratch-auth", encoding='utf-8')).decode()
             print('. . . . .Redirecting user to ' + redir_loc)
             return ask_for_redirect("https://auth.itinerary.eu.org/auth/?redirect=" + redir_loc + "&name=Snazzle")
     elif step == 2:
         data = requests.get(f'https://auth.itinerary.eu.org/api/auth/verifyToken?privateCode={url_data["private_code"]}').json()
 
-        if data['valid'] and data.redirect == env['SERVER_HOST'] + '/handle-scratch-auth':
-            session_id = uuid4()
-            sb_client = sb.create_client(env['SUPABASE_KEY'], env['SUPABASE_URL'])
+        if data['valid'] and data['redirect'] == env['SERVER_HOST'] + '/handle-scratch-auth':
+            session_id = str(uuid4())
+            sb_client = sb.create_client(env['SUPABASE_URL'], env['SUPABASE_KEY'])
             data, count = sb_client \
-                .table('users_new') \
-                .insert({
-                    {"satoken": session_id,
-                     "username": data['username'],}
+                .table(env["SUPABASE_DB"]) \
+                .upsert({
+                    "satoken": session_id,
+                    "username": data['username'],
                 }) \
                 .execute()
+            return (True, 'lib_success')
                 
         else:
-            return 'lib_data_invalid'
+            return (False, 'lib_data_invalid')
     else:
-        return 'lib_invalid_step'
+        return (False, 'lib_invalid_step')
 
 # Below this line is all stuff used for the REPL debugging mode
 # Generally, don't touch this, unless there's a severe flaw or something
