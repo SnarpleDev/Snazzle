@@ -100,7 +100,7 @@ subforums_data = (
 @app.context_processor
 def context():
     # Play with this and the user_data dict to manipulate app state
-    username = None
+    username, signed = None, False
     if request.cookies.get("snazzle-token"):
         matched = dazzle.token_matches_user(request.cookies.get("snazzle-token"))
         signed = len(matched) == 1
