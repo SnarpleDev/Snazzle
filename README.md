@@ -12,7 +12,7 @@ Basically, this is a Scratch website just for ~~MagicCrayon9342~~ power users.
 
 ## Contributing
 
-Format your code with [Black](https://github.com/psf/black) and make a pull request. If there is a feature branch for what you are changing, make the PR to that brach instead of main.
+Format your code with [Black](https://github.com/psf/black) and make a pull request. If there is a feature branch for what you are changing, make the PR to that branch instead of main.
 
 ## Running your own instance locally
 
