@@ -1,9 +1,21 @@
+"""
+       **** Snazzle Server Code ****
+ Made in Flask by the Snazzle team over at 
+https://github.com/redstone-scratch/Snazzle/
+"""
 from os import listdir
-from flask import Flask, render_template, stream_template, request, redirect
-from os.path import exists
+from datetime import timedelta
+from flask import (
+    Flask,
+    render_template,
+    stream_template,
+    make_response,
+    request,
+    redirect,
+)
 from werkzeug import exceptions as werkexcept
+
 import dazzle
-import json
 
 
 REPLIT_MODE = True if dazzle.env["REPLIT_MODE"] == "yes" else False
@@ -11,14 +23,6 @@ USE_SCRATCHDB = True if dazzle.env["USE_SCRATCHDB"] == "yes" else False
 HOST, PORT = dazzle.env["SERVER_HOST"].split(":")
 DEBUG = True if dazzle.env["DEBUG"] == "yes" else False
 FLASK_DEBUG = True if dazzle.env["FLASK_DEBUG"] == "yes" else False
-
-"""
-       **** Snazzle Server Code ****
- Made in Flask by the Snazzle team over at 
-https://github.com/redstone-scratch/Snazzle/
-
-
-"""
 
 app = Flask(__name__)
 
@@ -30,9 +34,11 @@ user_data = dict(
     max_topic_posts=20,
     show_deleted_posts=True,
     ocular_ov=True,  # for 'ocular override'
+    signed_in=True,
     use_sb2=False,
     sb_scale=1,
 )
+
 
 dazzle.use_scratchdb(True)
 
@@ -96,11 +102,17 @@ subforums_data = (
 @app.context_processor
 def context():
     # Play with this and the user_data dict to manipulate app state
+    username, signed = None, False
+    if request.cookies.get("snazzle-token"):
+        matched = dazzle.token_matches_user(request.cookies.get("snazzle-token"))
+        signed = len(matched) == 1
+        username = matched[0][0] if signed else None
+
     return dict(
         theme=user_data["theme"],
-        username=user_data["user_name"],
-        signed_in=False,
-        to_str=lambda x: str(x),
+        username=username or user_data["user_name"],
+        signed_in=signed,
+        to_str=str,
         get_author_of=dazzle.get_author_of,
         len=len,
         host=HOST,
@@ -347,12 +359,16 @@ def scratch_auth():
     if not request.args:
         if sa_login := dazzle.get_redirect_url():
             return redirect(sa_login)
-        else:
-            return "<script>alert('Auth failed');history.back()</script>"
-    else:
-        code = request.args.get("privateCode")
-        dazzle.login(code)
-        return "<h1>Login successful</h1><script>window.location.href = `${window.location.protocol}//${window.location.host}`</script>"
+        return "<script>alert('Auth failed');history.back()</script>"
+
+    code = request.args.get("privateCode")
+    session_id = dazzle.login(code)
+    response = make_response(
+        "<h1>Login successful</h1><script>window.location.href = `${window.location.protocol}//${window.location.host}`</script>"
+    )
+    response.set_cookie("snazzle-token", session_id, timedelta(days=30))
+
+    return response
 
 
 @app.errorhandler(werkexcept.NotFound)

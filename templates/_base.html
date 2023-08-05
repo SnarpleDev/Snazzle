@@ -2,7 +2,8 @@
 <html>
 
 <head>
-  <title>Snazzle - {% block title %}A better frontend for Scratch, built by the community, for the community{% endblock %}</title>
+  <title>Snazzle - {% block title %}A better frontend for Scratch, built by the community, for the community{% endblock
+    %}</title>
   <style>
     html {
       scroll-behavior: smooth;
@@ -42,16 +43,20 @@
         <li><a href="/trending"><button><i class="fa-solid fa-earth-americas"></i> Explore</button></a></li>
         <li><a href="/forums"><button><i class="fa-regular fa-comments"></i> Forum Browser</button></a></li>
         <li><a href="/settings"><button class="secondary"><i class="fa-solid fa-gear"></i> Settings</button></a></li>
+        {% if signed_in %}
+        <li><a href="/settings"><button class="secondary"><i class="fa-solid fa-user"></i> {{ username }}</button></a>
+        </li>
+        {% endif %}
       </ul>
     </div>
   </nav>
 
   <!-- Your content goes here -->
   {% block content %}
-    <section>
-      <h1>Something went wrong.</h1>
-      <p>The page didn't load properly.</p>
-    </section>
+  <section>
+    <h1>Something went wrong.</h1>
+    <p>The page didn't load properly.</p>
+  </section>
   {% endblock %}
 
   {% include '_footer.html' %}

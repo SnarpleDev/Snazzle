@@ -25,8 +25,9 @@ But for now, this is how you do it:
 3. Run `pip3 install -r requirements.txt`.
    > If you are on an Arch based linux distro, you will have to run `sudo pacman -S python-flask`
 4. If you are using Replit or another website blocked from Scratch's API, change the variable "REPLIT_MODE" at the top of `main.py` to True.
-5. Once deps are installed, run `flask run`. This will set up a Flask server at `localhost:5000`. If you find any bugs, please report them.
-6. Go to `localhost:5000` in your favourite browser and play around with it!
+5. Once deps are installed, run `python3 app.py`. This will set up a Flask server at `localhost:3000`. If you find any bugs, please report them.
+   > If you are on Windows, try `python app.py`
+6. Go to `localhost:3000` in your favourite browser and play around with it!
 
 ## Hosting on Replit
 
