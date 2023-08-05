@@ -17,6 +17,15 @@ body {
     background-color: #282828;
 }
 
+::-webkit-scrollbar-thumb {
+  background: #3c3836; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2e2b29;
+}
+
 .omni {
     margin-left: 10em;
     margin-right: 10em;
@@ -319,12 +328,12 @@ section {
     margin: 0.1em;
     background: #3c3836;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 20px;
     color: #fbf1c7;
+	border: 6px solid #3c3836;
 }
 
 section:first-child:not(.width-third) {
-    border: 6px solid #3c3836;
     background: transparent;
 }
 
