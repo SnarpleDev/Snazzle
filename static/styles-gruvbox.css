@@ -18,12 +18,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3c3836; 
+  background: #4a423f; 
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2e2b29;
+  background: #3f3836;
 }
 
 .omni {
