@@ -30,8 +30,9 @@
     }
   </style>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles-' + (theme or 'default') + '.css') }}">
-
+  <script src="https://github.com/scratchblocks/scratchblocks/releases/download/v3.6.2/scratchblocks.min.js"></script>
   <script src="https://kit.fontawesome.com/4bcf06ab35.js" crossorigin="anonymous"></script>
+  <input type="hidden" value="{{ sb_scale }}" id="sb_scale">
 </head>
 
 <body>
@@ -59,6 +60,32 @@
   {% endblock %}
 
   {% include '_footer.html' %}
+  
+  <script>
+    const sbScale = document.getElementById('sb_scale').value
+  </script>
+
+  {% if use_sb2 == False %}
+  	<script>
+		window.addEventListener('load', function() {
+			scratchblocks.renderMatching('pre.blocks', {
+				style: 'scratch3',
+				languages: ['en'],
+				scale: sbScale,
+			})
+	  	})
+  	</script>
+  {% else %}
+	<script>
+		window.addEventListener('load', function() {
+			scratchblocks.renderMatching('pre.blocks', {
+				style: 'scratch2',
+				languages: ['en'],
+				scale: sbScale
+			})
+		})
+	</script>
+  {% endif %}
 </body>
 
 </html>

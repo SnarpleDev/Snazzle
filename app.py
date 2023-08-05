@@ -35,6 +35,8 @@ user_data = dict(
     show_deleted_posts=True,
     ocular_ov=True,  # for 'ocular override'
     signed_in=True,
+    use_sb2=False,
+    sb_scale=1,
 )
 
 
@@ -115,6 +117,8 @@ def context():
         len=len,
         host=HOST,
         get_status=get_status,
+        sb_scale=user_data["sb_scale"],
+        use_sb2=user_data["use_sb2"],
     )
 
 
@@ -312,6 +316,7 @@ def settings():
             user_data["max_topic_posts"],
             user_data["show_deleted_posts"],
             user_data["ocular_ov"],
+            user_data["use_sb2"],
         ],
     )
 
