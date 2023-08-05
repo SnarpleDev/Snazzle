@@ -304,7 +304,7 @@ def settings():
             user_data["max_topic_posts"],
             user_data["show_deleted_posts"],
             user_data["ocular_ov"],
-            user_data["use-sb2"],
+            user_data["use_sb2"],
         ],
     )
 
