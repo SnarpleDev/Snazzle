@@ -9,7 +9,10 @@
         </section>
         <div class="flex-cont">
             <section>
-                <input type="text" placeholder="Search...">
+              <form action="{{url_for('search')}}" method="post">
+                  <input type="text" placeholder="Search..." name="query">
+                  <input type="submit" value="Search">
+              </form>
             </section>
             <section class="scrollpane sp-horiz sp-filters">
                 <button class="sp-item">Projects only</button>

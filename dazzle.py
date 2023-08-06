@@ -21,6 +21,7 @@ import sqlite3
 
 from dotenv import dotenv_values
 import requests
+import json
 
 env = dotenv_values(".env")
 
@@ -67,7 +68,6 @@ def archive_result(filename):
                 os.mkdir("./" + DAZZLE_DIR)
             with open(f"./{DAZZLE_DIR}/{fname}", "wt", encoding="utf-8") as f:
                 f.write(str(func_result))
-
             return func_result
 
         return wrapper
@@ -139,7 +139,6 @@ def get_topics(category, page):
     try:
         if type(r.json()) != list:
             return {"error": True, "message": "sdb_" + r.json()["error"].lower()}
-
         return {"error": False, "topics": remove_duplicates(r.json())}
     except requests.exceptions.JSONDecodeError:
         return {"error": True, "message": "lib_scratchdbdown"}
@@ -253,7 +252,6 @@ def get_topic_data(topic_id):
     try:
         if "error" in r.json().keys():
             return {"error": True, "message": "sdb_" + r.json()["error"].lower()}
-
         return {"error": False, "data": r.json()}
     except requests.exceptions.JSONDecodeError:
         return {"error": True, "message": "lib_scratchdbdown"}
@@ -279,7 +277,6 @@ def get_topic_posts(topic_id, page=0, order="oldest"):
     try:
         if not isinstance(r.json(), list):
             return {"error": True, "message": "sdb_" + r.json()["error"].lower()}
-
         # Time formatting thanks to ChatGPT
         return {
             "error": False,
@@ -350,6 +347,13 @@ def token_matches_user(token: str):
     return rows.fetchall()
 
 
+def search_for_projects(q):
+    r = requests.get(
+        f"https://api.scratch.mit.edu/explore/projects?q={q}&mode=trending&language=en"
+    )
+    return json.loads(r.json())
+
+
 # Below this line is all stuff used for the REPL debugging mode
 # Generally, don't touch this, unless there's a severe flaw or something
 
@@ -363,7 +367,6 @@ def parse_token(token: str, i: int):
 def parse_cmd(cmd: str):
     if not isinstance(cmd, str):
         return None
-
     return_cmd = [parse_token(token, i) for i, token in enumerate(cmd.split(" "))]
 
     return return_cmd[0] + "(" + ", ".join(return_cmd[1:]) + ")"
