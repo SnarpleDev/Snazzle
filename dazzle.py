@@ -234,6 +234,12 @@ def get_aviate(username):
         return ""
     return r["status"]
 
+def init_db():
+    conn = sqlite3.connect(env["DB_LOCATION"])
+    conn.cursor().execute(
+        f"CREATE TABLE IF NOT EXISTS {env['DB_TABLE']}( username, token )"
+    )
+    conn.close()
 
 def get_featured_projects():
     """
@@ -351,7 +357,7 @@ def search_for_projects(q):
     r = requests.get(
         f"https://api.scratch.mit.edu/explore/projects?q={q}&mode=trending&language=en"
     )
-    return json.loads(r.json())
+    return r.json()
 
 
 # Below this line is all stuff used for the REPL debugging mode
