@@ -10,6 +10,14 @@ body {
     background-color: #282320;
 }
 
+::-webkit-scrollbar-thumb {
+  background: #b75d24; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #91491d;
+}
 h1,
 h2,
 h3,
