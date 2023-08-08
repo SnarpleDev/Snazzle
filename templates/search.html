@@ -33,14 +33,18 @@
             </section>
         </div>
         <section class="project-grid">
-            {% for project in result %}
+            {% if result == []%}
+                <h3>No results :(</h3>
+            {% else %}
+                {% for project in result %}
                 <div class="pg-project">
                     <img src="{{ project.image }}" alt="project image"
                     width="130" height="70">
                     <br>{{ project.title }} by {{ project.author.username }}<br>
                     <span class="stats">{{ project.stats.views}} views</span>
                 </div>
-            {% endfor %}
+                {% endfor %}
+            {% endif %}
         </section>
     </div>
 {% endblock %}

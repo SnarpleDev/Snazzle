@@ -355,7 +355,8 @@ def token_matches_user(token: str):
 
 def search_for_projects(q):
     r = requests.get(
-        f"https://api.scratch.mit.edu/explore/projects?q={q}&mode=trending&language=en"
+        f"https://api.scratch.mit.edu/explore/projects?q={q}&mode=trending&language=en",
+        timeout=10
     )
     return r.json()
 

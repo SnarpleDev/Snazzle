@@ -370,7 +370,7 @@ def scratch_auth():
 def search():
     query = request.form["query"]
     result = dazzle.search_for_projects(query)
-    return stream_template("search.html", result=result)
+    return stream_template("search.html", result=result, query=query)
 
 
 @app.errorhandler(werkexcept.NotFound)
