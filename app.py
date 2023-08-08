@@ -107,7 +107,6 @@ def context():
         matched = dazzle.token_matches_user(request.cookies.get("snazzle-token"))
         signed = len(matched) == 1
         username = matched[0][0] if signed else None
-
     return dict(
         theme=user_data["theme"],
         username=username or user_data["user_name"],
@@ -146,7 +145,6 @@ def trending():
     """
     if filter := request.args.get("filter"):
         return render_template("trending.html", filter=filter)
-
     return render_template("trending.html")
 
 
@@ -193,7 +191,6 @@ def topic(topic_id):
 
     if post_to_save := request.args.get("save"):
         user_data["saved_posts"].append((topic_id, post_to_save))
-
     show_deleted_posts = user_data["show_deleted_posts"]
 
     topic_page = request.args.get("page")
@@ -306,7 +303,6 @@ def settings():
     """
     for key, value in request.args.items():
         user_data[key.replace("-", "_")] = value
-
     return render_template(
         "settings.html",
         themes=get_themes(),
@@ -360,7 +356,6 @@ def scratch_auth():
         if sa_login := dazzle.get_redirect_url():
             return redirect(sa_login)
         return "<script>alert('Auth failed');history.back()</script>"
-
     code = request.args.get("privateCode")
     session_id = dazzle.login(code)
     response = make_response(
@@ -371,6 +366,13 @@ def scratch_auth():
     return response
 
 
+@app.route("/search", methods=["POST", "GET"])  # search feature
+def search():
+    query = request.form["query"]
+    result = dazzle.search_for_projects(query)
+    return stream_template("search.html", result=result, query=query)
+
+
 @app.errorhandler(werkexcept.NotFound)
 def err404(e: Exception):
     # route for error
@@ -379,4 +381,5 @@ def err404(e: Exception):
 
 # CHANGE THIS IF YOU'RE RUNNING A PUBLIC SERVER
 if __name__ == "__main__":
+    dazzle.init_db()
     app.run(host=HOST, port=PORT, debug=FLASK_DEBUG)
