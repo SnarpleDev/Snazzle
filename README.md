@@ -8,7 +8,7 @@ Basically, this is a Scratch website just for ~~MagicCrayon9342~~ power users.
 
 > If you're more than a casual user of the Scratch website for whatever reason, then you'll like Snazzle.
 > It's like a giant vat of coffee brewed with ingredients from the Scratch community.
--- Snazzle's website
+-- Snazzle's homepage
 
 ## Contributing
 
