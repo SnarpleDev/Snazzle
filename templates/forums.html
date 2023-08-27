@@ -1,58 +1,71 @@
 {% extends "_base.html" %}
-
 {% block title %}Forums{% endblock %}
-
 {% block content %}
-
 <div class="omni">
-
-    <section>
-        <h1>Forum Browser</h1>
-        <p>Browse the Scratch forums</p>
-        <p>Note: may be slow (pfps take a while to load)</p>
-    </section>
-
-    {% if pinned_subforums %}
-        <section>
-            <h2>Pinned subforums</h2>
-            <div class="scrollpane sp-forum">
-                {% for subforum in pinned_subforums %}
-                    <div class="sp-item">
-                        <p>
-                            <a href="unpin-subforum/{{subforum}}" class="unpin-btn"><i class="fa-solid fa-thumbtack pin-icon"></i></a>
-                            <a href="forums/{{subforum}}?page=0">{{ subforum }}</a>
-                            <a href="unpin-subforum/{{subforum}}" class="unpin-btn"><button>Unpin</button></a>
-                        </p>
-                    </div>
-                {% endfor %}
-            </div>
-        </section>
-    {% endif %}
-
-    {% for title, subforums in data %}
-        <section>
-            <h2>{{ title }}</h2>
-            <div class="scrollpane sp-forum sp-vert">
-                {% for subforum in subforums %}
-                    <div class="sp-item">
-                        <p>
-                            <a href="forums/{{subforum}}?page=0">{{ subforum }}</a>
-                            <a href="pin-subforum/{{subforum}}">
-                                {% if not subforum in pinned_subforums %}
-                                    <i class="fa-solid fa-thumbtack pin-btn"></i>
-                                {% else %}
-                                    <span class="pin-btn">Already pinned</span>
-                                {% endif %}
-                            </a>
-                        </p>
-                    </div>
-                {% endfor %}
-            </div>
-        </section>
-    {% endfor %}
-
-    <section>
-        <button>Change signature (not functional yet)</button>
-    </section>
+   <section>
+      <h1>Forum Browser</h1>
+   </section>
+   {% if pinned_subforums %}
+   <section>
+      <h2>Pinned subforums</h2>
+      <div class="scrollpane sp-forum">
+         {% for subforum in pinned_subforums %}
+         <div class="sp-item">
+            <p>
+               <a href="unpin-subforum/{{subforum}}" class="unpin-btn"><i class="fa-solid fa-thumbtack pin-icon"></i></a>
+               <a href="forums/{{subforum}}?page=0">{{ subforum }}</a>
+               <a href="unpin-subforum/{{subforum}}" class="unpin-btn"><button>Unpin</button></a>
+            </p>
+         </div>
+         {% endfor %}
+      </div>
+   </section>
+   {% endif %}
+   {% for title, subforums in data %}
+   {% if title == "Welcome" or title == "Interests Beyond Scratch" %}
+   <section>
+      <h2>{{ title }}</h2>
+      <div class="scrollpane sp-forum sp-vert" style="overflow: hidden;">
+         {% for subforum in subforums %}
+         <div class="sp-item">
+            <p>
+               <a href="forums/{{subforum}}?page=0">{{ subforum }}</a>
+               <a href="pin-subforum/{{subforum}}">
+               {% if not subforum in pinned_subforums %}
+               <i class="fa-solid fa-thumbtack pin-btn"></i>
+               {% else %}
+               <span class="pin-btn">Already pinned</span>
+               {% endif %}
+               </a>
+            </p>
+         </div>
+         {% endfor %}
+      </div>
+   </section>
+   {% else %}
+   <section>
+      <h2>{{ title }}</h2>
+      <div class="scrollpane sp-forum sp-vert">
+         {% for subforum in subforums %}
+         <div class="sp-item">
+            <p>
+               <a href="forums/{{subforum}}?page=0">{{ subforum }}</a>
+               <a href="pin-subforum/{{subforum}}">
+               {% if not subforum in pinned_subforums %}
+               <i class="fa-solid fa-thumbtack pin-btn"></i>
+               {% else %}
+               <span class="pin-btn">Already pinned</span>
+               {% endif %}
+               </a>
+            </p>
+         </div>
+         {% endfor %}
+      </div>
+   </section>
+   {% endif %}
+   {% endfor %}
+   <section>
+      <button>Change signature (not functional yet)</button>
+   </section>
 </div>
 {% endblock %}

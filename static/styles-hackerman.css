@@ -16,6 +16,15 @@ body {
     color: lime;
 }
 
+::-webkit-scrollbar-thumb {
+  background: #083d00; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #062e00;
+}
+
 * {
     border-radius: 0px !important
 }

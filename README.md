@@ -8,7 +8,7 @@ Basically, this is a Scratch website just for ~~MagicCrayon9342~~ power users.
 
 > If you're more than a casual user of the Scratch website for whatever reason, then you'll like Snazzle.
 > It's like a giant vat of coffee brewed with ingredients from the Scratch community.
--- Snazzle's website
+-- Snazzle's homepage
 
 ## Contributing
 
@@ -25,9 +25,9 @@ But for now, this is how you do it:
 3. Run `pip3 install -r requirements.txt`.
    > If you are on an Arch based linux distro, you will have to run `sudo pacman -S python-flask`
 4. If you are using Replit or another website blocked from Scratch's API, change the variable "REPLIT_MODE" at the top of `main.py` to True.
-5. Once deps are installed, run `python3 app.py`. This will set up a Flask server at `localhost:3000`. If you find any bugs, please report them.
-   > If you are on Windows, try `python app.py`
-6. Go to `localhost:3000` in your favourite browser and play around with it!
+5. Once deps are installed, run `flask run --with-threads`. This will set up a Flask server at `localhost:3000`. If you find any bugs, please report them.
+   > The `--with-threads` option is basically required if you want Snazzle to run fast.
+7. Go to `localhost:3000` in your favourite browser and play around with it!
 
 ## Hosting on Replit
 
