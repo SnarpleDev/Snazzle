@@ -21,6 +21,7 @@ import sqlite3
 
 from dotenv import dotenv_values
 import requests
+from requests.exceptions import ReadTimeout
 
 env = dotenv_values(".env")
 
@@ -171,19 +172,21 @@ def get_author_of(post_id):
 @archive_result(f"projectinfo-id_$")
 @lru_cache(maxsize=15)
 def get_project_info(project_id):
-    """
-    Get info about a project from ScratchDB.
-    """
-    if not useDB:
-        r = requests.get(
-            f"https://scratchdb.lefty.one/v2/project/info/id/{project_id}", timeout=10
-        )
-    else:
-        r = requests.get(
-            f"https://api.scratch.mit.edu/projects/{project_id}", timeout=10
-        )
-    return r.json()
-
+    try:
+        """
+        Get info about a project from ScratchDB.
+        """
+        if not useDB:
+            r = requests.get(
+                f"https://scratchdb.lefty.one/v2/project/info/id/{project_id}", timeout=10
+            )
+        else:
+            r = requests.get(
+                f"https://api.scratch.mit.edu/projects/{project_id}", timeout=10
+            )
+        return r.json()
+    except Exception:
+        return {"error": True, "message": "lib_scratchdbtimeout"}
 
 @lru_cache(maxsize=15)
 def get_comments(project_id):

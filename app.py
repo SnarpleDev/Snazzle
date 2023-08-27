@@ -3,6 +3,8 @@
  Made in Flask by the Snazzle team over at 
 https://github.com/redstone-scratch/Snazzle/
 """
+is_debug_mode = input("Use profiler? (y/n): ")[0].lower() == 'y'
+
 from os import listdir
 from datetime import timedelta
 from flask import (
@@ -13,10 +15,11 @@ from flask import (
     request,
     redirect,
 )
+
+    
 from werkzeug import exceptions as werkexcept
 
 import dazzle
-
 
 REPLIT_MODE = True if dazzle.env["REPLIT_MODE"] == "yes" else False
 USE_SCRATCHDB = True if dazzle.env["USE_SCRATCHDB"] == "yes" else False
@@ -25,6 +28,10 @@ DEBUG = True if dazzle.env["DEBUG"] == "yes" else False
 FLASK_DEBUG = True if dazzle.env["FLASK_DEBUG"] == "yes" else False
 
 app = Flask(__name__)
+
+if is_debug_mode:
+    from werkzeug.middleware.profiler import ProfilerMiddleware
+    app.wsgi_app = ProfilerMiddleware(app.wsgi_app, profile_dir="./profiler")
 
 user_data = dict(
     theme="choco",
@@ -244,6 +251,8 @@ def scratchproject(project_id):
 def project(project_id):
     global user_data
     project_info = dazzle.get_project_info(project_id)
+    if project_info["error"] == True:
+        return render_template("scratchdb-error.html", err=project_info["message"])
     try:
         project_name = project_info["title"]
         creator_name = project_info["username"]
