@@ -173,7 +173,7 @@ def get_project_info(project_id):
     """
     Get info about a project from ScratchDB.
     """
-    if not useDB:
+    if useDB:
         r = requests.get(
             f"https://scratchdb.lefty.one/v2/project/info/id/{project_id}", timeout=10
         )
