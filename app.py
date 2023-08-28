@@ -3,7 +3,6 @@
  Made in Flask by the Snazzle team over at 
 https://github.com/redstone-scratch/Snazzle/
 """
-is_debug_mode = input("Use profiler? (y/n): ")[0].lower() == 'y'
 
 from os import listdir
 from datetime import timedelta
@@ -28,10 +27,6 @@ DEBUG = True if dazzle.env["DEBUG"] == "yes" else False
 FLASK_DEBUG = True if dazzle.env["FLASK_DEBUG"] == "yes" else False
 
 app = Flask(__name__)
-
-if is_debug_mode:
-    from werkzeug.middleware.profiler import ProfilerMiddleware
-    app.wsgi_app = ProfilerMiddleware(app.wsgi_app, profile_dir="./profiler")
 
 user_data = dict(
     theme="choco",

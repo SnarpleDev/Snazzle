@@ -21,7 +21,6 @@ import sqlite3
 
 from dotenv import dotenv_values
 import requests
-from requests.exceptions import ReadTimeout
 
 env = dotenv_values(".env")
 
