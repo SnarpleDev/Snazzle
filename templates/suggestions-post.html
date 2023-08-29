@@ -38,25 +38,21 @@
     </p>
     {% endmacro %}
 
-    <div class="omni">
+    <section>
+        <h1>{{ topic_title }}</h1>
+        <button onclick="history.back()">Back</button>
+    </section>
 
-        <section>
-            <h1>{{ topic_title }}</h1>
-            <button onclick="history.back()">Back</button>
-        </section>
+    <section>
+        {{ pagination("/forums/topic/{{ topic_id }}") }}
+    </section>
 
-        <section>
-            {{ pagination("/forums/topic/{{ topic_id }}") }}
-        </section>
+    {% for post in topic_posts %}
+        {{ forum_post(post['author'], post['author_status']['status'], post['time'], post['html_content'], post['index'], post['is_deleted']) }}
+    {% endfor %}
 
-        {% for post in topic_posts %}
-            {{ forum_post(post['author'], post['author_status']['status'], post['time'], post['html_content'], post['index'], post['is_deleted']) }}
-        {% endfor %}
-
-        <section>
-            {{ pagination("/forums/topic/{{ topic_id }}") }}
-            <button onclick="history.back()">Back</button>
-        </section>
-
-    </div>
+    <section>
+        {{ pagination("/forums/topic/{{ topic_id }}") }}
+        <button onclick="history.back()">Back</button>
+    </section>
 {% endblock %}

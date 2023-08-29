@@ -1,47 +1,45 @@
 {% extends '_base.html' %}
 
 {% block content %}
-    <div class="omni">
-        <section>
-            <h1>Explore</h1>
-            <p>Find cool projects</p>
-            <p>This is not functional yet. What you see here is a mockup. We are working on it and will release it as fast as we can</p>
-        </section>
-        <div class="flex-cont">
-            <section>
-              <form action="{{url_for('search')}}" method="post">
-                  <input type="text" placeholder="Search..." name="query">
-                  <input type="submit" value="Search">
-              </form>
-            </section>
-            <section class="scrollpane sp-horiz sp-filters">
-                <button class="sp-item">Projects only</button>
-                <button class="sp-item">Studios only</button>
-                <span class="sp-spacer"></span>
-                <button class="sp-item">Trending</button>
-                <button class="sp-item">Newest</button>
-                <button class="sp-item">Most views</button>
-                <button class="sp-item">Most loves</button>
-                <button class="sp-item">Most favourites</button>
-                <button class="sp-item">Most remixes</button>
-                <span class="sp-spacer"></span>
-                <button class="sp-item">#games</button>
-                <button class="sp-item">#animations</button>
-                <button class="sp-item">#stories</button>
-                <button class="sp-item">#simulations</button>
-                <button class="sp-item">#music</button>
-                <button class="sp-item">#tutorials</button>
-            </section>
+<section>
+    <h1>Explore</h1>
+    <p>Find cool projects</p>
+    <p>This is not functional yet. What you see here is a mockup. We are working on it and will release it as fast as we can</p>
+</section>
+<div class="flex-cont">
+    <section>
+        <form action="{{url_for('search')}}" method="post">
+            <input type="text" placeholder="Search..." name="query">
+            <input type="submit" value="Search">
+        </form>
+    </section>
+    <section class="scrollpane sp-horiz sp-filters">
+        <button class="sp-item">Projects only</button>
+        <button class="sp-item">Studios only</button>
+        <span class="sp-spacer"></span>
+        <button class="sp-item">Trending</button>
+        <button class="sp-item">Newest</button>
+        <button class="sp-item">Most views</button>
+        <button class="sp-item">Most loves</button>
+        <button class="sp-item">Most favourites</button>
+        <button class="sp-item">Most remixes</button>
+        <span class="sp-spacer"></span>
+        <button class="sp-item">#games</button>
+        <button class="sp-item">#animations</button>
+        <button class="sp-item">#stories</button>
+        <button class="sp-item">#simulations</button>
+        <button class="sp-item">#music</button>
+        <button class="sp-item">#tutorials</button>
+    </section>
+</div>
+<section class="project-grid">
+    {% for project in range(50) %}
+        <div class="pg-project">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg" alt="pizza"
+            width="130" height="70">
+            <br>pizza recipe by coolgamer69420 <br>
+            <span class="stats">1 view</span>
         </div>
-        <section class="project-grid">
-            {% for project in range(50) %}
-                <div class="pg-project">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg" alt="pizza"
-                    width="130" height="70">
-                    <br>pizza recipe by coolgamer69420 <br>
-                    <span class="stats">1 view</span>
-                </div>
-            {% endfor %}
-        </section>
-    </div>
+    {% endfor %}
+</section>
 {% endblock %}

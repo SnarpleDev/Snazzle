@@ -1,50 +1,48 @@
 {% extends '_base.html' %}
 
 {% block content %}
-    <div class="omni">
-        <section>
-            <h1>Search</h1>
-            <p>Search results for {{ query }}</p>
-        </section>
-        <div class="flex-cont">
-            <section>
-              <form action="{{url_for('search')}}" method="post">
-                  <input type="text" placeholder="Search..." name="query">
-                  <input type="submit" value="Search">
-              </form>
-            </section>
-            <section class="scrollpane sp-horiz sp-filters">
-                <button class="sp-item">Projects only</button>
-                <button class="sp-item">Studios only</button>
-                <span class="sp-spacer"></span>
-                <button class="sp-item">Trending</button>
-                <button class="sp-item">Newest</button>
-                <button class="sp-item">Most views</button>
-                <button class="sp-item">Most loves</button>
-                <button class="sp-item">Most favourites</button>
-                <button class="sp-item">Most remixes</button>
-                <span class="sp-spacer"></span>
-                <button class="sp-item">#games</button>
-                <button class="sp-item">#animations</button>
-                <button class="sp-item">#stories</button>
-                <button class="sp-item">#simulations</button>
-                <button class="sp-item">#music</button>
-                <button class="sp-item">#tutorials</button>
-            </section>
+<section>
+    <h1>Search</h1>
+    <p>Search results for {{ query }}</p>
+</section>
+<div class="flex-cont">
+    <section>
+        <form action="{{url_for('search')}}" method="post">
+            <input type="text" placeholder="Search..." name="query">
+            <input type="submit" value="Search">
+        </form>
+    </section>
+    <section class="scrollpane sp-horiz sp-filters">
+        <button class="sp-item">Projects only</button>
+        <button class="sp-item">Studios only</button>
+        <span class="sp-spacer"></span>
+        <button class="sp-item">Trending</button>
+        <button class="sp-item">Newest</button>
+        <button class="sp-item">Most views</button>
+        <button class="sp-item">Most loves</button>
+        <button class="sp-item">Most favourites</button>
+        <button class="sp-item">Most remixes</button>
+        <span class="sp-spacer"></span>
+        <button class="sp-item">#games</button>
+        <button class="sp-item">#animations</button>
+        <button class="sp-item">#stories</button>
+        <button class="sp-item">#simulations</button>
+        <button class="sp-item">#music</button>
+        <button class="sp-item">#tutorials</button>
+    </section>
+</div>
+<section class="project-grid">
+    {% if result == []%}
+        <h3>No results :(</h3>
+    {% else %}
+        {% for project in result %}
+        <div class="pg-project">
+            <img src="{{ project.image }}" alt="project image"
+            width="130" height="70">
+            <br>{{ project.title }} by {{ project.author.username }}<br>
+            <span class="stats">{{ project.stats.views}} views</span>
         </div>
-        <section class="project-grid">
-            {% if result == []%}
-                <h3>No results :(</h3>
-            {% else %}
-                {% for project in result %}
-                <div class="pg-project">
-                    <img src="{{ project.image }}" alt="project image"
-                    width="130" height="70">
-                    <br>{{ project.title }} by {{ project.author.username }}<br>
-                    <span class="stats">{{ project.stats.views}} views</span>
-                </div>
-                {% endfor %}
-            {% endif %}
-        </section>
-    </div>
+        {% endfor %}
+    {% endif %}
+</section>
 {% endblock %}

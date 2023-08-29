@@ -3,7 +3,30 @@
 {% block content %}
 
 <section>
-    <h1>{{ studio_name }}</h1>
+    <div id="studio-banner">
+        <h1>{{ studio_name }}</h1>
+    </div>
+
+    <div class="flex-cont">
+        <section class="width-20">
+            <textarea id="studio-description">
+                {{ studio_description }}
+            </textarea>
+        </section>
+        <section class="width-80">
+
+            <h3>{{ studio_tab }}</h3>
+            {% if studio_tab == "projects" %}
+                <p>We're working on it!</p>
+            {% elif studio_tab == "comments" %}
+                <p>Coming soon!</p>
+            {% elif studio_tab == "activity" %}
+                <p>Hang tight!</p>
+            {% else %}
+                <p>Oops, that page doesn't exist.</p>
+            {% endif %}
+        </section>
+    </div>
 </section>
 
 {% endblock %}

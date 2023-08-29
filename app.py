@@ -376,12 +376,21 @@ def search():
     result = dazzle.search_for_projects(query)
     return stream_template("search.html", result=result, query=query)
 
+# Studio pages
+@app.get("/studios/<id>/<tab>")
+def studios(id, tab):
+    return render_template(
+        "studio.html",
+        studio_name="Testing",
+        studio_description="Lorem ipsum dolor sit amet",
+        studio_tab=tab,
+    )
+
 
 @app.errorhandler(werkexcept.NotFound)
 def err404(e: Exception):
     # route for error
     return render_template("_error.html", errdata=e), 404
-
 
 # CHANGE THIS IF YOU'RE RUNNING A PUBLIC SERVER
 if __name__ == "__main__":

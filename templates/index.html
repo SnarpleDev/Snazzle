@@ -1,7 +1,6 @@
 {% extends '_base.html' %}
 
 {% block content %}
-<div class="omni">
     {% if signed_in %}
     {% include 'loggedin.html' %}
     {% endif %}
@@ -105,6 +104,5 @@
             {% endfor %}
         </div>
     </section>
-</div>
 </div>
 {% endblock %}

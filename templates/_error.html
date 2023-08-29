@@ -2,11 +2,9 @@
 
 {% block content %}
 
-<div class="omni">
-    <section>
-        <h1>{{ errdata.code }}: {{ errdata.name }}</h1>
-        <p>{{ errdata.description }} <a href="#" onclick="history.back()">Do you want to go back?</a></p>
-    </section>
-</div>
+<section>
+    <h1>{{ errdata.code }}: {{ errdata.name }}</h1>
+    <p>{{ errdata.description }} <a href="#" onclick="history.back()">Do you want to go back?</a></p>
+</section>
 
 {% endblock %}

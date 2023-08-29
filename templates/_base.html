@@ -52,12 +52,14 @@
   </nav>
 
   <!-- Your content goes here -->
-  {% block content %}
-  <section>
-    <h1>Something went wrong.</h1>
-    <p>The page didn't load properly.</p>
-  </section>
-  {% endblock %}
+  <div class="omni">
+    {% block content %}
+    <section>
+      <h1>Something went wrong.</h1>
+      <p>The page didn't load properly.</p>
+    </section>
+    {% endblock %}
+  </div>
 
   {% include '_footer.html' %}
   
