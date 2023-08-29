@@ -441,3 +441,7 @@ img {
 .bb-quote-author {
     color: #ca6120;
 }
+
+#studio-banner section {
+    background-color: rgba(40, 40, 40, 0.25);
+}

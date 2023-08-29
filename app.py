@@ -160,6 +160,7 @@ def categories():
         "forums.html",
         data=subforums_data,
         pinned_subforums=user_data["pinned_subforums"],
+        legacy_layout=user_data["use_old_layout"],
     )
 
 

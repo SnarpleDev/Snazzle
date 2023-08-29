@@ -154,3 +154,11 @@ button a:visited {
 	color: rgba(255, 255, 255, 0.5);
 	font-weight: bold;
 }
+
+#studio-banner section {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+blockquote, .forum-aside {
+    color: white;
+}
