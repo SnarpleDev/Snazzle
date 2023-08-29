@@ -8,10 +8,15 @@
     border-radius: 10px;
 }
 
-input {
+input, textarea {
     transition: all 0.3s ease;
     padding: 5px;
     border-radius: 10px;
+    width: calc(100% - 10px);
+}
+
+textarea {
+    resize: none;
 }
 
 button:hover {
@@ -151,7 +156,7 @@ select:hover {
 }
 
 .width-third {
-    width: calc(100% / 3)
+    width: calc(100% / 3) !important;
 }
 
 section {
@@ -164,7 +169,7 @@ section {
 #banner {
     margin: 0.1em;
     border-radius: 10px;
-    height: calc(50vh + 100px) !important;
+    height: calc(75vh + 100px) !important;
 
     padding: 2.5rem;
     /* z-index: 999; */
@@ -259,7 +264,9 @@ span.bb-strikethrough {
     width: 20%;
 }
 
-
+.width-25 {
+    width: 25%;
+}
 
 .forum-post * {
     max-width: 100% !important;
@@ -404,4 +411,8 @@ select:hover {
 
 .no-bullets {
     list-style: none;
+}
+
+textarea {
+    height: 200px;
 }

@@ -14,7 +14,7 @@ from flask import (
     request,
     redirect,
 )
-
+import multiprocessing as mp
     
 from werkzeug import exceptions as werkexcept
 
@@ -388,6 +388,12 @@ def search():
 @app.get("/studios/<id>/<tab>")
 def studios(id, tab):
     data = dazzle.get_studio_data(id)
+    if 'error' in data.keys():
+        return render_template(
+            "scratchapi-error.html",
+            message=data['message']
+        )
+
     return render_template(
         "studio.html",
         studio_name=data['title'],
@@ -395,7 +401,8 @@ def studios(id, tab):
         studio_id=id,
         studio_tab=tab,
         studio_banner=data['image'],
-        
+        studio_stats=data['stats'],
+        name_len=len(data['title']),
     )
 
 

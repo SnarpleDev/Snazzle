@@ -1,0 +1,25 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<section>
+{% if message == "api_notfound" %}
+
+<h1>Not Found</h1>
+<p>The studio, project or user you were looking for wasn't found.</p>
+
+{% elif message == "api_invalid" %}
+
+<h1>todo</h1>
+
+{% else %}
+
+<h1>Unknown Error</h1>
+<p>An unknown error occurred with the Scratch API.</p>
+
+{% endif %}
+
+<button onclick="history.back()">Go back</button>
+
+</section>
+
+{% endblock %}
