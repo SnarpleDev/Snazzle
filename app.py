@@ -22,7 +22,7 @@ import dazzle
 
 REPLIT_MODE = True if dazzle.env["REPLIT_MODE"] == "yes" else False
 USE_SCRATCHDB = True if dazzle.env["USE_SCRATCHDB"] == "yes" else False
-HOST, PORT = dazzle.env["SERVER_HOST"].split(":")
+HOST, PORT = "localhost", 3000
 DEBUG = True if dazzle.env["DEBUG"] == "yes" else False
 FLASK_DEBUG = True if dazzle.env["FLASK_DEBUG"] == "yes" else False
 
