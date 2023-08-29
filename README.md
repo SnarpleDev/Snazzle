@@ -25,7 +25,7 @@ But for now, this is how you do it:
 3. Run `pip3 install -r requirements.txt`.
    > If you are on an Arch based linux distro, you will have to run `sudo pacman -S python-flask`
 4. If you are using replit or something else blocked from Scratch's API, change the variable "REPLIT_MODE" at the top of `main.py` to True.
-5. Once deps are installed, run `flask run --with-threads`. This will set up a Flask server at `localhost:3000`. If you find any bugs, please report them.
+5. Once deps are installed, run `flask run --with-threads`. This will set up a Flask server at `127.0.0.1:5000`. If you find any bugs, please report them.
    > The `--with-threads` option is basically required if you want Snazzle to run fast.
 7. Go to `localhost:3000` in your favourite browser and play around with it!
 
