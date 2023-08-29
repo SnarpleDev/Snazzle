@@ -1,0 +1,178 @@
+@import url("master-styles.css");
+
+body {
+    background-color: rgb(26, 11, 32);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(201, 84, 255); 
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(167, 71, 211);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+button,
+input,
+article,
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+input::placeholder {
+    color: rgb(152, 64, 193);
+}
+
+nav {
+    background: rgba(0, 0, 0, 0.544);
+}
+
+.logo a {
+    color: #fff;
+}
+
+.logo a:hover {
+    text-shadow: 0px 0px 3px rgb(201, 84, 255);
+}
+
+.nav-links li a {
+    color: #fff;
+}
+
+button,
+select {
+    border: 1px solid rgb(201, 84, 255);
+    background-color: rgb(201, 84, 255);
+    color: white;
+}
+
+input, textarea {
+    border: 1px solid rgb(201, 84, 255);
+    background-color: transparent;
+    color: white;
+}
+
+input:focus, textarea:focus {
+    outline: 1px solid #fff;
+}
+
+button:hover {
+    background-color: transparent;
+    color: white;
+}
+
+.scrollpane {
+
+    background-color: rgb(99, 42, 126);
+    box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
+}
+
+.scrollpane.sp-projects .sp-item,
+.project-grid .pg-project {
+    background-color: rgb(201, 84, 255);
+    color: rgb(255, 255, 255);
+
+}
+
+.scrollpane.sp-projects .sp-item:hover,
+.project-grid .pg-project:hover {
+    background-color: rgb(228, 170, 255);
+    color: black;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.scrollpane.sp-studios .sp-item {
+    background-color: rgb(201, 84, 255);
+    color: white;
+
+}
+
+.scrollpane.sp-studios .sp-item:hover {
+    background-color: rgb(228, 170, 255);
+    color: black;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+span.stats {
+    color: lightgrey;
+}
+
+.scrollpane .sp-header {
+    background-color: rgba(0, 0, 0, 0.544);
+}
+
+section {
+    background: rgb(99, 42, 126);
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+    color: white;
+}
+
+#banner {
+    background: linear-gradient(180deg, rgb(152, 64, 193) 0%, rgb(99, 42, 126) 100%);
+    box-shadow: 0px 10px 10px linear-gradient(180deg, rgb(152, 64, 193) 0%, rgb(99, 42, 126) 100%);
+    color: white;
+}
+
+#banner button.purple,
+button.secondary {
+    background-color: transparent;
+    color: white;
+}
+
+#banner button.purple:hover,
+button.secondary:hover {
+    background-color: rgb(201, 84, 255);
+    color: white;
+}
+
+a,
+a:visited {
+    color: rgb(201, 84, 255);
+}
+
+button a,
+button a:visited {
+    color: white;
+}
+
+#studio-banner section {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.omni {
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+
+section, #banner {
+    margin-bottom: 2vh !important;
+}
+
+#footer {
+    margin-top: 2vh;
+}
+
+button {
+    border-radius: 4px !important;
+}
+
+div.sp-item {
+    border-radius: 4px !important;
+}
+
+#banner {
+    border-radius: 4px !important;
+}
+
+section {
+    border-radius: 4px !important;
+}
+

@@ -1,3 +1,36 @@
+/* Default styles for the "desktop-only" class */
+.desktop-only {
+    display: none;
+}
+
+.mobile-only {
+    display: block;
+}
+  
+/* Media query for screens with a minimum width of 1024px */
+@media (min-width: 1024px) {
+    .desktop-only {
+        display: block;
+    }
+
+    span.desktop-only {
+        display: inline;
+    }
+
+    .mobile-only {
+        display: none;
+    }
+}
+
+@media (max-width: 1024px) {
+    [class^="width-"] {
+        width: 100% !important;
+    }
+    .flex-cont * {
+        display: block;
+    }
+}
+
 div#studio-description {
     white-space: pre-wrap;
 }
@@ -84,7 +117,7 @@ select:hover {
 
 .scrollpane .sp-item:hover,
 .project-grid .pg-project:hover {
-    transform: translate(-5px, -5px);
+    transform: none;
     cursor: pointer;
 }
 
@@ -173,7 +206,7 @@ section {
 #banner {
     margin: 0.1em;
     border-radius: 10px;
-    height: calc(75vh + 100px) !important;
+    /* height: calc(75vh + 100px) !important; */
 
     padding: 2.5rem;
     /* z-index: 999; */
@@ -406,11 +439,6 @@ button:hover {
 
 select:hover {
     cursor: pointer;
-}
-
-.omni {
-    margin-left: 10em;
-    margin-right: 10em;
 }
 
 .no-bullets {
