@@ -10,6 +10,9 @@
 
 {% block content %}
 <section>
+
+    <h1>{{ subforum }}</h1>
+    <p>Loaded {{ len(topics) }} topics.</p>
     <button onclick="history.back()">Go back</button>
     {% if subforum in pinned_subforums %}
         <a href="/unpin-subforum/{{subforum}}">
@@ -20,10 +23,8 @@
             <button type="submit">Pin</button>
         </a>
     {% endif %}
-
-    <h1>{{ subforum }}</h1>
-    <p>Loaded {{ len(topics) }} topics.</p>
     {{ pagination() }}
+    
 </section>
 <div class="scrollpane sp-forum sp-vert">
     {% for topic in topics %}

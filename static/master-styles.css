@@ -322,3 +322,86 @@ div.code {
     color: rgba(255, 255, 255, 0.5);
     font-weight: bold;
 }
+
+nav {
+    background: rgba(50, 48, 47, 0.5);
+    backdrop-filter: blur(8px);
+    border-bottom: #504945;
+    padding: 10px 0;
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.logo a {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 20px;
+    transition: 0.5s all cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    text-decoration: none;
+}
+
+.logo a:hover {
+    cursor: pointer;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-height: 2em;
+}
+
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin-right: 20px;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+button,
+select {
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+input {
+    transition: all 0.3s ease;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+button:hover {
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+.omni {
+    margin-left: 10em;
+    margin-right: 10em;
+}
+
+.no-bullets {
+    list-style: none;
+}

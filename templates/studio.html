@@ -3,7 +3,7 @@
 {% block content %}
 
 <section>
-    <div id="studio-banner">
+    <div id="studio-banner" style="background-image: url({{ studio_banner }}); background-size: contain; background-repeat: no-repeat; height:50vh;">
         <h1>{{ studio_name }}</h1>
     </div>
 
@@ -13,19 +13,27 @@
                 {{ studio_description }}
             </textarea>
         </section>
-        <section class="width-80">
-
-            <h3>{{ studio_tab }}</h3>
-            {% if studio_tab == "projects" %}
-                <p>We're working on it!</p>
-            {% elif studio_tab == "comments" %}
-                <p>Coming soon!</p>
-            {% elif studio_tab == "activity" %}
-                <p>Hang tight!</p>
-            {% else %}
-                <p>Oops, that page doesn't exist.</p>
-            {% endif %}
-        </section>
+        <div class="width-80">
+            <section>
+                <div class="scrollpane sp-filters sp-horiz no-bullets">
+                    <a href="/studios/{{ studio_id }}/projects"><button>Projects</button></a>
+                    <a href="/studios/{{ studio_id }}/comments"><button>Comments</button></a>
+                    <a href="/studios/{{ studio_id }}/activity"><button>Activity</button></a>
+                </div>
+            </section>
+            <section>
+                <h2>{{ studio_tab | title }}</h2>
+                {% if studio_tab == "projects" %}
+                    <p>We're working on it!</p>
+                {% elif studio_tab == "comments" %}
+                    <p>Coming soon!</p>
+                {% elif studio_tab == "activity" %}
+                    <p>Hang tight!</p>
+                {% else %}
+                    <p>Oops, that page doesn't exist.</p>
+                {% endif %}
+            </section>
+        </div>
     </div>
 </section>
 

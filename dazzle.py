@@ -32,6 +32,8 @@ useDB = False  # always change to true if on replit or other online ides. only a
 REPLIT_MODE = False
 USE_PROXY = False
 
+def fmt_time(timestamp):
+    return datetime.fromisoformat(timestamp.replace("Z", "+00:00")).strftime("%B %d, %Y at %I:%M %p UTC")
 
 def archive_result(filename):
     """
@@ -290,9 +292,7 @@ def get_topic_posts(topic_id, page=0, order="oldest"):
             "posts": [
                 {
                     "author": post["username"],
-                    "time": datetime.fromisoformat(
-                        post["time"]["first_checked"].replace("Z", "+00:00")
-                    ).strftime("%B %d, %Y at %I:%M %p UTC"),
+                    "time": fmt_time(post["time"]["first_checked"]),
                     "html_content": post["content"]["html"],
                     "is_deleted": post["deleted"],
                     "index": i,
@@ -361,6 +361,9 @@ def search_for_projects(q):
     )
     return r.json()
 
+def get_studio_data(id):
+    r = requests.get(f'https://api.scratch.mit.edu/studios/{id}')
+    return r.json()
 
 # Below this line is all stuff used for the REPL debugging mode
 # Generally, don't touch this, unless there's a severe flaw or something

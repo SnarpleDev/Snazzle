@@ -333,7 +333,7 @@ section {
 	border: 6px solid #3c3836;
 }
 
-section:first-child:not(.width-third) {
+section:first-child:not(.width-third, .gb_no-T){
     background: transparent;
 }
 

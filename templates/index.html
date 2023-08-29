@@ -6,8 +6,7 @@
     {% endif %}
     <div class="hero-banner">
         {% if not signed_in %}
-        {% include '_banner.html' %}
-        <div id="downloads">{% include '_download.html' %}</div>
+            {% include '_banner.html' %}
         {% endif %}
         <section>
             <h2>Featured projects</h2>
@@ -33,7 +32,7 @@
             <div class="scrollpane sp-horiz sp-studios">
                 {% for studio in featured_studios %}
                 <div class="sp-item" style="display: block; text-align: center;">
-                    <a href="/studios/{{studio['id']}}" style="text-decoration: none;">
+                    <a href="/studios/{{studio['id']}}/projects" style="text-decoration: none;">
                         <img src="{{ studio['thumbnail_url'] }}" alt="{{ studio['title'] }}"
                             title="{{ studio['title'] }}" width="140" height="90">
                     </a>

@@ -39,6 +39,7 @@ user_data = dict(
     signed_in=True,
     use_sb2=False,
     sb_scale=1,
+    use_old_layout=False
 )
 
 
@@ -317,6 +318,7 @@ def settings():
             user_data["show_deleted_posts"],
             user_data["ocular_ov"],
             user_data["use_sb2"],
+            user_data["use_old_layout"],
         ],
     )
 
@@ -335,6 +337,12 @@ def dl_mockup():
 @app.get("/pin-subforum/<sf>")
 def pin_sub(sf):
     """route that pins a subforum"""
+    def flatten_comprehension(matrix):
+        return [item for row in matrix for item in row]
+
+    if sf not in flatten_comprehension([subforum for subforum in [subforums for _, subforums in subforums_data]]):
+        return '<script>alert("Haha nice try ;)"); history.back()</script>'
+        
     if sf not in user_data["pinned_subforums"]:
         arr = user_data["pinned_subforums"].copy()
         arr.append(sf)
@@ -379,11 +387,15 @@ def search():
 # Studio pages
 @app.get("/studios/<id>/<tab>")
 def studios(id, tab):
+    data = dazzle.get_studio_data(id)
     return render_template(
         "studio.html",
-        studio_name="Testing",
-        studio_description="Lorem ipsum dolor sit amet",
+        studio_name=data['title'],
+        studio_description=data["description"],
+        studio_id=id,
         studio_tab=tab,
+        studio_banner=data['image'],
+        
     )
 
 
