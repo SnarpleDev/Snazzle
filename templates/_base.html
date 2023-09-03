@@ -40,9 +40,9 @@
     <div class="navbar-container">
       <div class="logo"><a href="/">Snazzle</a></div>
       <ul class="nav-links">
-        <li><a href="/trending"><button><i class="fa-solid fa-earth-americas"></i> Explore</button></a></li>
-        <li><a href="/forums"><button><i class="fa-regular fa-comments"></i> Forum Browser</button></a></li>
-        <li><a href="/settings"><button class="secondary"><i class="fa-solid fa-gear"></i> Settings</button></a></li>
+        <li><a href="/trending"><button><i class="fa-solid fa-earth-americas"></i> <span class="desktop-only">Explore</span></button></a></li>
+        <li><a href="/forums"><button><i class="fa-regular fa-comments"></i> <span class="desktop-only">Forum Browser</span></button></a></li>
+        <li><a href="/settings"><button class="secondary"><i class="fa-solid fa-gear"></i> <span class="desktop-only">Settings</span></button></a></li>
         {% if signed_in %}
         <li><a href="/settings"><button class="secondary"><i class="fa-solid fa-user"></i> {{ username }}</button></a>
         </li>

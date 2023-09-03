@@ -51,24 +51,25 @@ def archive_result(filename):
     def decorate(ofunc):
         @wraps(ofunc)
         def wrapper(*args, **kwargs):
-            print(args)
-            fname = filename
+            # print(args)
+            # fname = filename
             func_result = ofunc(*args, **kwargs)
 
-            if "$" in fname:
-                count = 0
-                while "$" in fname:
-                    print(count)
-                    fname = fname.replace("$", str(args[count]))
-                    count += 1
-                count = 0
-                while "%" in fname:
-                    fname = fname.replace("$", str(kwargs.values()[count]))
-                    count += 1
-            if not DAZZLE_DIR in os.listdir():
-                os.mkdir("./" + DAZZLE_DIR)
-            with open(f"./{DAZZLE_DIR}/{fname}", "wt", encoding="utf-8") as f:
-                f.write(str(func_result))
+            # if "$" in fname:
+            #     count = 0
+            #     while "$" in fname:
+            #         print(count)
+            #         fname = fname.replace("$", str(args[count]))
+            #         count += 1
+            #     count = 0
+            #     while "%" in fname:
+            #         fname = fname.replace("$", str(kwargs.values()[count]))
+            #         count += 1
+            # if not DAZZLE_DIR in os.listdir():
+            #     os.mkdir("./" + DAZZLE_DIR)
+            # with open(f"./{DAZZLE_DIR}/{fname}", "wt", encoding="utf-8") as f:
+            #     f.write(str(func_result))
+
             return func_result
 
         return wrapper
@@ -362,8 +363,9 @@ def search_for_projects(q):
     return r.json()
 
 def get_studio_data(id):
+    
     r = requests.get(f'https://api.scratch.mit.edu/studios/{id}')
-    return r.json()
+    return {"error": True, "message": "api_notfound"} if 'code' in r.json().keys() else r.json()
 
 # Below this line is all stuff used for the REPL debugging mode
 # Generally, don't touch this, unless there's a severe flaw or something

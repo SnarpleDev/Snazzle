@@ -152,3 +152,7 @@ a:hover {
 blockquote, .forum-aside {
     border-radius: none !important;
 }
+
+#studio-banner section {
+    background-color: rgba(6, 46, 0, 1);
+}

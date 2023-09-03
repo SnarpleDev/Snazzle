@@ -14,7 +14,7 @@ from flask import (
     request,
     redirect,
 )
-
+import multiprocessing as mp
     
 from werkzeug import exceptions as werkexcept
 
@@ -160,6 +160,7 @@ def categories():
         "forums.html",
         data=subforums_data,
         pinned_subforums=user_data["pinned_subforums"],
+        legacy_layout=user_data["use_old_layout"],
     )
 
 
@@ -244,7 +245,7 @@ def scratchproject(project_id):
 def project(project_id):
     global user_data
     project_info = dazzle.get_project_info(project_id)
-    if project_info["error"] == True:
+    if "error" in project_info.keys():
         return render_template("scratchdb-error.html", err=project_info["error"])
     try:
         project_name = project_info["title"]
@@ -388,6 +389,12 @@ def search():
 @app.get("/studios/<id>/<tab>")
 def studios(id, tab):
     data = dazzle.get_studio_data(id)
+    if 'error' in data.keys():
+        return render_template(
+            "scratchapi-error.html",
+            message=data['message']
+        )
+
     return render_template(
         "studio.html",
         studio_name=data['title'],
@@ -395,7 +402,8 @@ def studios(id, tab):
         studio_id=id,
         studio_tab=tab,
         studio_banner=data['image'],
-        
+        studio_stats=data['stats'],
+        name_len=len(data['title']),
     )
 
 

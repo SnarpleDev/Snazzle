@@ -28,7 +28,8 @@ p,
 div,
 button,
 input,
-article {
+article,
+textarea {
     font-family: 'Jost', sans-serif;
 }
 
@@ -59,13 +60,13 @@ select {
     color: white;
 }
 
-input {
+input, textarea {
     border: 1px solid #ca6120;
     background-color: transparent;
     color: white;
 }
 
-input:focus {
+input:focus, textarea:focus {
     outline: 1px solid #fff;
 }
 
@@ -145,4 +146,8 @@ a:visited {
 button a,
 button a:visited {
     color: white;
+}
+
+#studio-banner section {
+    background-color: rgba(0, 0, 0, 0.25);
 }

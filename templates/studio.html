@@ -1,25 +1,60 @@
 {% extends '_base.html' %}
 
+{% block title %}
+Snazzle - Studios - {{ studio_name }}
+{% endblock %}
+
 {% block content %}
 
 <section>
     <div id="studio-banner" style="background-image: url({{ studio_banner }}); background-size: fill; background-repeat: no-repeat; height:50vh;">
         <h1>{{ studio_name }}</h1>
     </div>
+    <style>
+        #studio-banner {
+            background-image: url("{{ studio_banner }}"); 
+            background-size: cover;
+            background-position: 50%;
+            height:50vh;
+            overflow-x: clip;
+            overflow-y: scroll;
+        }
 
-    <div class="flex-cont">
-        <section class="width-20">
-            <textarea id="studio-description">
-                {{ studio_description }}
-            </textarea>
-        </section>
-        <div class="width-80">
+        #studio-banner section {
+            display: block;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: none;
+            backdrop-filter: blur(5px);
+        }
+    </style>
+
+        <section id="studio-banner">
             <section>
-                <div class="scrollpane sp-filters sp-horiz no-bullets">
-                    <a href="/studios/{{ studio_id }}/projects"><button>Projects</button></a>
-                    <a href="/studios/{{ studio_id }}/comments"><button>Comments</button></a>
-                    <a href="/studios/{{ studio_id }}/activity"><button>Activity</button></a>
+                <h1>{{ studio_name }}</h1>
+                <div class="flex-cont">
+                    <div id="studio-description" class="width-40"><h2>Description</h2>
+                        {{ studio_description }}
+                        <br>
+                    </div>
+                    <div class="width-20"></div>
+                    <div class="width-40">
+                        <h2>Stats</h2>
+                        <p>Comments: {{ studio_stats['comments'] }}</p>
+                        <p>Followers: {{ studio_stats['followers'] }}</p>
+                        <p>Managers: {{ studio_stats['managers'] }}</p>
+                        <p>Projects: {{ studio_stats['projects'] }}</p>
+                        <a href="https://scratch.mit.edu/studios/{{ studio_id }}"><button>View on Scratch</button></a>
+                    </div>
                 </div>
+            </section>
+        </section>
+        <div>
+            <section class="flex-cont">
+                <a href="/studios/{{ studio_id }}/projects" class="width-25"><button>Projects</button></a>
+                <a href="/studios/{{ studio_id }}/comments" class="width-25"><button>Comments</button></a>
+                <a href="/studios/{{ studio_id }}/people" class="width-25"><button>People</button></a>
+                <a href="/studios/{{ studio_id }}/activity" class="width-25"><button>Activity</button></a>
             </section>
             <section>
                 <h2>{{ studio_tab | title }}</h2>
@@ -29,12 +64,12 @@
                     <p>Coming soon!</p>
                 {% elif studio_tab == "activity" %}
                     <p>Hang tight!</p>
+                {% elif studio_tab == "people" %}
+                    <p>Patience is a virtue!</p>
                 {% else %}
                     <p>Oops, that page doesn't exist.</p>
                 {% endif %}
             </section>
         </div>
-    </div>
-</section>
 
 {% endblock %}

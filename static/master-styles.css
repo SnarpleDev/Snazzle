@@ -1,3 +1,40 @@
+/* Default styles for the "desktop-only" class */
+.desktop-only {
+    display: none;
+}
+
+.mobile-only {
+    display: block;
+}
+  
+/* Media query for screens with a minimum width of 1024px */
+@media (min-width: 1024px) {
+    .desktop-only {
+        display: block;
+    }
+
+    span.desktop-only {
+        display: inline;
+    }
+
+    .mobile-only {
+        display: none;
+    }
+}
+
+@media (max-width: 1024px) {
+    [class^="width-"] {
+        width: 100% !important;
+    }
+    .flex-cont * {
+        display: block;
+    }
+}
+
+div#studio-description {
+    white-space: pre-wrap;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -8,10 +45,15 @@
     border-radius: 10px;
 }
 
-input {
+input, textarea {
     transition: all 0.3s ease;
     padding: 5px;
     border-radius: 10px;
+    width: calc(100% - 10px);
+}
+
+textarea {
+    resize: none;
 }
 
 button:hover {
@@ -75,7 +117,7 @@ select:hover {
 
 .scrollpane .sp-item:hover,
 .project-grid .pg-project:hover {
-    transform: translate(-5px, -5px);
+    transform: none;
     cursor: pointer;
 }
 
@@ -151,7 +193,7 @@ select:hover {
 }
 
 .width-third {
-    width: calc(100% / 3)
+    width: calc(100% / 3) !important;
 }
 
 section {
@@ -164,7 +206,7 @@ section {
 #banner {
     margin: 0.1em;
     border-radius: 10px;
-    height: calc(50vh + 100px) !important;
+    /* height: calc(75vh + 100px) !important; */
 
     padding: 2.5rem;
     /* z-index: 999; */
@@ -259,7 +301,9 @@ span.bb-strikethrough {
     width: 20%;
 }
 
-
+.width-25 {
+    width: 25%;
+}
 
 .forum-post * {
     max-width: 100% !important;
@@ -397,11 +441,10 @@ select:hover {
     cursor: pointer;
 }
 
-.omni {
-    margin-left: 10em;
-    margin-right: 10em;
-}
-
 .no-bullets {
     list-style: none;
+}
+
+textarea {
+    height: 200px;
 }

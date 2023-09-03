@@ -22,7 +22,11 @@
 {% endif %}
 <div class="flex-cont">
    {% for title, subforums in data %}
+   {% if legacy_layout %}
    <section class="width-50 gb_no-T">
+   {% else %}
+   <section class="gb_no-T">
+   {% endif %}
       <h2>{{ title }}</h2>
       <div class="scrollpane sp-forum sp-vert">
          {% for subforum in subforums %}
