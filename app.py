@@ -245,7 +245,7 @@ def project(project_id):
     global user_data
     project_info = dazzle.get_project_info(project_id)
     if project_info["error"] == True:
-        return render_template("scratchdb-error.html", err=project_info["message"])
+        return render_template("scratchdb-error.html", err=project_info["error"])
     try:
         project_name = project_info["title"]
         creator_name = project_info["username"]
