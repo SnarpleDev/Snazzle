@@ -35,52 +35,9 @@ USE_PROXY = False
 def fmt_time(timestamp):
     return datetime.fromisoformat(timestamp.replace("Z", "+00:00")).strftime("%B %d, %Y at %I:%M %p UTC")
 
-def archive_result(filename):
-    """
-    Archives a function's results in `filename`.
-    This is mainly used for functions
-    that get stuff from ScratchDB so that
-    Snazzle can be used when ScratchDB is down.
-
-    The only reason this exists is because ScratchDB
-    goes down all the time, but there's no alternative.
-    I wish Lefty would just fix their service but it's
-    not an option.
-    """
-
-    def decorate(ofunc):
-        @wraps(ofunc)
-        def wrapper(*args, **kwargs):
-            # print(args)
-            # fname = filename
-            func_result = ofunc(*args, **kwargs)
-
-            # if "$" in fname:
-            #     count = 0
-            #     while "$" in fname:
-            #         print(count)
-            #         fname = fname.replace("$", str(args[count]))
-            #         count += 1
-            #     count = 0
-            #     while "%" in fname:
-            #         fname = fname.replace("$", str(kwargs.values()[count]))
-            #         count += 1
-            # if not DAZZLE_DIR in os.listdir():
-            #     os.mkdir("./" + DAZZLE_DIR)
-            # with open(f"./{DAZZLE_DIR}/{fname}", "wt", encoding="utf-8") as f:
-            #     f.write(str(func_result))
-
-            return func_result
-
-        return wrapper
-
-    return decorate
-
-
 def set_server_host(host):
     global SERVER_HOST
     SERVER_HOST = host
-
 
 def use_scratchdb(value):
     """
@@ -128,7 +85,6 @@ def remove_duplicates(input_list):
     return result_list
 
 
-@archive_result(f"gettopics-category_$-page_$")
 @lru_cache(maxsize=15)
 def get_topics(category, page):
     """
@@ -146,7 +102,6 @@ def get_topics(category, page):
         return {"error": True, "message": "lib_scratchdbdown"}
 
 
-@archive_result(f"getpostinfo-$")
 @lru_cache(maxsize=15)
 def get_post_info(post_id):
     """
@@ -169,7 +124,6 @@ def get_author_of(post_id):
     # return r.json()['username']
 
 
-@archive_result(f"projectinfo-id_$")
 @lru_cache(maxsize=15)
 def get_project_info(project_id):
     try:
@@ -205,7 +159,6 @@ def get_comments(project_id):
     return r.json()
 
 
-@archive_result(f"ocular-username_$")
 @lru_cache(maxsize=5)
 def get_ocular(username):
     """
@@ -225,7 +178,6 @@ def get_ocular(username):
     return info.json()
 
 
-@archive_result(f"aviate-username_$")
 @lru_cache(maxsize=5)
 def get_aviate(username):
     """
@@ -255,7 +207,6 @@ def get_featured_projects():
     return r.json()
 
 
-@archive_result("topic-data-id_$")
 @lru_cache(maxsize=15)
 def get_topic_data(topic_id):
     r = requests.get(f"{SCRATCHDB}forum/topic/info/{topic_id}", timeout=10)
@@ -278,7 +229,6 @@ def get_trending_projects():
     return r.json()
 
 
-@archive_result("posts-id_$-page_$")
 def get_topic_posts(topic_id, page=0, order="oldest"):
     r = requests.get(
         f"{SCRATCHDB}forum/topic/posts/{topic_id}/{page}?o={order}", timeout=10
@@ -305,7 +255,6 @@ def get_topic_posts(topic_id, page=0, order="oldest"):
         return {"error": True, "message": "lib_scratchdbdown"}
 
 
-@archive_result("pfp_url")
 def get_pfp_url(username, size=90):
     r = requests.get(f"https://api.scratch.mit.edu/users/{username}", timeout=10)
 
