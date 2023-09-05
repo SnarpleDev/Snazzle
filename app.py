@@ -5,6 +5,7 @@ https://github.com/redstone-scratch/Snazzle/
 """
 
 from os import listdir
+from sys import version_info, exit
 from datetime import timedelta
 from flask import (
     Flask,
@@ -14,8 +15,7 @@ from flask import (
     request,
     redirect,
 )
-import multiprocessing as mp
-    
+
 from werkzeug import exceptions as werkexcept
 
 import dazzle
@@ -28,6 +28,13 @@ FLASK_DEBUG = True if dazzle.env["FLASK_DEBUG"] == "yes" else False
 
 app = Flask(__name__)
 
+if not (version_info.major == 3 and version_info.minor >= 8):
+    print(
+        """Snazzle does not work on Python 3.7 or lower. Please upgrade.
+3.8 is old now anyways, and you should be using the latest version anyways unless you absolutely need to."""
+    )
+    exit(0)
+
 user_data = dict(
     theme="choco",
     user_name="CoolScratcher123",
@@ -39,7 +46,7 @@ user_data = dict(
     signed_in=True,
     use_sb2=False,
     sb_scale=1,
-    use_old_layout=False
+    use_old_layout=False,
 )
 
 
@@ -338,12 +345,15 @@ def dl_mockup():
 @app.get("/pin-subforum/<sf>")
 def pin_sub(sf):
     """route that pins a subforum"""
+
     def flatten_comprehension(matrix):
         return [item for row in matrix for item in row]
 
-    if sf not in flatten_comprehension([subforum for subforum in [subforums for _, subforums in subforums_data]]):
+    if sf not in flatten_comprehension(
+        [subforum for subforum in [subforums for _, subforums in subforums_data]]
+    ):
         return '<script>alert("Haha nice try ;)"); history.back()</script>'
-        
+
     if sf not in user_data["pinned_subforums"]:
         arr = user_data["pinned_subforums"].copy()
         arr.append(sf)
@@ -366,8 +376,11 @@ def unpin_sub(sf):
 @app.get("/handle-scratch-auth")
 def scratch_auth():
     if not request.args:
-        if sa_login := dazzle.get_redirect_url():
-            return redirect(sa_login)
+        try:
+            if sa_login := dazzle.get_redirect_url():
+                return redirect(sa_login)
+        except SyntaxError:
+            return render_template("")
         return "<script>alert('Auth failed');history.back()</script>"
     code = request.args.get("privateCode")
     session_id = dazzle.login(code)
@@ -385,25 +398,23 @@ def search():
     result = dazzle.search_for_projects(query)
     return stream_template("search.html", result=result, query=query)
 
+
 # Studio pages
 @app.get("/studios/<id>/<tab>")
 def studios(id, tab):
     data = dazzle.get_studio_data(id)
-    if 'error' in data.keys():
-        return render_template(
-            "scratchapi-error.html",
-            message=data['message']
-        )
+    if "error" in data.keys():
+        return render_template("scratchapi-error.html", message=data["message"])
 
     return render_template(
         "studio.html",
-        studio_name=data['title'],
+        studio_name=data["title"],
         studio_description=data["description"],
         studio_id=id,
         studio_tab=tab,
-        studio_banner=data['image'],
-        studio_stats=data['stats'],
-        name_len=len(data['title']),
+        studio_banner=data["image"],
+        studio_stats=data["stats"],
+        name_len=len(data["title"]),
     )
 
 
@@ -411,6 +422,7 @@ def studios(id, tab):
 def err404(e: Exception):
     # route for error
     return render_template("_error.html", errdata=e), 404
+
 
 # CHANGE THIS IF YOU'RE RUNNING A PUBLIC SERVER
 if __name__ == "__main__":
