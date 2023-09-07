@@ -7,9 +7,6 @@ Snazzle - Studios - {{ studio_name }}
 {% block content %}
 
 <section>
-    <div id="studio-banner" style="background-image: url({{ studio_banner }}); background-size: fill; background-repeat: no-repeat; height:50vh;">
-        <h1>{{ studio_name }}</h1>
-    </div>
     <style>
         #studio-banner {
             background-image: url("{{ studio_banner }}"); 
@@ -33,8 +30,7 @@ Snazzle - Studios - {{ studio_name }}
             <section>
                 <h1>{{ studio_name }}</h1>
                 <div class="flex-cont">
-                    <div id="studio-description" class="width-40"><h2>Description</h2>
-                        {{ studio_description }}
+                    <div id="studio-description" class="width-40"><h2>Description</h2>{{ studio_description }}
                         <br>
                     </div>
                     <div class="width-20"></div>
