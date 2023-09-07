@@ -2,8 +2,7 @@
 <html>
 
 <head>
-  <title>Snazzle - {% block title %}A better frontend for Scratch, built by the community, for the community{% endblock
-    %}</title>
+  <title>Snazzle - {% block title %}A better frontend for Scratch, built by the community, for the community{% endblock %}</title>
   <style>
     html {
       scroll-behavior: smooth;
@@ -40,15 +39,19 @@
     <div class="navbar-container">
       <div class="logo"><a href="/">Snazzle</a></div>
       <ul class="nav-links">
-        <li><button class="secondary"><i class="fa-solid fa-bars"></i> <span class="desktop-only">Menu</span></button></li>
-        <li><a href="/trending"><button><i class="fa-solid fa-earth-americas"></i> <span class="desktop-only">Explore</span></button></a></li>
-        <li><a href="/forums"><button><i class="fa-regular fa-comments"></i> <span class="desktop-only">Forum Browser</span></button></a></li>
-        <li><a href="/settings"><button class="secondary"><i class="fa-solid fa-gear"></i> <span class="desktop-only">Settings</span></button></a></li>
+        <li><button class="secondary" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i> <span class="desktop-only">Menu</span></button></li>
         {% if signed_in %}
         <li>
           <a href="/settings"><button class="secondary"><i class="fa-solid fa-user"></i> {{ username }}</button></a>
         </li>
         {% endif %}
+      </ul>
+    </div>
+    <div id="menu">
+      <ul class="no-bullets flex-cont">
+        <li class="width-third"><a href="/trending"><button class="width-full "><i class="fa-solid fa-earth-americas"></i> <span class="desktop-only">Explore</span></button></a></li>
+        <li class="width-third"><a href="/forums">  <button class="width-full "><i class="fa-regular fa-comments"></i> <span class="desktop-only">Forum Browser</span></button></a></li>
+        <li class="width-third"><a href="/settings"><button class="width-full "><i class="fa-solid fa-gear"></i> <span class="desktop-only">Settings</span></button></a></li>
       </ul>
     </div>
   </nav>
@@ -90,6 +93,16 @@
 		})
 	</script>
   {% endif %}
+  <script>
+    function toggleMenu() {
+      let display = document.getElementById("menu").style.display;
+      if (display == "block") {
+        document.getElementById("menu").style.display = "none";
+      } else {
+        document.getElementById("menu").style.display = "block";
+      }
+    }
+  </script>
 </body>
 
 </html>

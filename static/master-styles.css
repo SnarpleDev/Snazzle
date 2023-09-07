@@ -196,6 +196,10 @@ select:hover {
     width: calc(100% / 3) !important;
 }
 
+.width-full {
+    width: 100%;
+}
+
 section {
     margin: 0.05em;
     padding: 5px;
@@ -450,4 +454,8 @@ textarea {
 
 .sp-vert.sp-forum.sp-any-height {
     height: 100% !important;
+}
+
+#menu {
+    display: none;
 }
