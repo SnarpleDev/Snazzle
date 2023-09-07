@@ -181,6 +181,7 @@ def topics(subforum):
 
     response = dazzle.get_topics(subforum, sf_page)
     if response["error"]:
+        print("Error when loading", subforum, sf_page, response["message"])
         return render_template("scratchdb-error.html", err=response["message"])
     return stream_template(
         "forum-topics.html",
@@ -210,8 +211,10 @@ def topic(topic_id):
     topic_posts = dazzle.get_topic_posts(topic_id, page=topic_page)
 
     if topic_data["error"]:
+        print("Error when loading", topic_id, topic_data["message"])
         return render_template("scratchdb-error.html", err=topic_data["message"])
     if topic_posts["error"]:
+        print("Error when loading", topic_id, topic_posts["message"])
         return render_template("scratchdb-error.html", err=topic_posts["message"])
     data_dict = {
         "topic_id": topic_id,
@@ -253,7 +256,8 @@ def project(project_id):
     global user_data
     project_info = dazzle.get_project_info(project_id)
     if "error" in project_info.keys():
-        return render_template("scratchdb-error.html", err=project_info["error"])
+        print("Error when loading", project_id, project_info["message"])
+        return render_template("scratchdb-error.html", err=project_info["message"])
     try:
         project_name = project_info["title"]
         creator_name = project_info["username"]
@@ -404,6 +408,7 @@ def search():
 def studios(id, tab):
     data = dazzle.get_studio_data(id)
     if "error" in data.keys():
+        print("Error when loading", id, data["error"])
         return render_template("scratchapi-error.html", message=data["message"])
 
     return render_template(

@@ -26,6 +26,9 @@
     {% elif err == 'sdb_topicnotvalid' %}
         <h1>Topic not valid</h1>
         <p>The topic ID is not valid (a positive whole number).</p>
+    {% elif err == 'sdb_nomorepostserror' %}
+        <h1>You've reached the end!</h1>
+        <p>There are no more posts in the topic.</p>
     {% endif %}
     <button onclick="history.back()">Back</button>
 </section>

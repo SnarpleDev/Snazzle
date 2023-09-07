@@ -425,7 +425,7 @@ button,
 select {
     transition: all 0.3s ease;
     padding: 5px;
-    border-radius: 10px;
+    border-radius: 2.5px;
 }
 
 input {
