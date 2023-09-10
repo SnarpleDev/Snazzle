@@ -1,10 +1,18 @@
 {% extends '_base.html' %}
 
 {% block content %}
+<style>
+    #show-on-ch {
+        display: none;
+    }
+</style>
 <div class="flex-cont">
     <div class="width-20">
         <section>
-            <h1>Settings</h1>
+            <p id="show-on-ch">
+                <a href="https://www.google.com/search?sca_esv=564158632&hl=en&q=chickens&tbm=isch">Chicken pics</a>
+            </p>
+            <h1>Sett<span onclick="chickens()" id="ch-click">i</span>ngs</h1>
             <p>Customize Snazzle to your liking.</p>
             <ul>
                 <li><a href="#theme">Change Theme</a></li>
@@ -64,7 +72,7 @@
                 <label for="max-topic-posts">Maximum visible posts on a page <input type="number" id="max-posts"
                         name="max-posts" placeholder='20' value="{{ values[1] }}"></label>
                 <br>
-                <label for="show-deleted-posts">Show deleted posts on a topic <input type="checkbox" id="show-deleted-posts"
+                <label for="show-deleted-posts">Show <span onclick="dev()">d</span>eleted posts on a topic <input type="checkbox" id="show-deleted-posts"
                         name="show-deleted-posts" value="{{ values[2] }}"></label><br>
                 <label for="use-sb2">Use 2.0 scratchblocks instead of 3.0 <input type="checkbox" id="use-sb2" name="use-sb2" value="{{ values[4] }}"></label><br>
                 <label for="sb-scale">Scratchblocks scaling <input type="number" step="0.01" id="sb-scale" name="sb-scale" value="{{ values[5] }}"></label>
@@ -93,4 +101,26 @@
     </div>
 </div>
 
+<script>
+    var count = 0;
+    var dount = 0;
+    var chickenMode = false;
+    function chickens() {
+        count++;
+        if (count === 15) {
+            alert('Chicken mode activated');
+            document.getElementById('show-on-ch').style.display = 'block';
+        }
+    }
+
+    function dev() {
+        dount++;
+        if (dount === 32) {
+            alert('Dev mode activated');
+            document.designMode = 'on';
+        }
+    }
+</script>
+
 {% endblock %}
+

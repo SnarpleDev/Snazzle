@@ -1,3 +1,28 @@
+{% macro user(name, img_url, status, role) %}
+
+    <section class="width-20">
+        <div class="flex-cont fc-horiz">
+            <img src="{{ img_url }}" alt="{{ img_url }}" style="width: 100%; height: 100%;" />
+            <p title="{{ status }}">{{ name }}</p>
+            {% if role == 2 %}
+                <i class="fa-solid fa-crown"></i>
+            {% elif role == 1 %}
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+            {% endif %}
+        </div>
+    </section>
+
+{% endmacro %}
+
+{% macro comment(user, comment, pinned) %}
+
+    <section {% if pinned %} class="pinned" {% endif %}>
+        {% user(user["name"], user["avatar"], user["status"], comment["user"]["role"]) %}
+        <p>{{ comment["text"] }}</p>
+    </section>
+
+{% endmacro %}
+
 {% extends '_base.html' %}
 
 {% block title %}
