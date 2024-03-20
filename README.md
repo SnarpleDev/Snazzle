@@ -1,3 +1,6 @@
+# Please read this first!
+Forum browsing doesn't work at the moment due to ScratchDB having been down for ages. We're working on this and will get our own indexer up and running quickly!
+
 # Snazzle
 
 A better frontend for Scratch, built by the community, for the community
