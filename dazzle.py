@@ -174,7 +174,7 @@ def get_ocular(username):
             "name": None,
             "status": None,
             "color": None,
-        }  # i had  to spell colour wrong for it to work
+        }  # i had to spell it the 'murican way for it to work
     return info.json()
 
 
