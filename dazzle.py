@@ -174,7 +174,7 @@ def get_ocular(username):
             "name": None,
             "status": None,
             "color": None,
-        }  # i had  to spell colour wrong for it to work
+        }  # i had to spell it the 'murican way for it to work
     return info.json()
 
 
@@ -308,7 +308,7 @@ def token_matches_user(token: str):
 
 def search_for_projects(q):
     r = requests.get(
-        f"https://api.scratch.mit.edu/explore/projects?q={q}&mode=trending&language=en",
+        f"https://api.scratch.mit.edu/search/projects?q={q}&mode=popular&language=en",
         timeout=10
     )
     return r.json()
