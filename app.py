@@ -1,7 +1,7 @@
 """
        **** Snazzle Server Code ****
- Made in Flask by the Snazzle team over at 
-https://github.com/redstone-scratch/Snazzle/
+ Made in Flask by Snarple over at 
+https://github.com/SnarpleDev/Snazzle/
 """
 
 from os import listdir
@@ -166,7 +166,7 @@ def categories():
     return render_template(
         "forums.html",
         data=subforums_data,
-        pinned_subforums=user_data["pinned_subforums"],
+        pinned_subforums=user_data["pinned_subforums"]  ,
         legacy_layout=user_data["use_old_layout"],
     )
 

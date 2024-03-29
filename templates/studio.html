@@ -17,7 +17,7 @@
 {% macro comment(user, comment, pinned) %}
 
     <section {% if pinned %} class="pinned" {% endif %}>
-        {% user(user["name"], user["avatar"], user["status"], comment["user"]["role"]) %}
+        {{ user(user["name"], user["avatar"], user["status"], comment["user"]["role"]) }}
         <p>{{ comment["text"] }}</p>
     </section>
 

@@ -3,55 +3,68 @@
 {% block title %}Forums - {{ topic_title }}{% endblock %}
 
 {% block content %}
-    {% macro forum_post(author, status, time, content, index, is_deleted) %}
+{% macro forum_post(author, status, time, content, index, is_deleted, source, id) %}
 
-        {% if is_deleted and show_deleted or not is_deleted %}
-            <section id="{{ index }}" class="forum-post">
-                <input type="text" value="{{ index }}" hidden="true" id="{{ index }}-value">
-                <div class="flex-cont">
-                    <div class="width-20 forum-aside">
-                        <img src="{{ get_pfp(author) }}" alt="{{ author }}'s profile picture" class="pfp">
-                        <h2>{{ author }}</h2>
-                        <p>{{ status or '' }}</p>
-                        <p>{{ time }}</p>
-                    </div>
-                    <article class="width-80">
-                        {{ content | safe }}
-                        
-                        <div>
-                            <a href="?page={{ topic_page }}&save={{ index }}"><button>Save this post</button></a>
-                        </div>
-                    </article>
-                </div>
-            </section>
-        {% endif %}
+{% if is_deleted and show_deleted or not is_deleted %}
+<section id="{{ index }}" class="forum-post">
+    <input type="text" value="{{ index }}" hidden="true" id="{{ index }}-value">
+    <div class="flex-cont">
+        <div class="width-20 forum-aside">
+            <img src="{{ get_pfp(author) }}" alt="{{ author }}'s profile picture" class="pfp">
+            <h2>{{ author }}</h2>
+            <p>{{ status or 'Status not found' }}</p>
+            <p>{{ time }}</p>
+        </div>
+        <article class="width-80">
+            {{ content | safe }}
 
-    {% endmacro %}
+            <div>
+                <a href="?page={{ topic_page }}&save={{ index }}"><button>Save this post</button></a>
+            </div>
+        </article>
+    </div>
+    <div class="flex-cont">
+        <div class="width-20"></div>
+        <div class="width-80">
+            <p>
+                <a href="javascript:void(0)"
+                   onclick="navigator.clipboard.writeText('https:\/\/scratch.mit.edu/discuss/post/{{ id }}');alert('Post link copied')">
+                   Copy link to post on Scratch
+                </a>
+            </p>
+        </div>
+    </div>
 
-    {% macro pagination(route) %}
-    <p>
-        <a href="{{ route }}?page={{ topic_page - 1}}">Previous</a>
-        |
-        <a href="{{ route }}?page={{ topic_page + 1}}">Next</a>
-    </p>
-    {% endmacro %}
+</section>
+{% endif %}
 
-    <section>
-        <h1>{{ topic_title }}</h1>
-        <button onclick="history.back()">Back</button>
-    </section>
+{% endmacro %}
 
-    <section>
-        {{ pagination("/forums/topic/" + topic_id) }}
-    </section>
+{% macro pagination(route) %}
+<p>
+    <a href="{{ route }}?page={{ topic_page - 1}}">Previous</a>
+    |
+    <a href="{{ route }}?page={{ topic_page + 1}}">Next</a>
+</p>
+{% endmacro %}
 
-    {% for post in topic_posts %}
-        {{ forum_post(post['author'], post['author_status']['status'], post['time'], post['html_content'], post['index'], post['is_deleted']) }}
-    {% endfor %}
+<section>
+    <h1>{{ topic_title }}</h1>
+    <button onclick="history.back()">Back</button>
+</section>
 
-    <section>
-        {{ pagination("/forums/topic/" + topic_id) }}
-        <button onclick="history.back()">Back</button>
-    </section>
-    
+<section>
+    {{ pagination("/forums/topic/" + topic_id) }}
+</section>
+
+{% for post in topic_posts %}
+{{ forum_post(post['author'], post['author_status']['status'], post['time'], post['html_content'], post['index'],
+post['is_deleted'], post['bb_content'], post['id']) }}
+{% endfor %}
+
+<section>
+    {{ pagination("/forums/topic/" + topic_id) }}
+    <button onclick="history.back()">Back</button>
+</section>
+
 {% endblock %}

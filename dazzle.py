@@ -242,9 +242,11 @@ def get_topic_posts(topic_id, page=0, order="oldest"):
             "error": False,
             "posts": [
                 {
+                    "id": post["id"],
                     "author": post["username"],
                     "time": fmt_time(post["time"]["first_checked"]),
                     "html_content": post["content"]["html"],
+                    "bb_content": post["content"]["bb"],
                     "is_deleted": post["deleted"],
                     "index": i,
                 }
@@ -315,6 +317,9 @@ def get_studio_data(id):
     
     r = requests.get(f'https://api.scratch.mit.edu/studios/{id}')
     return {"error": True, "message": "api_notfound"} if 'code' in r.json().keys() else r.json()
+
+def get_studio_comments(id):
+    pass
 
 # Below this line is all stuff used for the REPL debugging mode
 # Generally, don't touch this, unless there's a severe flaw or something
