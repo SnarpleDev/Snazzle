@@ -15,6 +15,7 @@ from flask import (
     request,
     redirect,
 )
+import requests
 
 from werkzeug import exceptions as werkexcept
 
@@ -166,7 +167,7 @@ def categories():
     return render_template(
         "forums.html",
         data=subforums_data,
-        pinned_subforums=user_data["pinned_subforums"]  ,
+        pinned_subforums=user_data["pinned_subforums"],
         legacy_layout=user_data["use_old_layout"],
     )
 
@@ -179,7 +180,18 @@ def topics(subforum):
 
     sf_page = request.args.get("page")
 
-    response = dazzle.get_topics(subforum, sf_page)
+    try:
+        response = dazzle.get_topics(subforum, sf_page)
+    except requests.exceptions.ReadTimeout:
+        return render_template(
+            "_error.html",
+            errdata={
+                "code": 500,
+                "name": "Internal server error",
+                "description": "A request took too long and has been aborted. Please try again later, or check your internet connection.",
+            },
+        )
+
     if response["error"]:
         print("Error when loading", subforum, sf_page, response["message"])
         return render_template("scratchdb-error.html", err=response["message"])

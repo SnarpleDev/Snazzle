@@ -1,6 +1,3 @@
-# Please read this first!
-Forum browsing doesn't work at the moment due to ScratchDB having been down for ages. We're working on this and will get our own indexer up and running soon!
-
 # Snazzle
 
 A better frontend for Scratch, built by the community, for the community
@@ -40,4 +37,4 @@ But for now, this is how you do it:
 2. All profile pictures are the default one
 3. May be slower~~
 
-We've discontinued the repl a while ago due to updates to replit. Please host an instance somewhere else.
+We've discontinued the repl a while ago due to updates to replit. Please host an instance somewhere else. (Sorry, it's not our fault.)
