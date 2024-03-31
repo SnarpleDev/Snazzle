@@ -30,11 +30,4 @@ But for now, this is how you do it:
 7. Go to `127.0.0.1:5000` in your favourite browser and play around with it!
 
 ## Hosting on Replit
-
-~~Some features currently won't work properly due to usage of Scratch's API. With this in mind, [there's a version on replit that works around these limitations.](https://snazzle-repl.redstonescratch.repl.co/) To contribute to that, just fork it and make changes to your fork. However, because of these limitations, there are the following disadvantages to using the repl:
-
-1. No projects or studios on the front page
-2. All profile pictures are the default one
-3. May be slower~~
-
-We've discontinued the repl a while ago due to updates to replit. Please host an instance somewhere else. (Sorry, it's not our fault.)
+We've discontinued the repl you used to have to fork a while ago because of updates to replit. Please host an instance somewhere else. (Sorry, it's not our fault.)
