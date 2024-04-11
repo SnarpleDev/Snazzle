@@ -54,7 +54,7 @@ user_data = dict(
 dazzle.use_scratchdb(True)
 
 global get_status
-get_status = dazzle.get_ocular if user_data["ocular_ov"] else dazzle.get_aviate
+get_status = dazzle.get_ocular
 
 
 def get_themes():

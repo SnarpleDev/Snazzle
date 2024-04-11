@@ -177,19 +177,6 @@ def get_ocular(username):
         }  # i had to spell it the 'murican way for it to work
     return info.json()
 
-
-@lru_cache(maxsize=5)
-def get_aviate(username):
-    """
-    Get a user's status from Aviate.
-    """
-    # Aviate API is much simple very wow
-    # Better than ocular API imo
-    r = requests.get(f"https://aviate.scratchers.tech/api/{username}", timeout=10)
-    if not r["success"]:
-        return ""
-    return r["status"]
-
 def init_db():
     conn = sqlite3.connect(env["DB_LOCATION"])
     conn.cursor().execute(
