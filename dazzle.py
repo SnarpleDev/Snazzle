@@ -25,8 +25,8 @@ import requests
 env = dotenv_values(".env")
 
 SCRATCHDB = "https://scratchdb.lefty.one/v3/"
-DAZZLE_DIR = ".dazzle-archive"
-ENABLE_SCRATCH_AUTH = True
+DAZZLE_DIR = env["DAZZLE_DIR"] if "DAZZLE_DIR" in env else ".dazzle-archive"
+ENABLE_SCRATCH_AUTH = env["USE_SCRATCHDB"] == "yes" if "USE_SCRATCHDB" in env else True
 
 useDB = False  # always change to true if on replit or other online ides. only affects project info for now
 REPLIT_MODE = False
