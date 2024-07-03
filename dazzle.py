@@ -1,19 +1,11 @@
 # Dazzle library
 
 """
-    Dazzle is a helper library for Snazzle
-    that helps get stuff from ScratchDB 
-    and the Scratch API.
-    
-    It makes things easier to work with :)
-    
-    This library is mostly undocumented.
-    Writing documentation would help us greatly :D
+   Dazzle is a helper library for Snazzle that helps get things from ScratchDB and the Scratch API.
 """
 
 from functools import lru_cache, wraps
 import base64
-import os
 
 from datetime import datetime
 from uuid import uuid4
@@ -32,51 +24,45 @@ useDB = False  # always change to true if on replit or other online ides. only a
 REPLIT_MODE = False
 USE_PROXY = False
 
-def fmt_time(timestamp):
+def fmt_time(timestamp: str) -> str:
+    """
+    Formats a timestamp to a human-readable format.
+    - `timestamp` (str): The timestamp to format.
+
+    Returns:
+    - str: The formatted timestamp.
+    """
     return datetime.fromisoformat(timestamp.replace("Z", "+00:00")).strftime("%B %d, %Y at %I:%M %p UTC")
 
-def set_server_host(host):
+# TODO: deprecate the config functions because the .env file supersedes them
+def set_server_host(host) -> None:
+    """
+    Sets the server host for the application.
+
+    - `host` (str): The host to set.
+
+    NOTE: May be removed in the future as it is not used.
+    """
     global SERVER_HOST
     SERVER_HOST = host
 
-def use_scratchdb(value):
+def use_scratchdb(value: bool) -> None:
     """
-    Force ScratchDB to be used.
+    Force ScratchDB usage.
+
+    - `value` (bool): True to force ScratchDB usage, False otherwise.
     """
     global USE_SDB
     USE_SDB = value
 
-
-def replit_mode(value):
-    """
-    Enable Replit mode so that Snazzle can be used on Replit.
-
-    This is a stricter version of the `use_scratchdb` function.
-    """
-    global REPLIT_MODE
-    REPLIT_MODE = value
-
-
-def use_proxy(value):
-    """
-    Force proxy to be used so that Snazzle
-    can be used on Replit without ScratchDB
-    because ScratchDB goes down all the time
-    and it's also a little slow.
-
-    The archiving solution may work but it's
-    not ideal.
-    """
-    global USE_PROXY
-    USE_PROXY = value
-
-
-def remove_duplicates(input_list):
+def remove_duplicates(input_list) -> list:
     """
     Removes duplicates from a list.
 
-    Needs to work on unhashable datatypes
-    which is why it's so slow and hacky and ew.
+    - `input_list` (list): The list to remove duplicates from.
+
+    Returns:
+    - list: A list that is a copy of `input_list`, but with duplicates removed.
     """
     result_list = []
     for d in input_list:
@@ -86,9 +72,15 @@ def remove_duplicates(input_list):
 
 
 @lru_cache(maxsize=15)
-def get_topics(category, page):
+def get_topics(category, page) -> dict:
     """
     Gets topics in a subforum from ScratchDB.
+
+    - `category` (str): The category to retrieve topics from.
+    - `page` (int): The amount of pages of topics to retrieve.
+
+    Returns:
+    - dict: A dictionary containing the error status and topics.
     """
     r = requests.get(
         f"{SCRATCHDB}forum/category/topics/{category}/{page}?detail=0&filter=1",
@@ -103,21 +95,27 @@ def get_topics(category, page):
 
 
 @lru_cache(maxsize=15)
-def get_post_info(post_id):
-    """
-    Gets info about a forum post from ScratchDB.
+def get_post_info(post_id) -> dict:
+    """    
+    Gets information about a forum post from ScratchDB.
+
+    - `post_id` (str): The ID of the post to retrieve information for.
+
+    Returns:
+    - dict: Information about the forum post.
     """
     r = requests.get(f"{SCRATCHDB}forum/post/info/{post_id}", timeout=10)
     return r.json()
 
 
-def get_author_of(post_id):
+def get_author_of(post_id) -> str:
     """
-    Intended to get the author of a forum topic.
+    Gets the author of a forum topic.
 
-    For now it just returns "user" because it's very slow
-    when you have to loop over all the posts in a topic
-    to get one singular piece of data.
+    - `post_id` (str): The ID of the post to retrieve the author for.
+
+    Returns:
+    - str: The author of the forum topic.
     """
     return "user"
     # r = requests.get(f'{SCRATCHDB}forum/post/info/{post_id}')
@@ -125,11 +123,16 @@ def get_author_of(post_id):
 
 
 @lru_cache(maxsize=15)
-def get_project_info(project_id):
+def get_project_info(project_id) -> dict:
+    """
+    Gets information about a project from ScratchDB.
+
+    - `project_id` (str): The ID of the project to retrieve information for.
+
+    Returns:
+    - dict: Information about the project.
+    """
     try:
-        """
-        Get info about a project from ScratchDB.
-        """
         if not useDB:
             r = requests.get(
                 f"https://scratchdb.lefty.one/v2/project/info/id/{project_id}", timeout=10
@@ -143,7 +146,15 @@ def get_project_info(project_id):
         return {"error": True, "message": "lib_scratchdbtimeout"}
 
 @lru_cache(maxsize=15)
-def get_comments(project_id):
+def get_comments(project_id: str) -> dict:
+    """
+    Gets comments for a project.
+
+    - `project_id` (str): The ID of the project to retrieve comments for.
+
+    Returns:
+    - dict: Comments for the project.
+    """
     if not REPLIT_MODE:
         return None  # i'll do this later
     try:
@@ -160,9 +171,14 @@ def get_comments(project_id):
 
 
 @lru_cache(maxsize=5)
-def get_ocular(username):
+def get_ocular(username) -> dict:
     """
-    Get a user's status from ocular.
+    Gets a user's status from Ocular.
+
+    - `username` (str): The username of the user.
+
+    Returns:
+    - dict: User's status information.
     """
     try:
         info = requests.get(
@@ -177,25 +193,37 @@ def get_ocular(username):
         }  # i had to spell it the 'murican way for it to work
     return info.json()
 
-def init_db():
+def init_db() -> None:
+    """
+    Initializes the database.
+    """
     conn = sqlite3.connect(env["DB_LOCATION"])
     conn.cursor().execute(
         f"CREATE TABLE IF NOT EXISTS {env['DB_TABLE']}( username, token )"
     )
     conn.close()
 
-def get_featured_projects():
+def get_featured_projects() -> dict:
     """
-    Retrieve the featured projects from the Scratch API.
+    Retrieves the featured projects from the Scratch API.
 
-    Returns a JSON object containing the featured projects.
+    Returns:
+    - dict: Featured projects.
     """
     r = requests.get("https://api.scratch.mit.edu/proxy/featured", timeout=10)
     return r.json()
 
 
 @lru_cache(maxsize=15)
-def get_topic_data(topic_id):
+def get_topic_data(topic_id) -> dict:
+    """
+    Gets data about a topic from ScratchDB.
+
+    - `topic_id` (str): The ID of the topic to retrieve data for.
+
+    Returns:
+    - dict: Topic data.
+    """
     r = requests.get(f"{SCRATCHDB}forum/topic/info/{topic_id}", timeout=10)
     try:
         if "error" in r.json().keys():
@@ -206,7 +234,13 @@ def get_topic_data(topic_id):
 
 
 @lru_cache(maxsize=15)
-def get_trending_projects():
+def get_trending_projects() -> dict:
+    """
+    Gets trending projects from the Scratch API.
+
+    Returns:
+    - dict: Trending projects.
+    """
     # TODO: implement limits and offsets
     # language parameter seems to be ineffectual when set to another lang
     r = requests.get(
@@ -216,7 +250,17 @@ def get_trending_projects():
     return r.json()
 
 
-def get_topic_posts(topic_id, page=0, order="oldest"):
+def get_topic_posts(topic_id, page=0, order="oldest") -> dict:
+    """
+    Gets posts for a topic.
+
+    - `topic_id` (str): The ID of the topic to retrieve posts for.
+    - `page` (int): The page number of posts.
+    - `order` (str): The order of posts (oldest or newest).
+
+    Returns:
+    - dict: Topic posts.
+    """
     r = requests.get(
         f"{SCRATCHDB}forum/topic/posts/{topic_id}/{page}?o={order}", timeout=10
     )
@@ -244,13 +288,27 @@ def get_topic_posts(topic_id, page=0, order="oldest"):
         return {"error": True, "message": "lib_scratchdbdown"}
 
 
-def get_pfp_url(username, size=90):
+def get_pfp_url(username, size=90) -> str:
+    """
+    Gets the profile picture URL for a user.
+
+    - `username` (str): The username of the user.
+    - `size` (int): The size of the requested image.
+
+    Returns:
+    - str: Profile picture URL."""
     r = requests.get(f"https://api.scratch.mit.edu/users/{username}", timeout=10)
 
     return r.json()["profile"]["images"][str(size) + "x" + str(size)]
 
 
 def get_redirect_url() -> str:
+    """
+    Gets the redirect URL for Scratch Auth.
+
+    Returns:
+    - str: Redirect URL.
+    """
     assert not (
         not env["SERVER_MODE"] or not env["SERVER_MODE"]
     ), "Snazzle must be run in server mode for Scratch Auth to work. See https://tinyurl.com/snazzle-server"
@@ -260,7 +318,15 @@ def get_redirect_url() -> str:
     return f"https://auth.itinerary.eu.org/auth?name=snazzle&redirect={redir_loc}"
 
 
-def login(code: str):
+def login(code: str) -> str:
+    """
+    Logs in a user with the provided code.
+
+    - `code` (str): The authentication code.
+
+    Returns:
+    - str: Session ID.
+    """
     data = requests.get(
         f"https://auth.itinerary.eu.org/api/auth/verifyToken?privateCode={code}",
         timeout=10,
@@ -286,22 +352,45 @@ def login(code: str):
         return session_id
 
 
-def token_matches_user(token: str):
+def token_matches_user(token: str) -> list:
+    """
+    Checks if the token matches the user.
+
+    - `token` (str): The token to check.
+
+    Returns:
+    - list: List of matching users.
+    """
     conn = sqlite3.connect(env["DB_LOCATION"])
     cursor = conn.cursor()
     rows = cursor.execute("SELECT * from users WHERE token=?", (token,))
     return rows.fetchall()
 
 
-def search_for_projects(q):
+def search_for_projects(q) -> dict:
+    """
+    Searches for projects.
+
+    - `q` (str): The query string.
+
+    Returns:
+    - dict: Search results.
+    """
     r = requests.get(
         f"https://api.scratch.mit.edu/search/projects?q={q}&mode=popular&language=en",
         timeout=10
     )
     return r.json()
 
-def get_studio_data(id):
-    
+def get_studio_data(id) -> dict:
+    """
+    Gets data about a studio.
+
+    - `id` (str): The ID of the studio.
+
+    Returns:
+    - dict: Studio data.
+    """
     r = requests.get(f'https://api.scratch.mit.edu/studios/{id}')
     return {"error": True, "message": "api_notfound"} if 'code' in r.json().keys() else r.json()
 

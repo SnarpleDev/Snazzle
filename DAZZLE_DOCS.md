@@ -34,6 +34,9 @@ Removes duplicates from a list.
 
 - `input_list` (list): The list to remove duplicates from.
 
+Returns:
+- list: A list that is a copy of `input_list`, but with duplicates removed.
+
 ### get_topics(category, page)
 Gets topics in a subforum from ScratchDB.
 
@@ -134,7 +137,7 @@ Returns:
 - str: Profile picture URL.
 
 ### get_redirect_url()
-Gets the redirect URL for Scratch authentication.
+Gets the redirect URL for Scratch Auth.
 
 Returns:
 - str: Redirect URL.
