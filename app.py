@@ -4,6 +4,7 @@
 https://github.com/SnarpleDev/Snazzle/
 """
 
+# automatically install deps
 import install_reqs
 
 from os import listdir

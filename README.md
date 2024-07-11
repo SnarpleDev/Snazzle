@@ -22,8 +22,8 @@ But for now, this is how you do it:
 
 1. Clone the repo
 2. (optional but recommended) Create a Python virtual environment. Snazzle requires Python 3.8+. However, we recommend 3.11+ as this version has better error messages that will let us diagnose issues better if you submit a bug report.
-3. Run `pip3 install -r requirements.txt`.
-   > If you are on an Arch(-based) linux distro, you will have to run `sudo pacman -S python-flask` to install Flask.
+3. If you are on an Arch(-based) linux distro, you will have to run `sudo pacman -S python-flask` to install Flask.
+> Deps are installed automatically since [commit `822d869`](https://github.com/SnarpleDev/Snazzle/commit/822d869fc80f9a7275c2aaf85f0b084f1572db63).
 4. Once deps are installed, run `flask run --with-threads`. This will set up a Flask server at `127.0.0.1:5000`. If you find any bugs, please report them.
    > The `--with-threads` option is basically required if you want Snazzle to run fast.
 5. Go to `127.0.0.1:5000` in your favourite browser and play around with it!
