@@ -4,7 +4,7 @@ A better frontend for Scratch, built by the community, for the community
 
 Snazzle is the original attempt at a better Scratch website. It aims to be feature-rich and easy and quick to use, incorporating many things that the Scratch community has been wanting for years.
 
-Basically, this is a Scratch website just for ~~MagicCrayon9342~~ power users.
+Basically, this is a Scratch website just for power users.
 
 > If you're more than a casual user of the Scratch website for whatever reason, then you'll like Snazzle.
 > It's like a giant vat of coffee brewed with ingredients from the Scratch community.
