@@ -1,0 +1,145 @@
+@import url("master-styles.css");
+
+@font-face {
+  font-family: "Jost";
+  src: url("Jost.ttf") format("truetype");
+  font-weight: 400;
+}
+
+body {
+    background-color: #0d0e18;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+button,
+input,
+article,
+textarea {
+    font-family: sans-serif;
+}
+
+input::placeholder {
+    color: #B2BFFF;
+}
+
+nav {
+    background: rgba(0, 0, 0, 0.544);
+}
+
+.logo a {
+    color: #fff;
+}
+
+.logo a:hover {
+    text-shadow: 0px 0px 3px #8699FF;
+}
+
+.nav-links li a {
+    color: #fff;
+}
+
+button,
+select {
+    border: 1px solid #6977c7;
+    background-color: #6977c7;
+    color: white;
+}
+
+input, textarea {
+    border: 1px solid #8699FF;
+    background-color: transparent;
+    color: white;
+}
+
+input:focus, textarea:focus {
+    outline: 1px solid #fff;
+}
+
+button:hover {
+    background-color: transparent;
+    color: white;
+}
+
+.scrollpane {
+
+    background-color: #0D0E18;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
+}
+
+.scrollpane.sp-projects .sp-item,
+.project-grid .pg-project {
+    background-color: #6977c7;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+.scrollpane.sp-projects .sp-item:hover,
+.project-grid .pg-project:hover {
+    background-color: #8699FF;
+    color: white;
+    font-weight: bold;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.643);
+}
+
+.scrollpane.sp-studios .sp-item {
+    background-color: #6977c7;
+    color: white;
+    font-weight: bold;
+}
+
+.scrollpane.sp-studios .sp-item:hover {
+    background-color: #8699FF;
+    color: white;
+}
+
+span.stats {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.scrollpane .sp-header {
+    background-color: rgba(0, 0, 0, 0.544);
+}
+
+section {
+    background: #262845;
+    box-shadow: 0px 0px 10px #262845;
+    color: white;
+}
+
+#banner {
+    background: linear-gradient(90deg, #6977c7 0%, #69c7be 100%);
+    color: white;
+}
+
+#banner button.purple,
+button.secondary {
+    background-color: transparent;
+    color: white;
+}
+
+#banner button.purple:hover,
+button.secondary:hover {
+    background-color: #6977c7;
+    color: white;
+}
+
+a,
+a:visited {
+    color: #8699FF;
+}
+
+button a,
+button a:visited {
+    color: white;
+}
+
+#studio-banner section {
+    background-color: rgba(0, 0, 0, 0.25);
+}
