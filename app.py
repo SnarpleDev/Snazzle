@@ -4,6 +4,8 @@
 https://github.com/SnarpleDev/Snazzle/
 """
 
+import install_reqs
+
 from os import listdir
 from sys import version_info, exit
 from datetime import timedelta
