@@ -4,7 +4,7 @@
    Dazzle is a helper library for Snazzle that helps get things from ScratchDB and the Scratch API.
 """
 
-from functools import lru_cache, wraps
+from functools import lru_cache
 import base64
 
 from datetime import datetime
