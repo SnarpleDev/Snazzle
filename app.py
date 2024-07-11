@@ -32,7 +32,7 @@ app = Flask(__name__)
 if not (version_info.major == 3 and version_info.minor >= 8):
     print(
         """Snazzle does not work on Python 3.7 or lower. Please upgrade.
-3.8 is old now anyways, and you should be using the latest version anyways unless you absolutely cannot."""
+3.8 is old now anyways, and you should be using the latest version of Python unless you absolutely cannot."""
     )
     exit(0)
 
