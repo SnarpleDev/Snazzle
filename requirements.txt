@@ -18,4 +18,4 @@ six==1.16.0
 tzdata==2023.3
 urllib3==2.2.2
 Werkzeug==3.0.3
-zipp==3.16.2
+zipp==3.19.1
