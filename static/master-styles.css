@@ -6,7 +6,7 @@
 .mobile-only {
     display: block;
 }
-  
+
 /* Media query for screens with a minimum width of 1024px */
 @media (min-width: 1024px) {
     .desktop-only {
@@ -26,6 +26,7 @@
     [class^="width-"] {
         width: 100% !important;
     }
+
     .flex-cont * {
         display: block;
     }
@@ -38,14 +39,15 @@ div#studio-description {
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 2px black; 
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px black;
     border-radius: 10px;
 }
 
-input, textarea {
+input,
+textarea {
     transition: all 0.3s ease;
     padding: 2.5px;
     border-radius: 10px;
@@ -194,6 +196,7 @@ select:hover {
 
 .width-third {
     width: calc(100% / 3) !important;
+    margin: 0px 5px;
 }
 
 .width-full {
@@ -311,7 +314,7 @@ span.bb-strikethrough {
 
 .forum-post * {
     max-width: 100% !important;
-    
+
 }
 
 .forum-post blockquote img {
@@ -328,16 +331,20 @@ span.bb-strikethrough {
     padding: 0.5em !important;
 }
 
-.sp-item a > i.pin-btn, .sp-item a > span.pin-btn {
+.sp-item a>i.pin-btn,
+.sp-item a>span.pin-btn {
     padding: 0.5em !important;
     display: none;
 }
 
-.sp-item:hover a > i.pin-btn, .sp-item:hover a > span.pin-btn {
+.sp-item:hover a>i.pin-btn,
+.sp-item:hover a>span.pin-btn {
     display: inline;
 }
 
-blockquote, .forum-aside, pre.blocks {
+blockquote,
+.forum-aside,
+pre.blocks {
     background-color: rgba(0, 0, 0, 0.56);
     box-shadow: 0px 0px 10px rgb(0, 0, 0) inset;
     border-radius: 10px;
@@ -345,11 +352,13 @@ blockquote, .forum-aside, pre.blocks {
     margin: 2.5px;
     overflow-x: scroll;
 }
+
 .bb-big {
     font-size: 1.8rem;
 }
 
-section, #banner {
+section,
+#banner {
     margin-bottom: 5px;
 }
 
@@ -381,6 +390,7 @@ nav {
     backdrop-filter: blur(10px);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    margin: 0px 100px;
 }
 
 .logo a {
@@ -458,4 +468,15 @@ textarea {
 
 #menu {
     display: none;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.omni {
+    margin: 0px 100px;
+}
+
+body {
+    margin: 0px;
 }

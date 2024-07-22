@@ -1,9 +1,9 @@
 @import url("master-styles.css");
 
 @font-face {
-  font-family: "Jost";
-  src: url("Jost.ttf") format("truetype");
-  font-weight: 400;
+    font-family: "Jost";
+    src: url("Jost.ttf") format("truetype");
+    font-weight: 400;
 }
 
 body {
@@ -11,13 +11,14 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #b75d24; 
-  border-radius: 10px;
+    background: #b75d24;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #91491d;
+    background: #91491d;
 }
+
 h1,
 h2,
 h3,
@@ -60,13 +61,15 @@ select {
     color: white;
 }
 
-input, textarea {
+input,
+textarea {
     border: 1px solid #ca6120;
     background-color: transparent;
     color: white;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
     outline: 1px solid #fff;
 }
 
