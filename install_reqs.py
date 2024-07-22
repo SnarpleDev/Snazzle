@@ -1,12 +1,14 @@
 # Script to install requirements. Use this if "pip install -r requirements.txt" doesn't work for some reason.
 import subprocess
+import os
 from os.path import exists, join
 from sys import exit
 
 were_deps_installed = True
 
 if not exists(join("logs", "install_reqs.log")):
-    open(join("logs", "install_reqs.log"), "xt")
+    if not exists("logs"): os.mkdir("logs")
+    open(join("logs", "install_reqs.log"), "x")
     were_deps_installed = False
 
 if were_deps_installed:
