@@ -1,96 +1,76 @@
 {% extends '_base.html' %}
 
 {% block content %}
-    {% if signed_in %}
-    {% include 'loggedin.html' %}
+{% if signed_in %}
+{% include 'loggedin.html' %}
+{% endif %}
+<div class="hero-banner">
+    {% if not signed_in %}
+    {% include '_banner.html' %}
     {% endif %}
-    <div class="hero-banner">
-        {% if not signed_in %}
-            {% include '_banner.html' %}
-        {% endif %}
-        <section>
-            <h2>Featured projects</h2>
-            <div class="scrollpane sp-horiz sp-projects">
-                {% for project in featured_projects %}
-                <div class="sp-item" style="height: 200px;">
-                    <a href="/projects/{{project['id']}}" style="text-decoration: none;">
-                        <img src="{{ project['thumbnail_url'] }}" alt="{{ project['title'] }}"
-                            title="{{ project['title'] }}" height="90" width="120">
-                    </a>
-                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
-                        title="{{ project['title'] }}">{{ project["title"] }}
-                    </div>
-                    <div style="z-index: 0;">by <span class="proj-creator">{{ project["creator"] }}</span></div>
-                    <span class="stats"><i class="fa-regular fa-heart"></i> {{project["love_count"]}}</span>
+    <section>
+        <h2>Featured projects</h2>
+        <div class="scrollpane sp-horiz sp-projects">
+            {% for project in featured_projects %}
+            <div class="sp-item" style="height: 200px;">
+                <a href="/projects/{{project['id']}}" style="text-decoration: none;">
+                    <img src="{{ project['thumbnail_url'] }}" alt="{{ project['title'] }}"
+                        title="{{ project['title'] }}" height="90" width="120">
+                </a>
+                <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
+                    title="{{ project['title'] }}">{{ project["title"] }}
                 </div>
-                {% endfor %}
+                <div style="z-index: 0;">by <span class="proj-creator">{{ project["creator"] }}</span></div>
+                <span class="stats"><i class="fa-regular fa-heart"></i> {{project["love_count"]}}</span>
             </div>
-        </section><br>
-        <section>
-            <h2>Featured studios</h2>
-            <div class="scrollpane sp-horiz sp-studios">
-                {% for studio in featured_studios %}
-                <div class="sp-item" style="display: block; text-align: center;">
-                    <a href="/studios/{{studio['id']}}/projects" style="text-decoration: none;">
-                        <img src="{{ studio['thumbnail_url'] }}" alt="{{ studio['title'] }}"
-                            title="{{ studio['title'] }}" width="140" height="90">
-                    </a>
-                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
-                        title="{{ studio['title'] }}">{{ studio["title"]
-                        }}
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </section><br>
-        <section>
-            <h2>Trending projects</h2>
-            <div class="scrollpane sp-horiz sp-projects">
-                {% for project in trending_projects %}
-                <div class="sp-item">
-                    <a href="/projects/{{project['id']}}" style="text-decoration: none;">
-                        <img src="{{ project['image'] }}" alt="{{ project['title'] }}" title="{{ project['title'] }}"
-                            width="120" height="90">
-                    </a>
-                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
-                        title="{{ project['title'] }}">{{ project["title"]
-                        }}
-                    </div>
-                    <div style="z-index: 0;">by <span class="proj-creator">{{ project["author"]["username"] }}</span>
-                    </div>
-                    <span class="stats"><i class="fa-regular fa-heart"></i> {{ project["stats"]["loves"] }}</span>
-                </div>
-                {% endfor %}
-            </div>
-        </section><br>
-        <section>
-            <h2>What the community is loving</h2>
-            <div class="scrollpane sp-horiz sp-projects">
-                {% for project in loving %}
-                <div class="sp-item">
-                    <a href="/projects/{{project['id']}}" style="text-decoration: none;">
-                        <img src="{{ project['thumbnail_url'] }}" alt="{{ project['title'] }}"
-                            title="{{ project['title'] }}" width="120" height="90">
-                    </a>
-                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
-                        title="{{ project['title'] }}">{{ project["title"]
-                        }}
-                    </div>
-                    by {{ project["creator"] }}
-                    <span class="stats"><i class="fa-regular fa-heart"></i> {{ project["love_count"] }}</span>
-                </div>
-                {% endfor %}
-            </div>
-    </div>
+            {% endfor %}
+        </div>
     </section><br>
     <section>
-        <h2>What the community is remixing</h2>
+        <h2>Featured studios</h2>
+        <div class="scrollpane sp-horiz sp-studios">
+            {% for studio in featured_studios %}
+            <div class="sp-item" style="display: block; text-align: center;">
+                <a href="/studios/{{studio['id']}}/projects" style="text-decoration: none;">
+                    <img src="{{ studio['thumbnail_url'] }}" alt="{{ studio['title'] }}" title="{{ studio['title'] }}"
+                        width="140" height="90">
+                </a>
+                <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                    title="{{ studio['title'] }}">{{ studio["title"]
+                    }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section><br>
+    <section>
+        <h2>Trending projects</h2>
         <div class="scrollpane sp-horiz sp-projects">
-            {% for project in remixed %}
+            {% for project in trending_projects %}
             <div class="sp-item">
                 <a href="/projects/{{project['id']}}" style="text-decoration: none;">
-                    <img src="{{ project['thumbnail_url'] }}" alt="{{project['title']}}" title="{{project['title']}}"
+                    <img src="{{ project['image'] }}" alt="{{ project['title'] }}" title="{{ project['title'] }}"
                         width="120" height="90">
+                </a>
+                <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                    title="{{ project['title'] }}">{{ project["title"]
+                    }}
+                </div>
+                <div style="z-index: 0;">by <span class="proj-creator">{{ project["author"]["username"] }}</span>
+                </div>
+                <span class="stats"><i class="fa-regular fa-heart"></i> {{ project["stats"]["loves"] }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </section><br>
+    <section>
+        <h2>What the community is loving</h2>
+        <div class="scrollpane sp-horiz sp-projects">
+            {% for project in loving %}
+            <div class="sp-item">
+                <a href="/projects/{{project['id']}}" style="text-decoration: none;">
+                    <img src="{{ project['thumbnail_url'] }}" alt="{{ project['title'] }}"
+                        title="{{ project['title'] }}" width="120" height="90">
                 </a>
                 <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
                     title="{{ project['title'] }}">{{ project["title"]
@@ -101,6 +81,26 @@
             </div>
             {% endfor %}
         </div>
-    </section>
+</div>
+</section><br>
+<section>
+    <h2>What the community is remixing</h2>
+    <div class="scrollpane sp-horiz sp-projects">
+        {% for project in remixed %}
+        <div class="sp-item">
+            <a href="/projects/{{project['id']}}" style="text-decoration: none;">
+                <img src="{{ project['thumbnail_url'] }}" alt="{{project['title']}}" title="{{project['title']}}"
+                    width="120" height="90">
+            </a>
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ project['title'] }}">
+                {{ project["title"]
+                }}
+            </div>
+            by {{ project["creator"] }}
+            <span class="stats"><i class="fa-regular fa-heart"></i> {{ project["love_count"] }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</section>
 </div>
 {% endblock %}
