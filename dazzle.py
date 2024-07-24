@@ -20,7 +20,7 @@ SCRATCHDB = "https://scratchdb.lefty.one/v3/"
 DAZZLE_DIR = env["DAZZLE_DIR"] if "DAZZLE_DIR" in env else ".dazzle-archive"
 ENABLE_SCRATCH_AUTH = True
 
-useDB = False  # always change to true if on replit or other online ides. only affects project info for now
+useDB = True  # False will fetch data from ScratchDB
 REPLIT_MODE = False
 USE_PROXY = False
 
