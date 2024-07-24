@@ -13,36 +13,35 @@
         </form>
     </section>
     <section class="scrollpane sp-horiz sp-filters">
-        <button class="sp-item">Projects only</button>
-        <button class="sp-item">Studios only</button>
+        <button class="sp-item explore-button">Projects only</button>
+        <button class="sp-item explore-button">Studios only</button>
         <span class="sp-spacer"></span>
-        <button class="sp-item">Trending</button>
-        <button class="sp-item">Newest</button>
-        <button class="sp-item">Most views</button>
-        <button class="sp-item">Most loves</button>
-        <button class="sp-item">Most favourites</button>
-        <button class="sp-item">Most remixes</button>
+        <button class="sp-item explore-button">Trending</button>
+        <button class="sp-item explore-button">Newest</button>
+        <button class="sp-item explore-button">Most views</button>
+        <button class="sp-item explore-button">Most loves</button>
+        <button class="sp-item explore-button">Most favourites</button>
+        <button class="sp-item explore-button">Most remixes</button>
         <span class="sp-spacer"></span>
-        <button class="sp-item">#games</button>
-        <button class="sp-item">#animations</button>
-        <button class="sp-item">#stories</button>
-        <button class="sp-item">#simulations</button>
-        <button class="sp-item">#music</button>
-        <button class="sp-item">#tutorials</button>
+        <button class="sp-item explore-button">#games</button>
+        <button class="sp-item explore-button">#animations</button>
+        <button class="sp-item explore-button">#stories</button>
+        <button class="sp-item explore-button">#simulations</button>
+        <button class="sp-item explore-button">#music</button>
+        <button class="sp-item explore-button">#tutorials</button>
     </section>
 </div>
 <section class="project-grid">
     {% if result == []%}
-        <h3>No results :(</h3>
+    <h3>No results :(</h3>
     {% else %}
-        {% for project in result %}
-        <div class="pg-project">
-            <img src="{{ project.image }}" alt="project image"
-            width="130" height="70">
-            <br>{{ project.title }} by {{ project.author.username }}<br>
-            <span class="stats">{{ project.stats.views}} views</span>
-        </div>
-        {% endfor %}
+    {% for project in result %}
+    <div class="pg-project">
+        <img src="{{ project.image }}" alt="project image" width="130" height="70">
+        <br>{{ project.title }} by {{ project.author.username }}<br>
+        <span class="stats">{{ project.stats.views}} views</span>
+    </div>
+    {% endfor %}
     {% endif %}
 </section>
 {% endblock %}
