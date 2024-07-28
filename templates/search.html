@@ -37,7 +37,9 @@
     {% else %}
     {% for project in result %}
     <div class="pg-project">
-        <img src="{{ project.image }}" alt="project image" width="130" height="70">
+        <a href="/projects/{{  project.id  }}" style="text-decoration: none;">
+            <img src="{{ project.image }}" alt="project image" width="130" height="70">
+        </a>
         <br><span class="title">{{ project.title }}</span>
         <span class="author">{{ project.author.username }}</span><br>
         <span class="stats">{{ project.stats.views}} views</span>
