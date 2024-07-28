@@ -18,9 +18,9 @@
                         title="{{ project['title'] }}" height="90" width="120">
                 </a>
                 <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
-                    title="{{ project['title'] }}">{{ project["title"] }}
+                    title="{{ project['title'] }}"><span class="title">{{ project["title"] }}</span>
                 </div>
-                <div style="z-index: 0;">by <span class="proj-creator">{{ project["creator"] }}</span></div>
+                <span class="author">{{ project["creator"] }}</span>
                 <span class="stats"><i class="fa-regular fa-heart"></i> {{project["love_count"]}}</span>
             </div>
             {% endfor %}
@@ -53,8 +53,7 @@
                         width="120" height="90">
                 </a>
                 <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
-                    title="{{ project['title'] }}">{{ project["title"]
-                    }}
+                    title="{{ project['title'] }}"><span class="title">{{ project["title"] }}</span>
                 </div>
                 <div style="z-index: 0;">by <span class="proj-creator">{{ project["author"]["username"] }}</span>
                 </div>
@@ -73,10 +72,9 @@
                         title="{{ project['title'] }}" width="120" height="90">
                 </a>
                 <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
-                    title="{{ project['title'] }}">{{ project["title"]
-                    }}
+                    title="{{ project['title'] }}"><span class="title">{{ project["title"] }}</span>
                 </div>
-                by {{ project["creator"] }}
+                <span class="author">{{ project["creator"] }}</span>
                 <span class="stats"><i class="fa-regular fa-heart"></i> {{ project["love_count"] }}</span>
             </div>
             {% endfor %}
@@ -93,10 +91,9 @@
                     width="120" height="90">
             </a>
             <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ project['title'] }}">
-                {{ project["title"]
-                }}
+                <span class="title">{{ project["title"] }}</span>
             </div>
-            by {{ project["creator"] }}
+            <span class="author">{{ project["creator"] }}</span>
             <span class="stats"><i class="fa-regular fa-heart"></i> {{ project["love_count"] }}</span>
         </div>
         {% endfor %}
