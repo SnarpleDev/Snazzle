@@ -480,3 +480,28 @@ textarea {
 body {
     margin: 0px;
 }
+
+#load {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 130px;
+    min-height: 70px;
+    max-height: 180px;
+    margin: 13px;
+}
+
+#loadMoreButton {
+    width: 150px;
+    height: 100px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.title,
+.author {
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

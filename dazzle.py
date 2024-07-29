@@ -232,24 +232,6 @@ def get_topic_data(topic_id) -> dict:
     except requests.exceptions.JSONDecodeError:
         return {"error": True, "message": "lib_scratchdbdown"}
 
-
-@lru_cache(maxsize=15)
-def get_trending_projects() -> dict:
-    """
-    Gets trending projects from the Scratch API.
-
-    Returns:
-    - dict: Trending projects.
-    """
-    # TODO: implement limits and offsets
-    # language parameter seems to be ineffectual when set to another lang
-    r = requests.get(
-        "https://api.scratch.mit.edu/explore/projects?limit=20&language=en&mode=trending&q=*",
-        timeout=10,
-    )
-    return r.json()
-
-
 def get_topic_posts(topic_id, page=0, order="oldest") -> dict:
     """
     Gets posts for a topic.
@@ -396,6 +378,22 @@ def get_studio_data(id) -> dict:
 
 def get_studio_comments(id):
     pass
+
+def get_trending_projects(limit: int = 20, page: int = 1):
+    """
+    Gets a list of trending projects for the explore page
+
+    - `page` (int): The page of results
+
+    Returns:
+    - list: Projects
+    """
+    offset = limit * (page - 1)
+    r = requests.get(
+        f"https://api.scratch.mit.edu/search/projects?q=*&mode=trending&language=en&limit={limit}&offset={offset}",
+        timeout=10
+    )
+    return r.json()
 
 # Below this line is all stuff used for the REPL debugging mode
 # Generally, don't touch this, unless there's a severe flaw or something

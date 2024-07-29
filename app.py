@@ -157,10 +157,19 @@ def trending():
     """
     Explore page.
     """
+    projects = dazzle.get_trending_projects()
     if filter := request.args.get("filter"):
         return render_template("trending.html", filter=filter)
-    return render_template("trending.html")
+    return stream_template("trending.html")
 
+@app.get("/api/trending/")
+def get_trending():
+    """
+    Gets trending projects and returns them as json
+
+    Requires a `page` argument in url
+    """
+    return dazzle.get_trending_projects(40, int(request.args.get("page")))
 
 @app.get("/forums")
 def categories():

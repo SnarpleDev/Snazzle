@@ -4,7 +4,8 @@
 <section>
     <h1>Explore</h1>
     <p>Find cool projects</p>
-    <p>This is not functional yet. What you see here is a mockup. We are working on it and will release it as fast as we can</p>
+    <p>Filters are not functional yet. What you see here is a mockup. We are working on it and will release it as fast
+        as we can</p>
 </section>
 <div class="flex-cont">
     <section>
@@ -33,13 +34,43 @@
     </section>
 </div>
 <section class="project-grid">
-    {% for project in range(50) %}
-        <div class="pg-project">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/640px-Pizza-3007395.jpg" alt="pizza"
-            width="130" height="70">
-            <br>pizza recipe by coolgamer69420 <br>
-            <span class="stats">1 view</span>
-        </div>
-    {% endfor %}
+    <div id="load"></div>
 </section>
+
+<script>
+    var page = 0
+    async function loadMore() {
+        var load = document.getElementById("load");
+        load.innerHTML = "LOADING...";
+        var newProjects = "";
+        page++;
+        await fetch(`/api/trending/?page=${page}`)
+            .then(response => response.json()) // This line already parses the response as JSON
+            .then(projects => {
+                console.log(projects)
+                projects.forEach(project => {
+                    newProjects += `
+                    <div class="pg-project">
+                        <a href="/projects/${project['id']}" style="text-decoration: none;">
+                            <img src="${project["image"]}" alt="project image" width="130" height="70">
+                        </a>
+                        <br><span class="title">${project["title"]}</span>
+                        <span class="author">${project["author"]["username"]}</span><br>
+                        <span class="stats">${project["stats"]["views"]} views</span>
+                    </div>
+                    `;
+                });
+                newProjects += '<div id="load"><button id="loadMoreButton" onclick="loadMore()">Load More</button></div>';
+                load.outerHTML = newProjects;
+            });
+    };
+    loadMore();
+</script>
 {% endblock %}
+
+
+<!-- <div class="pg-project">
+        <img src="{{ project.image }}" alt="project image" width="130" height="70">
+        <br>{{ project.title }} by {{ project.author.username }}<br>
+        <span class="stats">{{ project.stats.views}} views</span>
+    </div> -->
