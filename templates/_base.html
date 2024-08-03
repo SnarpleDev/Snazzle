@@ -30,6 +30,7 @@
     }
   </style>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles-' + (theme or 'default') + '.css') }}">
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
   <script src="https://github.com/scratchblocks/scratchblocks/releases/download/v3.6.2/scratchblocks.min.js"></script>
   <script src="https://kit.fontawesome.com/4bcf06ab35.js" crossorigin="anonymous"></script>
   <input type="hidden" value="{{ sb_scale }}" id="sb_scale">
@@ -104,6 +105,20 @@
       } else {
         document.getElementById("menu").style.display = "flex";
       }
+    }
+  </script>
+  <script>
+    // Load service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register("{{ url_for('static', filename='service-worker.js') }}")
+          .then(registration => {
+            console.log('Service Worker registered with scope:', registration.scope);
+          })
+          .catch(error => {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
     }
   </script>
 </body>

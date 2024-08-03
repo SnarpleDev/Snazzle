@@ -1,0 +1,47 @@
+{
+    "protocol_handlers": [
+        {
+            "protocol": "web+snzl",
+            "url": "/%s"
+        }
+    ],
+    "display_override": [
+        "window-controls-overlay"
+    ],
+    "name": "Snazzle",
+    "short_name": "Snazzle",
+    "start_url": "/",
+    "display": "standalone",
+    "description": "A better frontend for Scratch, built by the community, for the community",
+    "lang": "en",
+    "dir": "auto",
+    "theme_color": "#BF713F",
+    "background_color": "#BF713F",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "manifest-icon-192.maskable.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "manifest-icon-192.maskable.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "manifest-icon-512.maskable.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "manifest-icon-512.maskable.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
