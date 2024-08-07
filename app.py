@@ -451,6 +451,9 @@ def studios(id, tab):
         name_len=len(data["title"]),
     )
 
+@app.get("/editor")
+def editor():
+    return render_template("editor.html")
 
 @app.errorhandler(werkexcept.NotFound)
 def err404(e: Exception):

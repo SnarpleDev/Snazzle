@@ -52,6 +52,8 @@
     <div id="menu">
       <div class="width-third"><a href="/trending"><button class="width-full "><i
               class="fa-solid fa-earth-americas"></i> <span class="desktop-only">Explore</span></button></a></div>
+      <div class="width-third"><a href="/editor"><button class="width-full "><i class="fa-regular fa-square-plus"></i>
+            <span class="desktop-only">Create</span></button></a></div>
       <div class="width-third"><a href="/forums"> <button class="width-full "><i class="fa-regular fa-comments"></i>
             <span class="desktop-only">Forum Browser</span></button></a></div>
       <div class="width-third"><a href="/settings"><button class="width-full "><i class="fa-solid fa-gear"></i> <span
@@ -69,7 +71,7 @@
     {% endblock %}
   </div>
 
-  {% include '_footer.html' %}
+  {% block footer %}{% include '_footer.html' %}{% endblock %}
 
   <script>
     const sbScale = document.getElementById('sb_scale').value
