@@ -19,6 +19,7 @@ from flask import (
     redirect,
 )
 import requests
+import webbrowser
 
 from werkzeug import exceptions as werkexcept
 
@@ -464,4 +465,5 @@ def err404(e: Exception):
 # CHANGE THIS IF YOU'RE RUNNING A PUBLIC SERVER
 if __name__ == "__main__":
     dazzle.init_db()
+    webbrowser.open(f"{HOST}:{PORT}", 2)
     app.run(host=HOST, port=PORT, debug=FLASK_DEBUG)
