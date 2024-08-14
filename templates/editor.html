@@ -1,7 +1,14 @@
 {% extends '_base.html' %}
 
 {% block content %}
-<section>
-    <p>We are currently working on the editor. It will launch sometime next year.</p>
-</section>
+<p id="loadtext" style="text-align: center; color: white; font-size: xx-large;">Loading...</p>
+<div class="editor-wrapper">
+    <iframe src="https://snarpledev.github.io/snazzy-gui/" frameborder="0" style="width: 100%; height: 100%;"
+        onload="document.getElementById('loadtext').remove()"></iframe>
+</div>
+<script>
+    alert("WARNING\nThe Snazzle editor is experimental and may not work propperly.")
+</script>
 {% endblock %}
+
+{% block footer %}{% endblock %}
