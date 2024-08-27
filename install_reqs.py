@@ -25,7 +25,7 @@ else:
                     proc = subprocess.run(["pip", "install", requirement], 
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                     proc.check_returncode()
-                    if "Requirement already satisfied" in proc.stdout:
+                    if b"Requirement already satisfied" in proc.stdout:
                         print(f"[Snazzle] [AutoDep] {requirement} already installed...")
                     else:
                         print(f"[Snazzle] [AutoDep] Installed {requirement}")
