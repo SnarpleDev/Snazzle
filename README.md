@@ -30,3 +30,6 @@ But for now, this is how you do it:
 
 ## Hosting on Replit
 We've discontinued the repl you used to have to fork a while ago because of updates to replit. Please host an instance somewhere else. (Sorry, it's not our fault.)
+
+## Development Status
+As of September 2026, Snazzle is not in active development. Bug fixes, issues, pull requests, feature updates, all development is on a hiatus.
